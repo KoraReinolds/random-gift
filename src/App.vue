@@ -1,10 +1,39 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div
+    id="nav"
+  >
+    <a
+      :href="linkImplict"
+    >
+      LogIn implict
+    </a> |
+    <a
+      :href="linkAuth"
+    >
+      LogIn authorization
+    </a>
   </div>
   <router-view/>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { getOAuthImplictUrl, getOAuthAuthorizationUrl } from '@/composable/auth'
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+
+    console.log(getOAuthImplictUrl())
+    console.log(getOAuthAuthorizationUrl())
+
+    return {
+      linkImplict: getOAuthImplictUrl(),
+      linkAuth: getOAuthAuthorizationUrl(),
+    }
+  },
+});
+</script>
 
 <style lang="scss">
 #app {
