@@ -13,12 +13,13 @@ function getOAuthLink(type: string) {
 
 function getAccesTokenFromHash() {
 
-  return Object.fromEntries(
-    decodeURIComponent(document.location.hash)
-      .slice(1)
-      .split('&')
-      .map(param => param.split('='))
-  )
+  return document.location.hash ?
+    Object.fromEntries(
+      decodeURIComponent(document.location.hash)
+        .slice(1)
+        .split('&')
+        .map(param => param.split('='))
+    ) : null
 
 }
 

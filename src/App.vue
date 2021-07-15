@@ -24,13 +24,11 @@ export default defineComponent({
   name: 'App',
   setup() {
 
-    console.log(getOAuthImplictUrl())
-    console.log(getOAuthAuthorizationUrl())
-
     return {
       linkImplict: getOAuthImplictUrl(),
       linkAuth: getOAuthAuthorizationUrl(),
     }
+    
   },
 });
 </script>

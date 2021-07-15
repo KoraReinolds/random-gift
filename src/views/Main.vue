@@ -8,16 +8,23 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { getAccesTokenFromHash } from '@/composable/auth'
+import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'About',
   setup() {
 
     const store = useStore()
+    const router = useRouter()
+    const route = useRoute()
+ 
+    const hashInfo = getAccesTokenFromHash()
 
-    store.commit('auth/SET_AUTH_DATA', getAccesTokenFromHash())
-
-    return {}
+    if (hashInfo) {
+      store.commit('auth/SET_AUTH_DATA', hashInfo)
+      // push to the same route for remove hash params
+      router.push({ name: route.name || 'Main' })
+    }
 
   },
 });
