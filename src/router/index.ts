@@ -3,8 +3,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/config.html',
-    name: 'Main',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    name: 'Config',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Config.vue')
   },
 ]
 

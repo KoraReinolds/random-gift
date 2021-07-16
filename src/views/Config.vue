@@ -24,7 +24,7 @@ export default defineComponent({
       store.commit('auth/SET_AUTH_DATA', hashInfo)
       localStorage.setItem('authInfo', JSON.stringify(hashInfo))
       // push to the same route for remove hash params
-      router.push({ name: route.name || 'Main' })
+      router.push({ name: route.name || 'Config' })
     }
 
   },

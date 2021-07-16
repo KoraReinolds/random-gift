@@ -11,7 +11,18 @@
       :href="linkAuth"
     >
       LogIn authorization
-    </a>
+    </a> |
+    <router-link
+      :to="{ name: 'Config' }"
+    >
+      config
+    </router-link> |
+    <button
+      v-if="$store.getters['auth/token']"
+      @click="logout"
+    >
+      logout
+    </button>
   </div>
   <router-view/>
 </template>
@@ -24,11 +35,17 @@ export default defineComponent({
   name: 'App',
   setup() {
 
+    const logout = () => {
+      localStorage.removeItem('authInfo')
+      location.reload()
+    }
+
     return {
       linkImplict: getOAuthImplictUrl(),
       linkAuth: getOAuthAuthorizationUrl(),
+      logout,
     }
-    
+
   },
 });
 </script>
