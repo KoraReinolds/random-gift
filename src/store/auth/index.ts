@@ -4,7 +4,7 @@ import { Getters } from './getters'
 import { MutationTree, GetterTree } from 'vuex'
 
 const state: State = {
-  authUrlData: {},
+  authUrlData: JSON.parse(localStorage.getItem('authInfo') || '{}'),
 }
 
 const mutations: MutationTree<State> & Mutations = {
