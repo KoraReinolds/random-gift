@@ -39,21 +39,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { getOAuthImplictUrl, getOAuthAuthorizationUrl } from '@/composable/auth'
+import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 
 export default defineComponent({
   name: 'App',
   setup() {
 
-    const logout = () => {
-      localStorage.removeItem('authInfo')
-      location.reload()
-    }
-
     return {
       linkImplict: getOAuthImplictUrl(),
       linkAuth: getOAuthAuthorizationUrl(),
-      logout,
+      logout: logOut,
     }
 
   },

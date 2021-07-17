@@ -15,9 +15,17 @@ const mutations: MutationTree<State> & Mutations = {
 
 const getters: GetterTree<State, State> & Getters = {
 
-  token: ({ authUrlData: { token_type, access_token } }) =>
-    [token_type, access_token].join(' ').trim(),
-    
+  token: ({ authUrlData: { token_type, access_token } }) => {
+
+    if (!(token_type && access_token)) return ''
+
+    return [
+      token_type.charAt(0).toUpperCase() + token_type.slice(1),
+      access_token
+    ].join(' ')
+
+  }
+
 }
 
 export default {

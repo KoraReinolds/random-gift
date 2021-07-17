@@ -37,8 +37,16 @@ function getOAuthImplictUrl() {
 
 }
 
+function logOut() {
+
+  localStorage.removeItem('authInfo')
+  location.reload()
+
+}
+
 export {
   getOAuthImplictUrl,
   getOAuthAuthorizationUrl,
   getAccesTokenFromHash,
+  logOut,
 }
