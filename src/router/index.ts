@@ -34,7 +34,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-  console.log('call')
   if (!store.getters['auth/token']) {
 
     const hashInfo = getAccesTokenFromHash()
@@ -52,9 +51,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
 
     if (!store.getters['auth/token']) {
-
       next({ name: 'Main' }); return
-
     }
 
   }

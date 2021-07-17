@@ -1,8 +1,9 @@
 const twitchAuthUrl = 'https://id.twitch.tv/oauth2/authorize'
 
-const redirectUri = 'http://localhost:8080/config.html'
+const redirectUri = process.env.VUE_APP_REDIRECT_URI
 
-const client_id = 'rit807jb5l8m8xpodq19vkgksgsfbm'
+const client_id = process.env.VUE_APP_CLIENT_ID
+
 
 const OAuthLink = `${twitchAuthUrl}?client_id=${client_id}&redirect_uri=${redirectUri}&scope=bits:read moderation:read&force_verify=true&`
 
@@ -12,6 +13,7 @@ function getOAuthLink(type: string) {
 }
 
 function getAccesTokenFromHash() {
+
 
   return document.location.hash ?
     Object.fromEntries(
