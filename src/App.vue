@@ -13,6 +13,16 @@
       LogIn authorization
     </a> |
     <router-link
+      :to="{ name: 'Main' }"
+    >
+      main
+    </router-link> |
+    <router-link
+      :to="{ name: 'Panel' }"
+    >
+      panel
+    </router-link> |
+    <router-link
       :to="{ name: 'Config' }"
     >
       config

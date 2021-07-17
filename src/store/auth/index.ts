@@ -17,6 +17,7 @@ const getters: GetterTree<State, State> & Getters = {
 
   token: ({ authUrlData: { token_type, access_token } }) =>
     [token_type, access_token].join(' ').trim(),
+    
 }
 
 export default {
