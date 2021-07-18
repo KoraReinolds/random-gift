@@ -7,19 +7,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { getGlobalEmotes } from '@/api/chat'
+import { defineComponent } from 'vue'
+import { useGlobalEmotes } from '@/composable/chat'
 
 export default defineComponent({
   name: 'Panel',
   setup() {
 
-    const emotes = ref([])
-
-    getGlobalEmotes().then((emotesList) => emotes.value = emotesList)
-
     return {
-      emotes,
+      emotes: useGlobalEmotes(),
     }
 
   },
