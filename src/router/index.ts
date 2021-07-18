@@ -38,12 +38,8 @@ router.beforeEach((to, from, next) => {
     next({ name: to.name || 'Main' }); return
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-
-    if (!store.getters['auth/token']) {
-      next({ name: 'Main' }); return
-    }
-
+  if (to.matched.some(r => r.meta.requiresAuth) && !store.getters['auth/token']) {
+    next({ name: 'Main' }); return
   }
 
   next()
