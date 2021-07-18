@@ -1,3 +1,5 @@
+import store from '@/store'
+
 const twitchAuthUrl = 'https://id.twitch.tv/oauth2/authorize'
 
 const redirectUri = process.env.VUE_APP_REDIRECT_URI
@@ -12,16 +14,22 @@ function getOAuthLink(type: string) {
   return `${OAuthLink}response_type=${type}`
 }
 
-function getAccesTokenFromHash() {
+function useAccesTokenFromHash() {
 
-
-  return document.location.hash ?
+  const hashInfo = document.location.hash ?
     Object.fromEntries(
       decodeURIComponent(document.location.hash)
         .slice(1)
         .split('&')
         .map(param => param.split('='))
     ) : null
+
+  if (hashInfo) {
+    store.commit('auth/SET_AUTH_DATA', hashInfo)
+    localStorage.setItem('authInfo', JSON.stringify(hashInfo))
+  }
+
+  return hashInfo
 
 }
 
@@ -47,6 +55,6 @@ function logOut() {
 export {
   getOAuthImplictUrl,
   getOAuthAuthorizationUrl,
-  getAccesTokenFromHash,
+  useAccesTokenFromHash,
   logOut,
 }

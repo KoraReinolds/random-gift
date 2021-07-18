@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Main from '@/views/Main.vue'
 import store from '@/store'
-import { getAccesTokenFromHash } from '@/composable/auth'
+import { useAccesTokenFromHash } from '@/composable/auth'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,18 +34,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-  if (!store.getters['auth/token']) {
-
-    const hashInfo = getAccesTokenFromHash()
-
-    if (hashInfo) {
-      store.commit('auth/SET_AUTH_DATA', hashInfo)
-      localStorage.setItem('authInfo', JSON.stringify(hashInfo))
-      // push to the same route for remove hash params
-      next({ name: to.name || 'Config' })
-      return
-    }
-
+  if (!store.getters['auth/token'] && useAccesTokenFromHash()) {
+    next({ name: to.name || 'Main' }); return
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
