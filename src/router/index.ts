@@ -14,7 +14,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Config',
     component: () => import('../views/Config.vue'),
     meta: {
-      requiresAuth: true,
     },
   },
   {
@@ -22,7 +21,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Panel',
     component: () => import('../views/Panel.vue'),
     meta: {
-      requiresAuth: true,
     },
   },
 ]

@@ -4,7 +4,7 @@ import { logOut } from '@/composable/auth'
 
 
 const a = axios.create({
-  baseURL: "https://api.twitch.tv",
+  baseURL: process.env.VUE_APP_BACKEND_URI,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': store.getters['auth/token'],
