@@ -1,3 +1,4 @@
+import router from '@/router'
 import store from '@/store'
 import {
   GetOAuthLink,
@@ -43,8 +44,8 @@ const getOAuthImplictUrl: GetOAuthImplictUrl = () => getOAuthLink('token')
 
 const logOut: LogOut = () => {
 
+  router.push({ name: 'Main' })
   localStorage.removeItem('authInfo')
-  location.reload()
 
 }
 

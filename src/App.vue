@@ -40,10 +40,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
+import axios from '@/api'
 
 export default defineComponent({
   name: 'App',
   setup() {
+    
+    const twitch = window.Twitch.ext
+
+    twitch.onAuthorized(function(auth) {
+
+      axios.defaults.headers.common['authorization'] = `Bearer ${auth.token}`
+
+    })
 
     return {
       linkImplict: getOAuthImplictUrl(),
