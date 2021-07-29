@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '@/store'
 import { logOut } from '@/composable/auth'
 
 
@@ -7,7 +6,6 @@ const a = axios.create({
   baseURL: process.env.VUE_APP_BACKEND_URI,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': store.getters['auth/token'],
     'Client-Id': process.env.VUE_APP_CLIENT_ID,
   }
 })

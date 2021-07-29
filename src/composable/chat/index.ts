@@ -9,7 +9,7 @@ const useGlobalEmotes: UseGlobalEmotes = () => {
 
   const emotes = ref<Array<emoteData>>([])
 
-  axios.get('').then(
+  axios.get('/chat/globalEmotes').then(
     emotesList => {
       emotes.value = emotesList.data?.data
     }

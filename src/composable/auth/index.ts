@@ -46,6 +46,8 @@ const logOut: LogOut = () => {
 
   router.push({ name: 'Main' })
   localStorage.removeItem('authInfo')
+  setTimeout(() => location.reload())
+  
 
 }
 
