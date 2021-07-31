@@ -2,10 +2,6 @@ import { ActionContext } from 'vuex'
 import { State } from './state'
 import { Mutations } from './mutations'
 
-// export enum ActionTypes {
-//   PARSE_TOKEN = 'PARSE_TOKEN',
-// }
-
 type AugmentedActionContext = {
   commit<K extends keyof Mutations>(
     key: K,
@@ -14,10 +10,4 @@ type AugmentedActionContext = {
 } & Omit<ActionContext<State, State>, 'commit'>
 
 export type Actions = {
-
-  // [ActionTypes.PARSE_TOKEN](
-  //   context: AugmentedActionContext,
-  //   data: Array<Array<string>>
-  // ): void
-  
 }

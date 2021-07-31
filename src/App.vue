@@ -41,17 +41,33 @@
 import { defineComponent } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import axios from '@/api'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'App',
   setup() {
     
     const twitch = window.Twitch.ext
+    const store = useStore()
 
     twitch.onAuthorized(function(auth) {
 
       axios.defaults.headers.common['authorization'] = `Bearer ${auth.token}`
 
+    })
+
+    twitch.configuration.onChanged(() => {
+      if (twitch.configuration.broadcaster) {
+        try {
+          
+          const config = JSON.parse(twitch.configuration.broadcaster?.content)
+
+          if (typeof config === 'object') store.commit('config/SET_CONFIG', config)
+
+        } catch (e) {
+          // handle error
+        }
+      }
     })
 
     return {

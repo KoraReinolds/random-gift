@@ -47,6 +47,28 @@
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Broadcaster"
+    },
+    {
+      "channelId": "9008",
+      "configurationAnchor": "panel",
+      "displayChannelName": "korareinolds",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
+      "id": "3",
+      "isPopout": false,
+      "label": "",
+      "linked": false,
+      "linkedUserId": "",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Broadcaster"
     }
   ],
   "manifest": {
