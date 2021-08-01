@@ -32,12 +32,8 @@ export default defineComponent({
     
     const twitch = window.Twitch.ext
     const store = useStore()
-
     
-    // store.commit('config/SET_CONFIG', { giftList: [{ lol: 'kek' }] })
-
     const saveCongig = () => {
-      console.log(JSON.stringify(store.state.config.config))
       twitch.configuration.set(
         'broadcaster',
         '1',
@@ -50,6 +46,7 @@ export default defineComponent({
     const pushNewGift = () => {
       store.commit('config/ADD_GIFT_TO_LIST', {
         title: '123',
+        chanceType: 'common',
       })
     }
 
