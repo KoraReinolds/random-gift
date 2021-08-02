@@ -60,3 +60,11 @@ export default defineComponent({
 });
 </script>
 
+<style lang="scss" scoped>
+.config {
+  h1 {
+    color: var(--font-color);
+  }
+}
+</style>
+

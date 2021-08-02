@@ -1,6 +1,8 @@
 <template>
-  <h1>Panel</h1>
-  <h1>CONFIG: {{ $store.state.config.config }}</h1>
+  <div class="panel">
+    <h1>Panel</h1>
+    <h1>CONFIG: {{ $store.state.config.config }}</h1>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,3 +18,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.panel {
+  h1 {
+    color: var(--font-color);
+  }
+}
+</style>

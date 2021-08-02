@@ -1,5 +1,6 @@
 <template>
   <div
+    :class="theme"
     id="nav"
   >
     <a
@@ -34,11 +35,11 @@
       logout
     </button>
   </div>
-  <router-view/>
+  <router-view :class="theme"/>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import axios from '@/api'
 import { useStore } from 'vuex'
@@ -49,10 +50,17 @@ export default defineComponent({
     
     const twitch = window.Twitch.ext
     const store = useStore()
+    const theme = ref('light')
 
     twitch.onAuthorized(function(auth) {
 
       axios.defaults.headers.common['authorization'] = `Bearer ${auth.token}`
+
+    })
+
+    twitch.onContext((context)=>{
+
+      if (context.theme) theme.value = context.theme
 
     })
 
@@ -74,6 +82,7 @@ export default defineComponent({
       linkImplict: getOAuthImplictUrl(),
       linkAuth: getOAuthAuthorizationUrl(),
       logout: logOut,
+      theme,
     }
 
   },
@@ -81,20 +90,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+
+.light {
+  --font-color: #2c3e50;
+}
+.dark {
+  --font-color: rgb(180, 180, 180);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
+  color: var(--font-color);
 
   a {
+    color: var(--font-color);
     font-weight: bold;
-    color: #2c3e50;
 
     &.router-link-exact-active {
       color: #42b983;
