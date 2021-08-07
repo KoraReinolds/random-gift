@@ -10,14 +10,14 @@ const routes: Array<RouteRecordRaw> = [
     component: Main,
   },
   {
-    path: '/config.html',
+    path: '/config',
     name: 'Config',
     component: () => import('../views/Config.vue'),
     meta: {
     },
   },
   {
-    path: '/panel.html',
+    path: '/panel',
     name: 'Panel',
     component: () => import('../views/Panel.vue'),
     meta: {

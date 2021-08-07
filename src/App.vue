@@ -1,41 +1,43 @@
 <template>
-  <div
-    :class="theme"
-    id="nav"
-  >
-    <a
-      :href="linkImplict"
+  <div :class="[theme, 'app']">
+    <div
+      id="nav"
     >
-      LogIn implict
-    </a> |
-    <a
-      :href="linkAuth"
-    >
-      LogIn authorization
-    </a> |
-    <router-link
-      :to="{ name: 'Main' }"
-    >
-      main
-    </router-link> |
-    <router-link
-      :to="{ name: 'Panel' }"
-    >
-      panel
-    </router-link> |
-    <router-link
-      :to="{ name: 'Config' }"
-    >
-      config
-    </router-link> |
-    <button
-      v-if="$store.getters['auth/token']"
-      @click="logout"
-    >
-      logout
-    </button>
+      <a
+        :href="linkImplict"
+      >
+        LogIn implict
+      </a> |
+      <a
+        :href="linkAuth"
+      >
+        LogIn authorization
+      </a> |
+      <router-link
+        :to="{ name: 'Main' }"
+      >
+        main
+      </router-link> |
+      <router-link
+        :to="{ name: 'Panel' }"
+      >
+        panel
+      </router-link> |
+      <router-link
+        :to="{ name: 'Config' }"
+      >
+        config
+      </router-link> |
+      <button
+        v-if="$store.getters['auth/token']"
+        @click="logout"
+      >
+        logout
+      </button>
+    </div>
+    <loader v-if="loading" />
+    <router-view v-else />
   </div>
-  <router-view :class="theme"/>
 </template>
 
 <script lang="ts">
@@ -43,18 +45,24 @@ import { defineComponent, ref } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import axios from '@/api'
 import { useStore } from 'vuex'
+import Loader from '@/components/Loader.vue'
 
 export default defineComponent({
   name: 'App',
+  components: {
+    Loader,
+  },
   setup() {
     
     const twitch = window.Twitch.ext
     const store = useStore()
     const theme = ref('light')
+    const loading = ref(true)
 
     twitch.onAuthorized(function(auth) {
 
       axios.defaults.headers.common['authorization'] = `Bearer ${auth.token}`
+      loading.value = false
 
     })
 
@@ -83,6 +91,7 @@ export default defineComponent({
       linkAuth: getOAuthAuthorizationUrl(),
       logout: logOut,
       theme,
+      loading,
     }
 
   },
@@ -91,18 +100,37 @@ export default defineComponent({
 
 <style lang="scss">
 
+
 .light {
   --font-color: #2c3e50;
+  --background-color: #ffffff;
+  --main-color: #677DB7;
+  --main-color-light: #9CA3DB;
+  --main-color-dark: #454B66;
+  --secondary-color: #322A26;
 }
 .dark {
   --font-color: rgb(180, 180, 180);
+  --background-color: rgb(24, 24, 27);
+  --main-color: #677DB7;
+  --main-color-light: #9CA3DB;
+  --main-color-dark: #454B66;
+  --secondary-color: #322A26;
 }
 
+body,
 #app {
+  margin: 0;
+  height: 100vh;
+}
+
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: var(--background-color);
+  height: 100%;
 }
 
 #nav {
@@ -114,8 +142,10 @@ export default defineComponent({
     font-weight: bold;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: var(--main-color);
     }
   }
 }
+
+
 </style>
