@@ -1,5 +1,5 @@
 <template>
-  <div :class="[theme, 'app']">
+  <div :class="[theme, 'app']" @click="loading = false">
     <div
       id="nav"
     >
@@ -101,21 +101,36 @@ export default defineComponent({
 <style lang="scss">
 
 
-.light {
-  --font-color: #2c3e50;
-  --background-color: #ffffff;
+.light,
+.dark {
   --main-color: #677DB7;
   --main-color-light: #9CA3DB;
   --main-color-dark: #454B66;
   --secondary-color: #322A26;
+  
+  --none-color: rgb(200, 200, 222);
+  --none-color-rgb: 200, 200, 222;
+  
+  --common-color: rgb(105, 212, 139);
+  --common-color-rgb: 105, 212, 139;
+  
+  --rare-color: rgb(70, 131, 228);
+  --rare-color-rgb: 70, 131, 228;
+  
+  --epic-color: rgb(159, 87, 231);
+  --epic-color-rgb: 159, 87, 231;
+  
+  --legendary-color: rgb(241, 139, 88);
+  --legendary-color-rgb: 241, 139, 88;
+}
+
+.light {
+  --font-color: #2c3e50;
+  --background-color: #ffffff;
 }
 .dark {
   --font-color: rgb(180, 180, 180);
   --background-color: rgb(24, 24, 27);
-  --main-color: #677DB7;
-  --main-color-light: #9CA3DB;
-  --main-color-dark: #454B66;
-  --secondary-color: #322A26;
 }
 
 body,

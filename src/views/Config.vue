@@ -3,7 +3,10 @@
     <h1>
       You loged{{ $store.getters['auth/token'] ? 'In' : 'Out' }}
     </h1>
-    <h1>CONFIG: {{ $store.state.config.config }}</h1>
+    <chanse-tool-bar
+      :chances="config.chances"
+    />
+    <h1>CONFIG: {{ config }}</h1>
     <button
       @click="clearGiftList"
     >
@@ -23,11 +26,15 @@
 </template>
 
 <script lang="ts">
+import ChanseToolBar from '@/components/ChanseToolBar.vue';
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'About',
+  components: {
+    ChanseToolBar,
+  },
   setup() {
     
     const twitch = window.Twitch.ext
@@ -54,6 +61,7 @@ export default defineComponent({
       clearGiftList,
       pushNewGift,
       saveCongig,
+      config: store.state.config.config,
     }
 
   }
