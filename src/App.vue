@@ -107,21 +107,17 @@ export default defineComponent({
   --main-color-light: #9CA3DB;
   --main-color-dark: #454B66;
   --secondary-color: #322A26;
-  
-  --none-color: rgb(200, 200, 222);
-  --none-color-rgb: 200, 200, 222;
-  
-  --common-color: rgb(105, 212, 139);
-  --common-color-rgb: 105, 212, 139;
-  
-  --rare-color: rgb(70, 131, 228);
-  --rare-color-rgb: 70, 131, 228;
-  
-  --epic-color: rgb(159, 87, 231);
-  --epic-color-rgb: 159, 87, 231;
-  
-  --legendary-color: rgb(241, 139, 88);
-  --legendary-color-rgb: 241, 139, 88;
+
+  // --none-color: rgb(200, 200, 222);
+  // --common-color: rgb(105, 212, 139);
+  // --rare-color: rgb(70, 131, 228);
+  // --epic-color: rgb(159, 87, 231);
+  // --legendary-color: rgb(241, 139, 88);
+  --none-color: rgb(154, 154, 170);
+  --common-color: rgb(93, 175, 119);
+  --rare-color: rgb(57, 105, 182);
+  --epic-color: rgb(122, 68, 177);
+  --legendary-color: rgb(201, 116, 73);
 }
 
 .light {

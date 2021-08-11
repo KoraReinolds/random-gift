@@ -8,7 +8,7 @@ const state: State = {
     chances: {
       none: 9,
       common: 50,
-      rare: 20,
+      rare: 30,
       epic: 10,
       legendary: 1,
     }
