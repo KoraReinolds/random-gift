@@ -1,4 +1,4 @@
-import axios from "@/api"
+import { axiosHelix } from "@/api"
 import {
   UseGlobalEmotes,
   emoteData,
@@ -9,7 +9,7 @@ const useGlobalEmotes: UseGlobalEmotes = () => {
 
   const emotes = ref<Array<emoteData>>([])
 
-  axios.get('/chat/globalEmotes').then(
+  axiosHelix.get('/chat/globalEmotes').then(
     emotesList => {
       emotes.value = emotesList.data?.data
     }

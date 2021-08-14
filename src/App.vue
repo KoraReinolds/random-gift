@@ -43,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
-import axios from '@/api'
+import { axiosHelix, axiosBackend } from '@/api'
 import { useStore } from 'vuex'
 import Loader from '@/components/Loader.vue'
 
@@ -61,7 +61,12 @@ export default defineComponent({
 
     twitch.onAuthorized(function(auth) {
 
-      axios.defaults.headers.common['authorization'] = `Bearer ${auth.token}`
+      const { helixToken, token, clientId } = { helixToken: '', ...auth } 
+
+      axiosHelix.defaults.headers.common['authorization'] = `Extension ${helixToken}`
+      axiosBackend.defaults.headers.common['authorization'] = `Bearer ${token}`
+      axiosHelix.defaults.headers.common['client-id'] = clientId
+
       loading.value = false
 
     })
