@@ -9,7 +9,7 @@
       "configurationAnchor": "panel",
       "displayChannelName": "korareinolds",
       "features": {
-        "isBitsEnabled": false,
+        "isBitsEnabled": true,
         "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
@@ -18,50 +18,6 @@
         "height": 720
       },
       "id": "1",
-      "isPopout": false,
-      "label": "",
-      "linked": true,
-      "linkedUserId": "265737932",
-      "orientation": "Portrait",
-      "type": "config",
-      "viewerType": "Broadcaster"
-    },
-    {
-      "channelId": "536747276",
-      "configurationAnchor": "panel",
-      "displayChannelName": "korareinolds",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "2",
-      "isPopout": false,
-      "label": "",
-      "linked": false,
-      "linkedUserId": "",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Broadcaster"
-    },
-    {
-      "channelId": "9008",
-      "configurationAnchor": "panel",
-      "displayChannelName": "korareinolds",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "3",
       "isPopout": false,
       "label": "",
       "linked": false,
@@ -75,9 +31,9 @@
     "anchor": "panel",
     "assetUrls": [],
     "authorName": "",
-    "bitsEnabled": false,
+    "bitsEnabled": true,
     "canInstall": true,
-    "configUrl": "http://127.0.0.1:8080/config.html",
+    "configUrl": "http://127.0.0.1:8082/config",
     "configurationLocation": "hosted",
     "description": "",
     "eulaTosUrl": "",
@@ -88,41 +44,41 @@
     "installationCount": -42,
     "liveConfigUrl": "",
     "name": "RandomGift",
-    "panelHeight": 300,
+    "panelHeight": 500,
     "privacyPolicyUrl": "",
-    "requestIdentityLink": false,
+    "requestIdentityLink": true,
     "requiredBroadcasterAbilities": [],
     "screenshotUrls": [],
     "sku": "",
     "state": "Testing",
-    "subscriptionsSupportLevel": "none",
+    "subscriptionsSupportLevel": "optional",
     "summary": "",
     "supportEmail": "",
     "vendorCode": "",
     "version": "0.0.1",
     "viewerSummary": "",
-    "viewerUrl": "http://127.0.0.1:8080/panel.html",
+    "viewerUrl": "http://127.0.0.1:8082/panel",
     "viewerUrls": {
-      "mobile": "http://127.0.0.1:8080/mobile.html",
-      "panel": "http://127.0.0.1:8080/panel.html",
-      "videoOverlay": "http://127.0.0.1:8080/video_overlay.html",
-      "component": "http://127.0.0.1:8080/video_component.html"
+      "mobile": "http://127.0.0.1:8082/mobile",
+      "panel": "http://127.0.0.1:8082/panel",
+      "videoOverlay": "http://127.0.0.1:8082/video_overlay",
+      "component": "http://127.0.0.1:8082/video_component"
     },
     "views": {
       "mobile": {
-        "viewerUrl": "http://127.0.0.1:8080/mobile.html"
+        "viewerUrl": "http://127.0.0.1:8082/mobile"
       },
       "panel": {
-        "viewerUrl": "http://127.0.0.1:8080/panel.html",
-        "height": 300,
+        "viewerUrl": "http://127.0.0.1:8082/panel",
+        "height": 500,
         "canLinkExternalContent": false
       },
       "videoOverlay": {
-        "viewerUrl": "http://127.0.0.1:8080/video_overlay.html",
+        "viewerUrl": "http://127.0.0.1:8082/video_overlay",
         "canLinkExternalContent": false
       },
       "component": {
-        "viewerUrl": "http://127.0.0.1:8080/video_component.html",
+        "viewerUrl": "http://127.0.0.1:8082/video_component",
         "aspectWidth": 0,
         "aspectHeight": 0,
         "aspectRatioX": 300,
@@ -136,7 +92,7 @@
         "autoScale": true
       },
       "config": {
-        "viewerUrl": "http://127.0.0.1:8080/config.html",
+        "viewerUrl": "http://127.0.0.1:8082/config",
         "canLinkExternalContent": false
       }
     },
@@ -144,7 +100,7 @@
     "whitelistedPanelUrls": []
   },
   "frontendCommand": "npm run serve",
-  "frontendFolderName": "/Users/reinoldskora/Desktop/random-gift",
+  "frontendFolderName": "/Users/sergey/Desktop/rg",
   "name": "RandomGift",
   "usingRandomFrontendHostingPort": false,
   "version": 3

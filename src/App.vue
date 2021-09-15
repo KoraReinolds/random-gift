@@ -61,7 +61,7 @@ export default defineComponent({
 
     twitch.onAuthorized(function(auth) {
 
-      const { helixToken, token, clientId } = { helixToken: '', ...auth } 
+      const { helixToken = '', token, clientId } = auth
 
       axiosHelix.defaults.headers.common['authorization'] = `Extension ${helixToken}`
       axiosBackend.defaults.headers.common['authorization'] = `Bearer ${token}`
