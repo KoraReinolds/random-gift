@@ -59,13 +59,15 @@ export default defineComponent({
     const theme = ref('light')
     const loading = ref(true)
 
-    twitch.onAuthorized(function(auth) {
+    twitch.onAuthorized(async (auth) => {
 
       const { helixToken = '', token, clientId } = auth
 
       axiosHelix.defaults.headers.common['authorization'] = `Extension ${helixToken}`
       axiosBackend.defaults.headers.common['authorization'] = `Bearer ${token}`
       axiosHelix.defaults.headers.common['client-id'] = clientId
+
+      await store.dispatch('products/GET_PRODUCTS')
 
       loading.value = false
 
