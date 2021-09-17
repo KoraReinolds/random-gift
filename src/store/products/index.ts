@@ -18,8 +18,8 @@ const actions: ActionTree<State, State> & Actions = {
   async GET_PRODUCTS({ commit }) {
     const twitch = window.Twitch.ext
     const products = await twitch.bits.getProducts()
-    console.log(products)
     commit(MutationTypes.SET_PRODUCTS, products)
+    return products
   },
 
 }

@@ -1,5 +1,5 @@
 import { ActionContext } from 'vuex'
-import { State } from './state'
+import { State, ProductList } from './state'
 import { Mutations } from './mutations'
 
 export enum ActionTypes {
@@ -18,6 +18,6 @@ export type Actions = {
   [ActionTypes.GET_PRODUCTS](
     context: AugmentedActionContext,
     data: Array<Array<string>>
-  ): void
+  ): Promise<ProductList>
 
 }

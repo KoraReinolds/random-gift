@@ -1,23 +1,23 @@
 <template>
   <div class="panel">
     <h1>Panel</h1>
-    <h1>CONFIG: {{ configuration }}</h1>
+    <h1>PRODUCTS: {{ products }}</h1>
     <!-- <h1>CONFIG: {{ $store.state.config.config }}</h1> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useConfiguration } from '@/composable/configuration'
+import { useProducts } from '@/composable/products'
 
 export default defineComponent({
   name: 'Panel',
   setup() {
 
-    const { configuration } = useConfiguration()
+    const { products } = useProducts()
 
     return {
-      configuration,
+      products,
     }
 
   },

@@ -67,8 +67,6 @@ export default defineComponent({
       axiosBackend.defaults.headers.common['authorization'] = `Bearer ${token}`
       axiosHelix.defaults.headers.common['client-id'] = clientId
 
-      await store.dispatch('products/GET_PRODUCTS')
-
       loading.value = false
 
     })
