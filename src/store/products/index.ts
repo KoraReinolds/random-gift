@@ -5,6 +5,7 @@ import {
   Actions,
   Getters,
   State,
+  ProductList,
 } from './types'
 import { MutationTree, ActionTree, GetterTree, Module } from 'vuex'
 
@@ -21,9 +22,17 @@ const mutations: MutationTree<State> & Mutations = {
 const actions: ActionTree<State, IRootState> & Actions = {
   
   async GET_PRODUCTS({ commit }) {
-    console.log(1)
     const twitch = window.Twitch.ext
-    const products = await twitch.bits.getProducts()
+    
+    const mockProductList: ProductList = [{
+      "cost": { "amount": "100", "type": "bits" },
+      "displayName": "Small Gift",
+      "sku": "newSKU",
+      "inDevelopment": true,
+    }]
+    const products = twitch.features.isBitsEnabled
+      ? await twitch.bits.getProducts()
+      : mockProductList
     commit(MutationTypes.SET_PRODUCTS, products)
     return products
   },

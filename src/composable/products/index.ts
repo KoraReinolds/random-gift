@@ -10,7 +10,6 @@ const useProducts: UseProducts = () => {
   const store = useStore()
   const products = computed(() => store.state.products.products)
 
-  console.log(products.value)
   if (!products.value) {
     store.dispatch('products/GET_PRODUCTS')
   }
