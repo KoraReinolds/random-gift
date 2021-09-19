@@ -9,7 +9,7 @@ import {
 import { MutationTree, ActionTree, GetterTree, Module } from 'vuex'
 
 const state: State = {
-  products: [],
+  products: null,
 }
 
 const mutations: MutationTree<State> & Mutations = {
@@ -21,6 +21,7 @@ const mutations: MutationTree<State> & Mutations = {
 const actions: ActionTree<State, IRootState> & Actions = {
   
   async GET_PRODUCTS({ commit }) {
+    console.log(1)
     const twitch = window.Twitch.ext
     const products = await twitch.bits.getProducts()
     commit(MutationTypes.SET_PRODUCTS, products)

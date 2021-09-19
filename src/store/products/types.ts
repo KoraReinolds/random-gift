@@ -6,7 +6,7 @@ import {
   ActionContext,
 } from "vuex"
 
-export type ProductList = readonly Twitch.ext.BitsProduct[]
+export type ProductList = readonly Twitch.ext.BitsProduct[] | null
 
 export interface State {
   products: ProductList

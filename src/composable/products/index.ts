@@ -1,20 +1,19 @@
-import { store } from '@/store'
 import {
-  ProductList,
   UseProducts,
 } from './types'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 
 
 const useProducts: UseProducts = () => {
 
-  const products = ref<ProductList>([])
+  const store = useStore()
+  const products = computed(() => store.state.products.products)
 
-  store.dispatch('products/GET_PRODUCTS').then(
-    (productList: ProductList) => {
-      products.value = productList
-    }
-  )
+  console.log(products.value)
+  if (!products.value) {
+    store.dispatch('products/GET_PRODUCTS')
+  }
 
   return { products }
 
