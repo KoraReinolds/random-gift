@@ -1,6 +1,9 @@
-import { State } from './state'
-import { Mutations } from './mutations'
-import { MutationTree } from 'vuex'
+import {
+  Mutations,
+  State,
+} from './types'
+import { MutationTree, Module } from 'vuex'
+import { IRootState } from '@/store/interfaces'
 
 const state: State = {
   config: {
@@ -36,8 +39,10 @@ const mutations: MutationTree<State> & Mutations = {
 
 }
 
-export default {
+const config: Module<State, IRootState>  = {
   namespaced: true,
   state,
   mutations,
 }
+
+export default config

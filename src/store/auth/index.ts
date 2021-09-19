@@ -1,19 +1,16 @@
-import { State } from './state'
-import { Mutations } from './mutations'
-import { Getters } from './getters'
-import { MutationTree, GetterTree } from 'vuex'
+import {
+  State,
+  Mutations,
+  Getters,
+} from './types'
+import { MutationTree, GetterTree, Module } from 'vuex'
+import { IRootState } from '@/store/interfaces'
 
 const state: State = {
   authUrlData: JSON.parse(localStorage.getItem('authInfo') || '{}'),
 }
 
-const mutations: MutationTree<State> & Mutations = {
-
-  SET_AUTH_DATA: (state, authUrlData) => state.authUrlData = authUrlData,
-
-}
-
-const getters: GetterTree<State, State> & Getters = {
+const getters: GetterTree<State, IRootState> & Getters = {
 
   token: ({ authUrlData: { token_type, access_token } }) => {
 
@@ -28,9 +25,15 @@ const getters: GetterTree<State, State> & Getters = {
 
 }
 
-export default {
+const mutations: MutationTree<State> & Mutations = {
+  SET_AUTH_DATA: (state, authUrlData) => state.authUrlData = authUrlData,
+}
+
+const auth: Module<State, IRootState>  = {
   namespaced: true,
   state,
   getters,
   mutations,
 }
+
+export default auth

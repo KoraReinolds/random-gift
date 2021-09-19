@@ -1,4 +1,4 @@
-import { ProductList } from '@/store/products/state'
+import { ProductList } from '@/store/products/types'
 
 interface Ref<T> {
   value: T

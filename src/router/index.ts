@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Main from '@/views/Main.vue'
-import store from '@/store'
+import { store } from '@/store'
 import { useAccesTokenFromHash } from '@/composable/auth'
 
 const routes: Array<RouteRecordRaw> = [
