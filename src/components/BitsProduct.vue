@@ -1,5 +1,8 @@
 <template>
-  <div class="product">
+  <div
+    class="product"
+    @click="useBits(product.sku)"
+  >
     <div>
       {{ product.displayName }}
     </div>
@@ -21,15 +24,23 @@ export default defineComponent({
       required: true
     }
   },
+  methods: {
+    useBits(sku: string) {
+      const twitch = window.Twitch.ext
+      twitch.bits.useBits(sku)
+    }
+  }
 });
 </script>
 
 <style scoped lang="scss">
 .product {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
-  border: 1px solid black;
+  border: 1px solid var(--font-color);
+  color: var(--font-color);
 }
 </style>

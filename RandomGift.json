@@ -31,7 +31,7 @@
       "configurationAnchor": "panel",
       "displayChannelName": "korareinolds",
       "features": {
-        "isBitsEnabled": false,
+        "isBitsEnabled": true,
         "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
@@ -40,7 +40,7 @@
         "height": 720
       },
       "id": "2",
-      "isPopout": false,
+      "isPopout": true,
       "label": "",
       "linked": false,
       "linkedUserId": "",

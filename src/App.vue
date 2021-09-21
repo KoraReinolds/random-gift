@@ -58,6 +58,11 @@ export default defineComponent({
     const store = useStore()
     const theme = ref('light')
     const loading = ref(true)
+
+    twitch.bits.onTransactionComplete((bitsTransaction) => {
+      axiosBackend.post('/bits/transaction', bitsTransaction)
+    })
+
     twitch.onAuthorized(async (auth) => {
 
       const { helixToken = '', token, clientId } = auth
