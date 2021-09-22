@@ -23,6 +23,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
     },
   },
+  {
+    path: '/widget',
+    name: 'Widget',
+    component: () => import('../views/Widget.vue'),
+    meta: {
+    },
+  },
 ]
 
 const router = createRouter({
