@@ -2,6 +2,7 @@
   <div :class="[theme, 'app']" @click="loading = false">
     <div
       id="nav"
+      v-if="!$route.meta.hideNavigation"
     >
       <a
         :href="linkImplict"
@@ -35,8 +36,12 @@
         logout
       </button>
     </div>
-    <loader v-if="loading" />
-    <router-view v-else />
+    <loader
+      v-if="loading"
+    />
+    <router-view
+      v-else
+    />
   </div>
 </template>
 
@@ -57,9 +62,10 @@ export default defineComponent({
     const twitch = window.Twitch.ext
     const store = useStore()
     const theme = ref('light')
-    const loading = ref(true)
+    const loading = ref(false)
 
     twitch.bits.onTransactionComplete((bitsTransaction) => {
+      console.log(bitsTransaction)
       axiosBackend.post('/bits/transaction', bitsTransaction)
     })
 
@@ -131,7 +137,7 @@ export default defineComponent({
 
 .light {
   --font-color: #2c3e50;
-  --background-color: #ffffff;
+  --background-color: transparent;
 }
 .dark {
   --font-color: rgb(180, 180, 180);

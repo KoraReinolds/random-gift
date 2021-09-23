@@ -28,6 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Widget',
     component: () => import('../views/Widget.vue'),
     meta: {
+      hideNavigation: true,
     },
   },
 ]
