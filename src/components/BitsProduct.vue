@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product"
+    :class="['product']"
     @click="useBits(product.sku)"
   >
     <div>
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { ProductList } from '@/store/products/types'
+import { useTwitch } from '@/composable/twitch'
 
 export default defineComponent({
   name: 'Loader',
@@ -24,10 +25,12 @@ export default defineComponent({
       required: true
     }
   },
-  methods: {
-    useBits(sku: string) {
-      const twitch = window.Twitch.ext
-      twitch.bits.useBits(sku)
+  setup() {
+
+    const { twitch } = useTwitch()
+
+    return {
+      useBits: (sku: string) => twitch?.bits.useBits(sku)
     }
   }
 });
@@ -35,7 +38,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .product {
-  cursor: pointer;
   display: inline-block;
   position: relative;
   width: 80px;

@@ -8,27 +8,32 @@
         :href="linkImplict"
       >
         LogIn implict
-      </a> |
+      </a>
       <a
         :href="linkAuth"
       >
         LogIn authorization
-      </a> |
+      </a>
       <router-link
         :to="{ name: 'Main' }"
       >
         main
-      </router-link> |
+      </router-link>
       <router-link
         :to="{ name: 'Panel' }"
       >
         panel
-      </router-link> |
+      </router-link>
       <router-link
         :to="{ name: 'Config' }"
       >
         config
-      </router-link> |
+      </router-link>
+      <router-link
+        :to="{ name: 'Widget' }"
+      >
+        widget
+      </router-link>
       <button
         v-if="$store.getters['auth/token']"
         @click="logout"
@@ -50,6 +55,7 @@ import { defineComponent, ref } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import { axiosHelix, axiosBackend } from '@/api'
 import { useStore } from 'vuex'
+import { useTwitch } from '@/composable/twitch'
 import Loader from '@/components/Loader.vue'
 
 export default defineComponent({
@@ -59,17 +65,18 @@ export default defineComponent({
   },
   setup() {
     
-    const twitch = window.Twitch.ext
+    const { twitch } = useTwitch()
+
     const store = useStore()
     const theme = ref('light')
     const loading = ref(false)
 
-    twitch.bits.onTransactionComplete((bitsTransaction) => {
+    twitch?.bits.onTransactionComplete((bitsTransaction) => {
       console.log(bitsTransaction)
       axiosBackend.post('/bits/transaction', bitsTransaction)
     })
 
-    twitch.onAuthorized(async (auth) => {
+    twitch?.onAuthorized(async (auth) => {
 
       const { helixToken = '', token, clientId } = auth
 
@@ -81,13 +88,13 @@ export default defineComponent({
 
     })
 
-    twitch.onContext((context)=>{
+    twitch?.onContext((context)=>{
 
       if (context.theme) theme.value = context.theme
 
     })
 
-    twitch.configuration.onChanged(() => {
+    twitch?.configuration.onChanged(() => {
       if (twitch.configuration.broadcaster) {
         try {
           
@@ -166,6 +173,10 @@ body,
   a {
     color: var(--font-color);
     font-weight: bold;
+
+    &:not(a:last-child) {
+      margin-right: 8px;
+    }
 
     &.router-link-exact-active {
       color: var(--main-color);

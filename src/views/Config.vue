@@ -29,6 +29,8 @@
 import ChanseToolBar from '@/components/ChanseToolBar.vue';
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import { useTwitch } from '@/composable/twitch'
+import { axiosBackend } from '@/api'
 
 export default defineComponent({
   name: 'About',
@@ -37,15 +39,17 @@ export default defineComponent({
   },
   setup() {
     
-    const twitch = window.Twitch.ext
+    const { twitch } = useTwitch()
+
     const store = useStore()
     
     const saveCongig = () => {
-      twitch.configuration.set(
-        'broadcaster',
-        '1',
-        JSON.stringify(store.state.config.config)
-      )
+      const configuration = JSON.stringify(store.state.config.config)
+      if (twitch) {
+        twitch.configuration.set('broadcaster', '1', configuration)
+      } else {
+        axiosBackend.post('/congig/save', configuration)
+      }
     }
 
     const clearGiftList = () => store.commit('config/SET_GIFT_LIST', [])
