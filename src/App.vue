@@ -34,6 +34,11 @@
       >
         widget
       </router-link>
+      <a
+        @click="changeTheme"
+      >
+        Change_theme
+      </a>
       <button
         v-if="$store.getters['auth/token']"
         @click="logout"
@@ -114,6 +119,7 @@ export default defineComponent({
       logout: logOut,
       theme,
       loading,
+      changeTheme: () => theme.value = theme.value === 'dark' ? 'light' : 'dark'
     }
 
   },

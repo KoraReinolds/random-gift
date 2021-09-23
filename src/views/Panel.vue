@@ -2,11 +2,15 @@
   <div class="panel">
     <h1>Panel</h1>
     <!-- <h1>PRODUCTS: {{ products }}</h1> -->
-    <bits-product
-      v-for="product in products"
-      :product="product"
-      :key="product.sku"
-    />
+    <div
+      class="bits-products-list"
+    >
+      <bits-product
+        v-for="product in [products[0], products[0], products[0], products[0], products[0]]"
+        :product="product"
+        :key="product.sku"
+      />
+    </div>
     <!-- <h1>CONFIG: {{ $store.state.config.config }}</h1> -->
   </div>
 </template>
@@ -37,6 +41,10 @@ export default defineComponent({
 .panel {
   h1 {
     color: var(--font-color);
+  }
+  .bits-products-list {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
