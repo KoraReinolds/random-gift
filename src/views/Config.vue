@@ -6,7 +6,11 @@
     <chanse-tool-bar
       :chances="config.chances"
     />
-    <h1>CONFIG: {{ config }}</h1>
+    <input-range
+      :list="products"
+      v-model="bitsValue"
+    />
+    <!-- <h1>PRODUCTS: {{ products }}</h1> -->
     <button
       @click="clearGiftList"
     >
@@ -26,20 +30,26 @@
 </template>
 
 <script lang="ts">
+import InputRange from '@/components/InputRange.vue';
 import ChanseToolBar from '@/components/ChanseToolBar.vue';
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useTwitch } from '@/composable/twitch'
 import { axiosBackend } from '@/api'
+import { useProducts } from '@/composable/products'
 
 export default defineComponent({
   name: 'About',
   components: {
+    InputRange,
     ChanseToolBar,
   },
   setup() {
     
     const { twitch } = useTwitch()
+
+    const { products } = useProducts()
+    const bitsValue = ref('1')
 
     const store = useStore()
     
@@ -57,11 +67,13 @@ export default defineComponent({
     const pushNewGift = () => {
       store.commit('config/ADD_GIFT_TO_LIST', {
         title: '123',
-        chanceType: 'common',
+        chanceType: ['common'],
       })
     }
 
     return {
+      bitsValue,
+      products,
       clearGiftList,
       pushNewGift,
       saveCongig,

@@ -32,7 +32,7 @@ const actions: ActionTree<State, IRootState> & Actions = {
       "sku": "newSKU",
       "inDevelopment": true,
     }]
-    const products = twitch && twitch.features.isBitsEnabled
+    const products = twitch
       ? await twitch.bits.getProducts()
       : mockProductList
     commit(MutationTypes.SET_PRODUCTS, products)

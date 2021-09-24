@@ -6,7 +6,7 @@
       class="bits-products-list"
     >
       <bits-product
-        v-for="product in [products[0], products[0], products[0], products[0], products[0]]"
+        v-for="product in products"
         :product="product"
         :key="product.sku"
       />
