@@ -45,6 +45,10 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
   products: ({ products }) => products,
 
+  bitsCost: ({ products }) => products?.map(
+    product => product.cost.amount
+  ).sort() || []
+
 }
 
 const products: Module<State, IRootState>  = {

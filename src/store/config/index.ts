@@ -26,7 +26,7 @@ const mutations: MutationTree<State> & Mutations = {
 
   SET_GIFT_LIST: (state, giftList) => state.config.giftList = giftList,
 
-  SET_CONFIG: (state, config) => state.config = config,
+  SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
 
   CHANGE_CHANCE: (state, { chanceType, chance }) => {
 

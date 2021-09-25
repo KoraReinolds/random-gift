@@ -1,3 +1,5 @@
+import { Config } from '@/store/config/types'
+
 interface Ref<T> {
   value: T
 }
@@ -15,8 +17,7 @@ interface Configuration {
 }
 
 type UseConfiguration = () => {
-  configurationData: Ref<Configuration | undefined>
-  configuration: Ref<string>,
+  config: Ref<Config>,
 }
 
 export {

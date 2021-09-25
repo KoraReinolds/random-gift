@@ -9,12 +9,16 @@ const useProducts: UseProducts = () => {
 
   const store = useStore()
   const products = computed(() => store.state.products.products)
+  const bitsCost = computed(() => store.getters['products/bitsCost'])
 
   if (!products.value) {
     store.dispatch('products/GET_PRODUCTS')
   }
 
-  return { products }
+  return {
+    products,
+    bitsCost,
+  }
 
 }
 

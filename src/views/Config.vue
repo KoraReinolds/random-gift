@@ -1,21 +1,13 @@
 <template>
   <div class="config">
-    <h1>
-      You loged{{ $store.getters['auth/token'] ? 'In' : 'Out' }}
-    </h1>
     <chanse-tool-bar
       :chances="config.chances"
     />
     <input-range
-      :list="products"
+      :list="bitsCost"
       v-model="bitsValue"
     />
-    <!-- <h1>PRODUCTS: {{ products }}</h1> -->
-    <button
-      @click="clearGiftList"
-    >
-      clear config
-    </button>
+    <div>Bits: {{ bitsCost[bitsValue] }}</div>
     <button
       @click="pushNewGift"
     >
@@ -37,6 +29,7 @@ import { useStore } from 'vuex'
 import { useTwitch } from '@/composable/twitch'
 import { axiosBackend } from '@/api'
 import { useProducts } from '@/composable/products'
+import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   name: 'About',
@@ -48,7 +41,9 @@ export default defineComponent({
     
     const { twitch } = useTwitch()
 
-    const { products } = useProducts()
+    const { products, bitsCost } = useProducts()
+    const { config } = useConfiguration()
+    console.log('123 ', config)
     const bitsValue = ref('1')
 
     const store = useStore()
@@ -62,8 +57,6 @@ export default defineComponent({
       }
     }
 
-    const clearGiftList = () => store.commit('config/SET_GIFT_LIST', [])
-
     const pushNewGift = () => {
       store.commit('config/ADD_GIFT_TO_LIST', {
         title: '123',
@@ -72,9 +65,9 @@ export default defineComponent({
     }
 
     return {
+      bitsCost,
       bitsValue,
       products,
-      clearGiftList,
       pushNewGift,
       saveCongig,
       config: store.state.config.config,

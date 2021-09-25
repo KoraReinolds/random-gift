@@ -6,7 +6,7 @@
     <input
       type='range'
       min='0'
-      :max="list.length"
+      :max="list.length - 1"
       v-model="input"
     >
   </div>

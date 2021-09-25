@@ -6,6 +6,7 @@ interface Ref<T> {
 
 type UseProducts = () => {
   products: Ref<ProductList>,
+  bitsCost: Ref<string[]>,
 }
 
 export {

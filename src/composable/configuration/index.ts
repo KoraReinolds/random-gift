@@ -3,23 +3,44 @@ import {
   Configuration,
   UseConfiguration,
 } from "./types"
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useTwitch } from '@/composable/twitch'
+import { useStore } from 'vuex'
 
 const useConfiguration: UseConfiguration = () => {
 
-  const configurationData = ref<Configuration>()
-  const configuration = ref<string>('')
+  const { twitch } = useTwitch()
+  const store = useStore()
+  const config = computed(() => store.state.config.config)
+  const getConfigFromBackend = () => {
+    axiosBackend.get('/configuration').then(
+      res => {
+        const config: Configuration = res.data
+        const key = Object.keys(config)[0]
+        store.commit(
+          'config/SET_CONFIG',
+          config[key]?.record.content
+        )
+      }
+    )
+  }
+  const getConfigFromHelper = () => {
+    const config = twitch?.configuration.broadcaster
+    console.log('config: ', config)
+    store.commit(
+      'config/SET_CONFIG',
+      config?.content
+    )
+  }
+  
+  if (!config.value) {
+    twitch ? getConfigFromHelper() : getConfigFromBackend()
+  }
+  
 
-  axiosBackend.get('/configuration').then(
-    res => {
-      const config: Configuration = res.data
-      const key = Object.keys(config)[0]
-      configurationData.value = config
-      configuration.value = config[key]?.record.content
-    }
-  )
-
-  return { configurationData, configuration }
+  return {
+    config,
+  }
 
 }
 

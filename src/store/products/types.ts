@@ -13,7 +13,8 @@ export interface State {
 }
 
 export type Getters = {
-  products: (state: State) => ProductList
+  products: (state: State) => ProductList,
+  bitsCost: (state: State) => string[],
 }
 
 export enum MutationTypes {

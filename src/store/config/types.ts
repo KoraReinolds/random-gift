@@ -45,7 +45,7 @@ export type Mutations<S = State> = {
 
   [MutationTypes.SET_GIFT_LIST](state: S, payload: GiftList): GiftList
 
-  [MutationTypes.SET_CONFIG](state: S, payload: Config): Config
+  [MutationTypes.SET_CONFIG](state: S, payload: string): Config
 
   [MutationTypes.CHANGE_GIFT_TYPE](
     state: S,
