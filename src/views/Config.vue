@@ -1,20 +1,30 @@
 <template>
-  <div class="config">
-    <chanse-tool-bar
-      :chances="config.chances"
-    />
-    <input-range
-      :list="bitsCost"
-      v-model="bitsValue"
-    />
-    <div>Bits: {{ bitsCost[bitsValue] }}</div>
+  <div
+    class="config"
+    v-if="config"
+  >
+    <div
+      class="item"
+      v-for="item in config.giftList"
+      :key="item.sku"
+    >
+      <chanse-tool-bar
+        :chances="item.chances"
+      />
+      <input-range
+        :list="bitsCost"
+        v-model="bitsValue"
+      />
+      <div>Bits: {{ bitsCost[bitsValue] }}</div>
+    </div>
+    {{config}}
     <button
       @click="pushNewGift"
     >
       push new gift
     </button>
     <button
-      @click="saveCongig"
+      @click="saveConfig"
     >
       save changes
     </button>
@@ -26,8 +36,6 @@ import InputRange from '@/components/InputRange.vue';
 import ChanseToolBar from '@/components/ChanseToolBar.vue';
 import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
-import { useTwitch } from '@/composable/twitch'
-import { axiosBackend } from '@/api'
 import { useProducts } from '@/composable/products'
 import { useConfiguration } from '@/composable/configuration'
 
@@ -39,23 +47,12 @@ export default defineComponent({
   },
   setup() {
     
-    const { twitch } = useTwitch()
-
     const { products, bitsCost } = useProducts()
-    const { config } = useConfiguration()
-    console.log('123 ', config)
+    const { config, saveConfig } = useConfiguration()
+
     const bitsValue = ref('1')
 
     const store = useStore()
-    
-    const saveCongig = () => {
-      const configuration = JSON.stringify(store.state.config.config)
-      if (twitch) {
-        twitch.configuration.set('broadcaster', '1', configuration)
-      } else {
-        axiosBackend.post('/congig/save', configuration)
-      }
-    }
 
     const pushNewGift = () => {
       store.commit('config/ADD_GIFT_TO_LIST', {
@@ -69,8 +66,8 @@ export default defineComponent({
       bitsValue,
       products,
       pushNewGift,
-      saveCongig,
-      config: store.state.config.config,
+      saveConfig,
+      config,
     }
 
   }

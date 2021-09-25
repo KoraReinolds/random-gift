@@ -69,7 +69,6 @@ export default defineComponent({
     Loader,
   },
   setup() {
-    
     const { twitch } = useTwitch()
 
     const store = useStore()
@@ -77,12 +76,11 @@ export default defineComponent({
     const loading = ref(false)
 
     twitch?.bits.onTransactionComplete((bitsTransaction) => {
-      console.log(bitsTransaction)
       axiosBackend.post('/bits/transaction', bitsTransaction)
     })
 
     twitch?.onAuthorized(async (auth) => {
-
+      
       const { helixToken = '', token, clientId } = auth
 
       axiosHelix.defaults.headers.common['authorization'] = `Extension ${helixToken}`

@@ -25,14 +25,34 @@ const useConfiguration: UseConfiguration = () => {
     )
   }
   const getConfigFromHelper = () => {
-    const config = twitch?.configuration.broadcaster
-    console.log('config: ', config)
+    const defaultConfig = {
+      content: JSON.stringify({
+        giftList: [{
+          title: 'Gift',
+          sku: 'rg100',
+          chances: {
+            none: 9,
+            common: 50,
+            rare: 30,
+            epic: 10,
+            legendary: 1,
+          }
+        }]
+      })
+    }
+    const config = twitch?.configuration.broadcaster || defaultConfig
     store.commit(
       'config/SET_CONFIG',
       config?.content
     )
   }
-  
+  const saveConfig = () => {
+    const configuration = JSON.stringify(config.value)
+    twitch
+      ? twitch.configuration.set('broadcaster', '1', configuration)
+      : axiosBackend.post('/congig/save', configuration)
+  }
+
   if (!config.value) {
     twitch ? getConfigFromHelper() : getConfigFromBackend()
   }
@@ -40,6 +60,7 @@ const useConfiguration: UseConfiguration = () => {
 
   return {
     config,
+    saveConfig,
   }
 
 }

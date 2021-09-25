@@ -18,6 +18,7 @@ interface Configuration {
 
 type UseConfiguration = () => {
   config: Ref<Config>,
+  saveConfig: () => void
 }
 
 export {

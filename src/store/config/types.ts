@@ -14,18 +14,18 @@ export type ChancePercent = {
 
 export type Gift = {
   title: string
-  chanceType: ChanceType
+  sku: string
+  chances: ChancePercent
 }
 
 export type GiftList = Array<Gift>
 
 export interface Config {
   giftList: GiftList
-  chances: ChancePercent
 }
 
 export interface State {
-  config: Config
+  config: Config | null
 }
 
 export type Getters = {
@@ -41,21 +41,7 @@ export enum MutationTypes {
 
 export type Mutations<S = State> = {
 
-  [MutationTypes.ADD_GIFT_TO_LIST](state: S, payload: Gift): number
-
-  [MutationTypes.SET_GIFT_LIST](state: S, payload: GiftList): GiftList
-
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
-
-  [MutationTypes.CHANGE_GIFT_TYPE](
-    state: S,
-    payload: { gift: Gift, type: ChanceType }
-  ): void
-
-  [MutationTypes.CHANGE_CHANCE](
-    state: S,
-    payload: { chanceType: ChanceType, chance: number }
-  ): void
 
 }
 
