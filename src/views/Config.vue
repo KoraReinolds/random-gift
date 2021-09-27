@@ -3,20 +3,12 @@
     class="config"
     v-if="config"
   >
-    <div
+    <config-item
       class="item"
       v-for="item in config.giftList"
       :key="item.sku"
-    >
-      <chanse-tool-bar
-        :chances="item.chances"
-      />
-      <input-range
-        :list="bitsCost"
-        v-model="bitsValue"
-      />
-      <div>Bits: {{ bitsCost[bitsValue] }}</div>
-    </div>
+      :item="item"
+    />
     {{config}}
     <button
       @click="pushNewGift"
@@ -32,25 +24,21 @@
 </template>
 
 <script lang="ts">
-import InputRange from '@/components/InputRange.vue';
-import ChanseToolBar from '@/components/ChanseToolBar.vue';
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import ConfigItem from '@/components/ConfigItem.vue'
 import { useProducts } from '@/composable/products'
 import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   name: 'About',
   components: {
-    InputRange,
-    ChanseToolBar,
+    ConfigItem,
   },
   setup() {
     
     const { products, bitsCost } = useProducts()
     const { config, saveConfig } = useConfiguration()
-
-    const bitsValue = ref('1')
 
     const store = useStore()
 
@@ -63,7 +51,6 @@ export default defineComponent({
 
     return {
       bitsCost,
-      bitsValue,
       products,
       pushNewGift,
       saveConfig,

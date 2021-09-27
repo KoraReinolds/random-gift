@@ -24,22 +24,22 @@ const useConfiguration: UseConfiguration = () => {
       }
     )
   }
+  const defaultConfig = {
+    content: JSON.stringify({
+      giftList: [{
+        title: 'Gift',
+        bits: '100',
+        chances: {
+          none: 9,
+          common: 50,
+          rare: 30,
+          epic: 10,
+          legendary: 1,
+        }
+      }]
+    })
+  }
   const getConfigFromHelper = () => {
-    const defaultConfig = {
-      content: JSON.stringify({
-        giftList: [{
-          title: 'Gift',
-          sku: 'rg100',
-          chances: {
-            none: 9,
-            common: 50,
-            rare: 30,
-            epic: 10,
-            legendary: 1,
-          }
-        }]
-      })
-    }
     const config = twitch?.configuration.broadcaster || defaultConfig
     store.commit(
       'config/SET_CONFIG',

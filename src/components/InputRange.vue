@@ -1,7 +1,7 @@
 <template>
   <div
     class="input-range"
-    v-if="list"
+    v-if="list.length"
   >
     <input
       type='range'
@@ -13,22 +13,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue'
-import { ProductList } from '@/store/products/types'
+import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'InputRange',
   props: {
     list: {
-      type: Object as PropType<ProductList>,
+      type: Array,
+      default: () => [],
     },
-    modelValue: String,
+    modelValue: {
+      type: Number,
+      required: true,
+    },
   },
   setup(props, { emit }) {
 
     let input = ref(props.modelValue)
 
-    watch(input, (value) => emit('update:modelValue', value))
+    watch(input, (value) => {
+      emit('update:modelValue', props.list[+value])
+    })
 
     return {
       input

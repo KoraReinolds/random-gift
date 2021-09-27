@@ -14,7 +14,7 @@ export type ChancePercent = {
 
 export type Gift = {
   title: string
-  sku: string
+  bits: string
   chances: ChancePercent
 }
 
