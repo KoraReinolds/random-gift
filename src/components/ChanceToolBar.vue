@@ -1,5 +1,5 @@
 <template>
-  <div id="chanse-tool-bar">
+  <div id="chance-tool-bar">
     <div
       v-for="(value, key) in chances"
       :class="['item', key]"
@@ -22,7 +22,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'ChanseToolBar',
+  name: 'ChanceToolBar',
   props: {
     chances: Object,
   },
@@ -31,7 +31,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 
-#chanse-tool-bar {
+#chance-tool-bar {
   width: 90%;
   height: 30px;
   position: relative;

@@ -2,7 +2,7 @@
   <div
     :class="['config-item']"
   >
-    <chanse-tool-bar
+    <chance-tool-bar
       :chances="item.chances"
     />
     <input-range
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import InputRange from '@/components/InputRange.vue'
-import ChanseToolBar from '@/components/ChanseToolBar.vue'
+import ChanceToolBar from '@/components/ChanceToolBar.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { Gift } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'ConfigItem',
   components: {
     InputRange,
-    ChanseToolBar,
+    ChanceToolBar,
   },
   props: {
     item: {
