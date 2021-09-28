@@ -29,7 +29,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
 
-    let input = ref(props.modelValue)
+    let input = ref(props.list.indexOf(props.modelValue))
 
     watch(input, (value) => {
       emit('update:modelValue', props.list[+value])

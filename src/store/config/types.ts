@@ -32,16 +32,18 @@ export type Getters = {
 }
 
 export enum MutationTypes {
-  ADD_GIFT_TO_LIST = 'ADD_GIFT_TO_LIST',
-  SET_GIFT_LIST = 'SET_GIFT_LIST',
   SET_CONFIG = 'SET_CONFIG',
-  CHANGE_GIFT_TYPE = 'CHANGE_GIFT_TYPE',
-  CHANGE_CHANCE = 'CHANGE_CHANCE',
+  CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
 }
 
 export type Mutations<S = State> = {
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
+
+  [MutationTypes.CHANGE_ITEM_COST](state: S, payload: {
+    item: Gift,
+    bits: number
+  }): string
 
 }
 

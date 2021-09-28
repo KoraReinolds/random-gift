@@ -13,6 +13,8 @@ const mutations: MutationTree<State> & Mutations = {
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
 
+  CHANGE_ITEM_COST: (state, { item, bits }) => item.bits = `${bits}`
+
 }
 
 const config: Module<State, IRootState>  = {

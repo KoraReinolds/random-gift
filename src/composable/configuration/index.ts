@@ -57,7 +57,6 @@ const useConfiguration: UseConfiguration = () => {
     twitch ? getConfigFromHelper() : getConfigFromBackend()
   }
   
-
   return {
     config,
     saveConfig,
