@@ -10,7 +10,7 @@
 import {
   defineComponent,
   ref,
-  onMounted
+  onMounted,
 } from 'vue'
 import * as THREE from 'three'
 

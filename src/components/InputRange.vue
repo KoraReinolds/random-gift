@@ -3,6 +3,9 @@
     class="input-range"
     v-if="list.length"
   >
+    <fragment-shader
+      class="shader-range"
+    />
     <input
       type='range'
       min='0'
@@ -14,9 +17,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
+import FragmentShader from '@/components/FragmentShader.vue'
 
 export default defineComponent({
   name: 'InputRange',
+  components: {
+    FragmentShader,
+  },
   props: {
     list: {
       type: Array,
@@ -45,34 +52,21 @@ export default defineComponent({
 
 <style scoped lang="scss">
 
-$track-color: #b5c1c9 !default;
-$thumb-color: #607d8b !default;
+$track-color: transparent !default;
+$thumb-color: var(--font-color) !default;
 
 $thumb-radius: 12px !default;
 $thumb-height: 16px !default;
 $thumb-width: 16px !default;
-$thumb-shadow-size: 4px !default;
-$thumb-shadow-blur: 4px !default;
-$thumb-shadow-color: rgba(0, 0, 0, .0) !default;
 $thumb-border-width: 2px !default;
 $thumb-border-color: transparent !default;
 
 $track-width: 100% !default;
-$track-height: 8px !default;
-$track-shadow-size: 1px !default;
-$track-shadow-blur: 1px !default;
-$track-shadow-color: rgba(0, 0, 0, .0) !default;
+$track-height: 12px !default;
 $track-border-width: 2px !default;
 $track-border-color: transparent !default;
 
 $track-radius: 5px !default;
-$contrast: 5% !default;
-
-$ie-bottom-track-color: darken($track-color, $contrast) !default;
-
-@mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
-  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
-}
 
 @mixin track {
   cursor: default;
@@ -82,7 +76,6 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
 }
 
 @mixin thumb {
-  @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
   background: $thumb-color;
   border: $thumb-border-width solid $thumb-border-color;
   border-radius: $thumb-radius;
@@ -95,8 +88,10 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
 [type='range'] {
   -webkit-appearance: none;
   background: transparent;
-  margin: $thumb-height / 2 0;
+  margin: 0;
   width: $track-width;
+  position: absolute;
+  left: 0;
 
   &::-moz-focus-outer {
     border: 0;
@@ -106,7 +101,7 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
     outline: 0;
 
     &::-webkit-slider-runnable-track {
-      background: lighten($track-color, $contrast);
+      background: $track-color;
     }
 
     &::-ms-fill-lower {
@@ -114,13 +109,12 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
     }
 
     &::-ms-fill-upper {
-      background: lighten($track-color, $contrast);
+      background: $track-color;
     }
   }
 
   &::-webkit-slider-runnable-track {
     @include track;
-    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
     background: $track-color;
     border: $track-border-width solid $track-border-color;
     border-radius: $track-radius;
@@ -133,7 +127,6 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
   }
 
   &::-moz-range-track {
-    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
     @include track;
     background: $track-color;
     border: $track-border-width solid $track-border-color;
@@ -154,14 +147,12 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
   }
 
   &::-ms-fill-lower {
-    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
-    background: $ie-bottom-track-color;
+    background: $track-color;
     border: $track-border-width solid $track-border-color;
     border-radius: ($track-radius * 2);
   }
 
   &::-ms-fill-upper {
-    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
     background: $track-color;
     border: $track-border-width solid $track-border-color;
     border-radius: ($track-radius * 2);
@@ -182,6 +173,19 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
       cursor: not-allowed;
     }
   }
+}
+
+.input-range {
+  position: relative;
+  margin: $track-height 0;
+  height: $track-height;
+
+  .shader-range {
+    position: absolute;
+    width: 100%;
+    height: $track-height;
+  }
+
 }
 
 </style>
