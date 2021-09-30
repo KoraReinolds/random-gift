@@ -18,10 +18,18 @@ import * as THREE from 'three'
 export default defineComponent({
   name: 'FragmentShader',
   props: {
+    color: {
+      type: String,
+      default: 'epic',
+    }
   },
-  setup() {
+  setup(props) {
 
     const widget = ref(document.createElement('div'))
+    const style = getComputedStyle(document.body)
+    const color = style.getPropertyValue(`--${props.color}-color`) || `rgb(154, 154, 170)`
+    const [r, g, b] = color.slice(5, color.length - 1).split(', ')
+    const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
 
     onMounted(() => {
       initScene()
@@ -32,9 +40,6 @@ export default defineComponent({
       const vertexShader = `
         void main() {
           gl_Position = vec4( position, 1.0 );
-
-          // vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-          // gl_Position = projectionMatrix * mvPosition;
         }`
       const fragmentShader = `
         #ifdef GL_ES
@@ -44,6 +49,7 @@ export default defineComponent({
         uniform vec2 u_resolution;
         uniform vec2 u_mouse;
         uniform float u_time;
+        uniform vec3 u_mix_color;
 
         float random (in vec2 _st) {
           return fract(sin(dot(_st.xy, vec2(12.9898,78.233)))*43758.5453123);
@@ -80,8 +86,8 @@ export default defineComponent({
         }
 
         void main() {
-          vec2 st = gl_FragCoord.xy/u_resolution.xy*3.;
-          // st += st * abs(sin(u_time*0.1)*3.0);
+          vec2 st = gl_FragCoord.xy/u_resolution.xy;
+          st += st * abs(5.0);
           vec3 color = vec3(0.0);
 
           vec2 q = vec2(0.);
@@ -99,11 +105,11 @@ export default defineComponent({
                       clamp((f*f)*4.0,0.0,1.0));
 
           color = mix(color,
-                      vec3(0,0,0.164706),
+                      u_mix_color,
                       clamp(length(q),0.0,1.0));
 
           color = mix(color,
-                      vec3(0.666667,1,1),
+                      u_mix_color,
                       clamp(length(r.x),0.0,1.0));
 
           gl_FragColor = vec4((f*f*f+.6*f*f+.5*f)*color,1.);
@@ -120,7 +126,8 @@ export default defineComponent({
       const material = new THREE.ShaderMaterial( {
 
         uniforms: {
-
+          
+          u_mix_color: { value: vectorColor },
           u_time: { value: 1.0 },
           u_resolution: { value: new THREE.Vector2(200, 200) },
           u_mouse: { value: { x: null, y: null } },

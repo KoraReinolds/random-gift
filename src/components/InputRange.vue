@@ -5,6 +5,7 @@
   >
     <fragment-shader
       class="shader-range"
+      :color="color"
     />
     <input
       type='range'
@@ -33,6 +34,10 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    color: {
+      type: String,
+      default: 'epic',
+    }
   },
   setup(props, { emit }) {
 
@@ -53,7 +58,7 @@ export default defineComponent({
 <style scoped lang="scss">
 
 $track-color: transparent !default;
-$thumb-color: var(--font-color) !default;
+$thumb-color: #fff !default;
 
 $thumb-radius: 12px !default;
 $thumb-height: 16px !default;
@@ -62,7 +67,7 @@ $thumb-border-width: 2px !default;
 $thumb-border-color: transparent !default;
 
 $track-width: 100% !default;
-$track-height: 12px !default;
+$track-height: 24px !default;
 $track-border-width: 2px !default;
 $track-border-color: transparent !default;
 

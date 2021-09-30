@@ -126,9 +126,7 @@ export default defineComponent({
 
 <style lang="scss">
 
-
-.light,
-.dark {
+:root {
   --main-color: #677DB7;
   --main-color-light: #9CA3DB;
   --main-color-dark: #454B66;

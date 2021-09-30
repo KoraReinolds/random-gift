@@ -6,6 +6,12 @@
       :chances="item.chances"
     />
     <input-range
+      v-for="(value, type) in item.chances"
+      :key="type"
+      :list="bitsCost"
+      :color="type"
+    />
+    <input-range
       :list="bitsCost"
       v-model="bitsValue"
     />
