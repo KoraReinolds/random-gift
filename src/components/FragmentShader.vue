@@ -50,6 +50,7 @@ export default defineComponent({
         uniform vec2 u_mouse;
         uniform float u_time;
         uniform vec3 u_mix_color;
+        uniform float u_rotate;
 
         float random (in vec2 _st) {
           return fract(sin(dot(_st.xy, vec2(12.9898,78.233)))*43758.5453123);
@@ -71,12 +72,12 @@ export default defineComponent({
         }
 
         float fbm ( in vec2 _st) {
-          float v = 0.0;
-          float a = 0.5;
+          float v = 0.1;
+          float a = 0.55;
           vec2 shift = vec2(100.0);
           // Rotate to reduce axial bias
-          mat2 rot = mat2(cos(0.5), sin(0.5),
-                          -sin(0.5), cos(0.50));
+          mat2 rot = mat2(cos(u_rotate), sin(u_rotate),
+                          -sin(u_rotate), cos(u_rotate));
           for (int i = 0; i < 5; ++i) {
               v += a * noise(_st);
               _st = rot * _st * 2.0 + shift;
@@ -131,6 +132,7 @@ export default defineComponent({
           u_time: { value: 1.0 },
           u_resolution: { value: new THREE.Vector2(200, 200) },
           u_mouse: { value: { x: null, y: null } },
+          u_rotate: { value:  Math.random() },
 
         },
 
