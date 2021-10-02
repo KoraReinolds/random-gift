@@ -19,7 +19,6 @@ export type Getters = {
 
 export enum MutationTypes {
   SET_PRODUCTS = 'SET_PRODUCTS',
-  CHANGE_PRODUCT_BITS = 'CHANGE_PRODUCT_BITS',
 }
 
 export type Mutations<S = State> = {

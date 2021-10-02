@@ -8,8 +8,14 @@
     <input-range
       v-for="(value, type) in item.chances"
       :key="type"
-      :list="bitsCost"
+      :list="[...Array(100).keys()]"
       :color="type"
+      :modelValue="value"
+      @update:modelValue="recalculateChances({
+        chances: item.chances,
+        type,
+        value: $event,
+      })"
     />
     <input-range
       :list="bitsCost"
@@ -23,7 +29,7 @@
 import InputRange from '@/components/InputRange.vue'
 import ChanceToolBar from '@/components/ChanceToolBar.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
-import { Gift } from '@/store/config/types'
+import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
 import { useStore } from 'vuex'
 
@@ -44,6 +50,9 @@ export default defineComponent({
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(+props.item.bits)
+    const recalculateChances = (params: ChangeChances) => {
+      store.commit('config/CHANGE_ITEM_CHANCES', params)
+    }
 
     watch(bitsValue, (value) => {
       store.commit('config/CHANGE_ITEM_COST', {
@@ -55,6 +64,7 @@ export default defineComponent({
     return {
       bitsCost,
       bitsValue,
+      recalculateChances,
     }
   }
 });
