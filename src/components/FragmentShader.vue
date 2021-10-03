@@ -12,6 +12,7 @@ import {
   defineComponent,
   ref,
   onMounted,
+  watch,
 } from 'vue'
 import * as THREE from 'three'
 
@@ -21,6 +22,10 @@ export default defineComponent({
     color: {
       type: String,
       default: 'epic',
+    },
+    value: {
+      type: Number,
+      default: 0,
     }
   },
   setup(props) {
@@ -30,6 +35,11 @@ export default defineComponent({
     const color = style.getPropertyValue(`--${props.color}-color`) || `rgb(154, 154, 170)`
     const [r, g, b] = color.slice(5, color.length - 1).split(', ')
     const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
+    let material: THREE.ShaderMaterial;
+
+    watch(() => props.value, (value) => { 
+      material.uniforms.u_current_value.value = value
+    })
 
     onMounted(() => {
       initScene()
@@ -51,6 +61,8 @@ export default defineComponent({
         uniform float u_time;
         uniform vec3 u_mix_color;
         uniform float u_rotate;
+        uniform float u_max_width;
+        uniform float u_current_value;
 
         float random (in vec2 _st) {
           return fract(sin(dot(_st.xy, vec2(12.9898,78.233)))*43758.5453123);
@@ -90,6 +102,7 @@ export default defineComponent({
           vec2 st = gl_FragCoord.xy/u_resolution.xy;
           st += st * abs(5.0);
           vec3 color = vec3(0.0);
+          vec4 opacity_color = vec4(0.0);
 
           vec2 q = vec2(0.);
           q.x = fbm( st + 0.00*u_time);
@@ -101,19 +114,27 @@ export default defineComponent({
 
           float f = fbm(st+r);
 
-          color = mix(vec3(0.101961,0.619608,0.666667),
-                      vec3(0.666667,0.666667,0.498039),
-                      clamp((f*f)*4.0,0.0,1.0));
 
-          color = mix(color,
-                      u_mix_color,
-                      clamp(length(q),0.0,1.0));
+          if (gl_FragCoord.x/u_max_width > u_current_value/100.0) {
+            opacity_color = vec4(0.0, 0.0, 0.0, 0.1);
+          } else {
+            color = mix(vec3(0.101961,0.619608,0.666667),
+                        vec3(0.666667,0.666667,0.498039),
+                        clamp((f*f)*4.0,0.0,1.0));
+  
+            color = mix(color,
+                        u_mix_color,
+                        clamp(length(q),0.0,1.0));
+  
+            color = mix(color,
+                        u_mix_color,
+                        clamp(length(r.x),0.0,1.0));
 
-          color = mix(color,
-                      u_mix_color,
-                      clamp(length(r.x),0.0,1.0));
+            opacity_color = vec4((f*f*f+.6*f*f+.5*f)*color, 1.);
 
-          gl_FragColor = vec4((f*f*f+.6*f*f+.5*f)*color,1.);
+          }
+
+          gl_FragColor = opacity_color;
         }`
 			const scene = new THREE.Scene()
 			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
@@ -124,7 +145,7 @@ export default defineComponent({
 			renderer.setSize( width, height )
 			widget.value.appendChild( renderer.domElement )
 			const geometry = new THREE.PlaneGeometry(2, 2)
-      const material = new THREE.ShaderMaterial( {
+      material = new THREE.ShaderMaterial( {
 
         uniforms: {
           
@@ -132,7 +153,9 @@ export default defineComponent({
           u_time: { value: 1.0 },
           u_resolution: { value: new THREE.Vector2(200, 200) },
           u_mouse: { value: { x: null, y: null } },
-          u_rotate: { value:  Math.random() },
+          u_rotate: { value: Math.random() },
+          u_max_width: { value: width },
+          u_current_value: { value: props.value },
 
         },
 
