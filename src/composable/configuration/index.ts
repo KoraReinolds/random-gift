@@ -12,18 +12,6 @@ const useConfiguration: UseConfiguration = () => {
   const { twitch } = useTwitch()
   const store = useStore()
   const config = computed(() => store.state.config.config)
-  const getConfigFromBackend = () => {
-    axiosBackend.get('/configuration').then(
-      res => {
-        const config: Configuration = res.data
-        const key = Object.keys(config)[0]
-        store.commit(
-          'config/SET_CONFIG',
-          config[key]?.record.content
-        )
-      }
-    )
-  }
   const defaultConfig = {
     content: JSON.stringify({
       giftList: [{
@@ -38,6 +26,21 @@ const useConfiguration: UseConfiguration = () => {
         }
       }]
     })
+  }
+  const getConfigFromBackend = () => {
+    axiosBackend.get('/configuration').then(
+      res => {
+        const config: Configuration = res.data
+        const key = Object.keys(config)[0]
+        store.commit(
+          'config/SET_CONFIG',
+          config[key]?.record.content
+        )
+      }
+    ).catch(
+      () => store.commit('config/SET_CONFIG', defaultConfig?.content)
+    )
+      
   }
   const getConfigFromHelper = () => {
     const config = twitch?.configuration.broadcaster || defaultConfig

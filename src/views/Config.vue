@@ -27,7 +27,6 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import ConfigItem from '@/components/ConfigItem.vue'
-import { useProducts } from '@/composable/products'
 import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
@@ -37,7 +36,6 @@ export default defineComponent({
   },
   setup() {
     
-    const { products, bitsCost } = useProducts()
     const { config, saveConfig } = useConfiguration()
 
     const store = useStore()
@@ -50,8 +48,6 @@ export default defineComponent({
     }
 
     return {
-      bitsCost,
-      products,
       pushNewGift,
       saveConfig,
       config,
