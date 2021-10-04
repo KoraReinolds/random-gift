@@ -6,7 +6,7 @@
     <fragment-shader
       class="shader-range"
       :color="color"
-      :value="+input"
+      :value="+modelValue"
     />
     <input
       type='range'
