@@ -59,7 +59,7 @@ export default defineComponent({
 <style scoped lang="scss">
 
 $track-color: transparent !default;
-$thumb-color: #fff !default;
+$thumb-color: transparent !default;
 
 $thumb-radius: 12px !default;
 $thumb-height: 16px !default;
