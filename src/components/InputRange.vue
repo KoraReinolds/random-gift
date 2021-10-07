@@ -6,7 +6,7 @@
     <fragment-shader
       class="shader-range"
       :color="color"
-      :value="+modelValue"
+      :value="list.indexOf(modelValue)/(list.length - 1)"
     />
     <input
       type='range'
@@ -79,6 +79,7 @@ $track-radius: 5px !default;
   height: $track-height;
   transition: all .2s ease;
   width: $track-width;
+  cursor: pointer;
 }
 
 @mixin thumb {
@@ -89,6 +90,7 @@ $track-radius: 5px !default;
   cursor: default;
   height: $thumb-height;
   width: $thumb-width;
+  cursor: pointer;
 }
 
 [type='range'] {

@@ -115,7 +115,7 @@ export default defineComponent({
           float f = fbm(st+r);
 
 
-          if (gl_FragCoord.x/u_max_width > u_current_value/100.0) {
+          if (gl_FragCoord.x/u_max_width > u_current_value) {
             opacity_color = vec4(0.0, 0.0, 0.0, 0.1);
           } else {
             color = mix(vec3(0.101961,0.619608,0.666667),
