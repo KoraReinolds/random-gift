@@ -3,11 +3,6 @@
     class="input-range"
     v-if="list.length"
   >
-    <span
-      class="value"
-    >
-      {{ modelValue }}
-    </span>
     <div
       class="scale-box"
     >
@@ -51,14 +46,14 @@ export default defineComponent({
   },
   setup(props, { emit }) {
 
-    let input = ref(props.list.indexOf(props.modelValue))
+    const input = ref(props.list.indexOf(props.modelValue))
 
     watch(input, (value) => {
       emit('update:modelValue', props.list[+value])
     })
 
     return {
-      input
+      input,
     }
 
   }
