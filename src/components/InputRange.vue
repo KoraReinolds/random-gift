@@ -3,17 +3,26 @@
     class="input-range"
     v-if="list.length"
   >
-    <fragment-shader
-      class="shader-range"
-      :color="color"
-      :value="list.indexOf(modelValue)/(list.length - 1)"
-    />
-    <input
-      type='range'
-      min='0'
-      :max="list.length - 1"
-      v-model="input"
+    <span
+      class="value"
     >
+      {{ modelValue }}
+    </span>
+    <div
+      class="scale-box"
+    >
+      <fragment-shader
+        class="shader-range"
+        :color="color"
+        :value="list.indexOf(modelValue)/(list.length - 1)"
+      />
+      <input
+        type='range'
+        min='0'
+        :max="list.length - 1"
+        v-model="input"
+      >
+    </div>
   </div>
 </template>
 
@@ -67,7 +76,7 @@ $thumb-width: 16px !default;
 $thumb-border-width: 2px !default;
 $thumb-border-color: transparent !default;
 
-$track-width: 100% !default;
+$track-width: 200px !default;
 $track-height: 24px !default;
 $track-border-width: 2px !default;
 $track-border-color: transparent !default;
@@ -99,6 +108,7 @@ $track-radius: 5px !default;
   margin: 0;
   width: $track-width;
   position: absolute;
+  top: 0;
   left: 0;
 
   &::-moz-focus-outer {
@@ -184,16 +194,27 @@ $track-radius: 5px !default;
 }
 
 .input-range {
-  position: relative;
+  display: flex;
+  justify-content: center;
   margin: $track-height 0;
-  height: $track-height;
 
-  .shader-range {
-    position: absolute;
-    width: 100%;
-    height: $track-height;
+  .value {
+    text-align: right;
+    width: 30px;
+    margin-right: 10px;
   }
 
+  .scale-box {
+    position: relative;
+    height: $track-height;
+    width: $track-width;
+
+    .shader-range {
+      position: absolute;
+      width: $track-width;
+      height: $track-height;
+    }
+  }
 }
 
 </style>
