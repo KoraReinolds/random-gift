@@ -46,7 +46,7 @@ const getters: GetterTree<State, IRootState> & Getters = {
   products: ({ products }) => products,
 
   bitsCost: ({ products }) => products?.map(
-    product => product.cost.amount
+    product => `${product.cost.amount}`
   ).sort() || []
 
 }

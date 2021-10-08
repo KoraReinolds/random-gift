@@ -20,10 +20,10 @@
       "id": "1",
       "isPopout": false,
       "label": "",
-      "linked": false,
-      "linkedUserId": "",
+      "linked": true,
+      "linkedUserId": "265737932",
       "orientation": "Portrait",
-      "type": "panel",
+      "type": "config",
       "viewerType": "Broadcaster"
     },
     {
@@ -40,7 +40,7 @@
         "height": 720
       },
       "id": "2",
-      "isPopout": true,
+      "isPopout": false,
       "label": "",
       "linked": false,
       "linkedUserId": "",

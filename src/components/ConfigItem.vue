@@ -5,9 +5,9 @@
     <input-range
       v-for="(value, type) in item.chances"
       :key="type"
-      :list="[...Array(100).keys()]"
+      :list="[...Array(100).keys()].map(n => `${n}`)"
       :color="type"
-      :modelValue="value"
+      :modelValue="`${value}`"
       @update:modelValue="recalculateChances({
         chances: item.chances,
         type,
@@ -44,7 +44,7 @@ export default defineComponent({
 
     const { bitsCost } = useProducts()
     const store = useStore()
-    const bitsValue = ref(+props.item.bits)
+    const bitsValue = ref(props.item.bits)
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
     }

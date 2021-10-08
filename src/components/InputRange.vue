@@ -36,7 +36,7 @@ export default defineComponent({
       default: () => [],
     },
     modelValue: {
-      type: Number,
+      type: String,
       required: true,
     },
     color: {
@@ -49,7 +49,7 @@ export default defineComponent({
     const input = ref(props.list.indexOf(props.modelValue))
 
     watch(input, (value) => {
-      emit('update:modelValue', props.list[+value])
+      emit('update:modelValue', `${props.list[+value]}`)
     })
 
     return {
