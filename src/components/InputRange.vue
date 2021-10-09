@@ -3,6 +3,11 @@
     class="input-range"
     v-if="list.length"
   >
+    <base-input
+      class="value"
+      :value="modelValue"
+      @update:modelValue="updateValue"
+    />
     <div
       class="scale-box"
     >
@@ -15,7 +20,7 @@
         type='range'
         min='0'
         :max="list.length - 1"
-        v-model="input"
+        v-model="listIndex"
       >
     </div>
   </div>
@@ -24,11 +29,13 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import FragmentShader from '@/components/FragmentShader.vue'
+import BaseInput from '@/components/BaseInput.vue'
 
 export default defineComponent({
   name: 'InputRange',
   components: {
     FragmentShader,
+    BaseInput,
   },
   props: {
     list: {
@@ -46,14 +53,16 @@ export default defineComponent({
   },
   setup(props, { emit }) {
 
-    const input = ref(props.list.indexOf(props.modelValue))
+    const listIndex = ref(props.list.indexOf(props.modelValue))
+    const updateValue = (index: number) => {
+      emit('update:modelValue', `${props.list[index]}`)
+    }
 
-    watch(input, (value) => {
-      emit('update:modelValue', `${props.list[+value]}`)
-    })
+    watch(listIndex, updateValue)
 
     return {
-      input,
+      listIndex,
+      updateValue,
     }
 
   }
