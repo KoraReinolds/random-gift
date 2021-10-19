@@ -8,6 +8,7 @@
       :list="[...Array(100).keys()].map(n => `${n}`)"
       :color="type"
       :modelValue="`${value}`"
+      :disabled="type === 'none'"
       @update:modelValue="recalculateChances({
         chances: item.chances,
         type,

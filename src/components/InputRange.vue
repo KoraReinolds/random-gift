@@ -1,12 +1,16 @@
 <template>
   <div
-    class="input-range"
+    :class="[
+      'input-range',
+      { disabled },
+    ]"
     v-if="list.length"
   >
     <base-input
       class="value"
       :value="modelValue"
       @update:modelValue="updateValue"
+      :disabled="disabled"
     />
     <div
       class="scale-box"
@@ -21,6 +25,7 @@
         min='0'
         :max="list.length - 1"
         v-model="listIndex"
+        :disabled="disabled"
       >
     </div>
   </div>
@@ -49,7 +54,11 @@ export default defineComponent({
     color: {
       type: String,
       default: 'epic',
-    }
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { emit }) {
 
@@ -88,11 +97,9 @@ $track-border-color: transparent !default;
 $track-radius: 5px !default;
 
 @mixin track {
-  cursor: default;
   height: $track-height;
   transition: all .2s ease;
   width: $track-width;
-  cursor: pointer;
 }
 
 @mixin thumb {
@@ -100,10 +107,8 @@ $track-radius: 5px !default;
   border: $thumb-border-width solid $thumb-border-color;
   border-radius: $thumb-radius;
   box-sizing: border-box;
-  cursor: default;
   height: $thumb-height;
   width: $thumb-width;
-  cursor: pointer;
 }
 
 [type='range'] {
@@ -114,6 +119,11 @@ $track-radius: 5px !default;
   position: absolute;
   top: 0;
   left: 0;
+  cursor: pointer;
+
+  .disabled & {
+    cursor: default;
+  }
 
   &::-moz-focus-outer {
     border: 0;

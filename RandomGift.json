@@ -1,7 +1,7 @@
 {
   "allowHttpBackend": false,
   "backendCommand": "",
-  "backendFolderName": "",
+  "backendFolderName": "server",
   "certificateExceptions": [],
   "extensionViews": [
     {
@@ -55,7 +55,7 @@
     "authorName": "",
     "bitsEnabled": true,
     "canInstall": true,
-    "configUrl": "http://127.0.0.1:8082/config",
+    "configUrl": "http://127.0.0.1:8083/config",
     "configurationLocation": "hosted",
     "description": "",
     "eulaTosUrl": "",
@@ -79,28 +79,28 @@
     "vendorCode": "",
     "version": "0.0.1",
     "viewerSummary": "",
-    "viewerUrl": "http://127.0.0.1:8082/panel",
+    "viewerUrl": "http://127.0.0.1:8083/panel",
     "viewerUrls": {
-      "mobile": "http://127.0.0.1:8082/mobile",
-      "panel": "http://127.0.0.1:8082/panel",
-      "videoOverlay": "http://127.0.0.1:8082/video_overlay",
-      "component": "http://127.0.0.1:8082/video_component"
+      "mobile": "http://127.0.0.1:8083/mobile",
+      "panel": "http://127.0.0.1:8083/panel",
+      "videoOverlay": "http://127.0.0.1:8083/video_overlay",
+      "component": "http://127.0.0.1:8083/video_component"
     },
     "views": {
       "mobile": {
-        "viewerUrl": "http://127.0.0.1:8082/mobile"
+        "viewerUrl": "http://127.0.0.1:8083/mobile"
       },
       "panel": {
-        "viewerUrl": "http://127.0.0.1:8082/panel",
+        "viewerUrl": "http://127.0.0.1:8083/panel",
         "height": 500,
         "canLinkExternalContent": false
       },
       "videoOverlay": {
-        "viewerUrl": "http://127.0.0.1:8082/video_overlay",
+        "viewerUrl": "http://127.0.0.1:8083/video_overlay",
         "canLinkExternalContent": false
       },
       "component": {
-        "viewerUrl": "http://127.0.0.1:8082/video_component",
+        "viewerUrl": "http://127.0.0.1:8083/video_component",
         "aspectWidth": 0,
         "aspectHeight": 0,
         "aspectRatioX": 300,
@@ -114,7 +114,7 @@
         "autoScale": true
       },
       "config": {
-        "viewerUrl": "http://127.0.0.1:8082/config",
+        "viewerUrl": "http://127.0.0.1:8083/config",
         "canLinkExternalContent": false
       }
     },
