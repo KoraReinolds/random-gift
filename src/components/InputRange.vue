@@ -6,12 +6,6 @@
     ]"
     v-if="list.length"
   >
-    <base-input
-      class="value"
-      :value="modelValue"
-      @update:modelValue="updateValue"
-      :disabled="disabled"
-    />
     <div
       class="scale-box"
     >
@@ -28,6 +22,29 @@
         :disabled="disabled"
       >
     </div>
+    <span
+      :class="['arrow prev', {
+        disabled,
+      }]"
+      @click="updateValue(+modelValue - 1)"
+    >
+      -
+    </span>
+    <base-input
+      type="number"
+      class="value"
+      :value="modelValue"
+      @update:modelValue="updateValue"
+      :disabled="disabled"
+    />
+    <span
+      :class="['arrow next', {
+        disabled,
+      }]"
+      @click="updateValue(+modelValue + 1)"
+    >
+      +
+    </span>
   </div>
 </template>
 
@@ -64,6 +81,7 @@ export default defineComponent({
 
     const listIndex = ref(props.list.indexOf(props.modelValue))
     const updateValue = (index: number) => {
+      console.log(props.list[index], index, props.list)
       emit('update:modelValue', `${props.list[index]}`)
     }
 
@@ -211,11 +229,30 @@ $track-radius: 5px !default;
   display: flex;
   justify-content: center;
   margin: $track-height 0;
+  width: 333px;
+
+  .arrow {
+    width: $track-height;
+    margin: 0 10px;
+    &.disabled {
+      visibility: hidden;
+    }
+  }
 
   .value {
-    text-align: right;
+    text-align: center;
     width: 30px;
     margin-right: 10px;
+    height: $track-height;
+    background: rgb(236, 236, 236);
+    border-radius: 10px;
+    font-size: 12px;
+    border: 1px solid rgb(175, 175, 175);
+
+    &:disabled {
+      border: 0px;
+      color: rgb(175, 175, 175);
+    }
   }
 
   .scale-box {

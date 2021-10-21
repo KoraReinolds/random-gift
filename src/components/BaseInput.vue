@@ -27,28 +27,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  $font-size: var(--font-size);
-  textarea,
-  input {
-    width: 100%;
-    height: 100%;
-    font-size: $font-size;
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--input-background);
-    padding:
-      calc(var(--input-padding) + var(--input-top-offset))
-      calc(var(--input-rounded-left-offset) + var(--input-padding))
-      calc(var(--input-padding) - var(--input-top-offset));
-    resize: none;
-    border: none;
-    color: var(--font-color);
-    line-height: var(--line-height);
-    border-radius: inherit;
-    &:focus {
-      outline: none;
-    }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+textarea,
+input {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  border-radius: inherit;
+  &:focus {
+    outline: none;
   }
-  textarea {
-    margin-bottom: -4px;
-  }
+}
+textarea {
+  margin-bottom: -4px;
+}
 </style>
