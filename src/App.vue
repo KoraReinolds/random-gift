@@ -30,7 +30,7 @@
         config
       </router-link>
       <router-link
-        :to="{ name: 'Widget' }"
+        :to="{ name: 'Widget', query: { id: '536747276' } }"
       >
         widget
       </router-link>

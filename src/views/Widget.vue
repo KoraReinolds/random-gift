@@ -16,15 +16,33 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js'
+import { io } from 'socket.io-client'
+import { useRoute } from 'vue-router'
+
 
 export default defineComponent({
   name: 'Widget',
+  props: {
+    id: {
+      type: String,
+    }
+  },
   setup() {
+
+    const route = useRoute()
+    const channelId = route.query.id
+
+    if (channelId && typeof channelId === 'string') {
+      const socket = io(process.env.VUE_APP_BACKEND_URI)
+      socket.on(channelId, (msg) => {
+        console.log(msg)
+      })
+    }
 
     const widget = ref(document.createElement('div'))
 
     onMounted(() => {
-      initScene()
+      // initScene()
     })
 
     const initScene = () => {
@@ -104,8 +122,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.widget {
-  canvas {
-  }
-}
 </style>

@@ -3,59 +3,14 @@
   "backendCommand": "",
   "backendFolderName": "server",
   "certificateExceptions": [],
-  "extensionViews": [
-    {
-      "channelId": "536747276",
-      "configurationAnchor": "panel",
-      "displayChannelName": "korareinolds",
-      "features": {
-        "isBitsEnabled": true,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "1",
-      "isPopout": false,
-      "label": "",
-      "linked": true,
-      "linkedUserId": "265737932",
-      "orientation": "Portrait",
-      "type": "config",
-      "viewerType": "Broadcaster"
-    },
-    {
-      "channelId": "536747276",
-      "configurationAnchor": "panel",
-      "displayChannelName": "korareinolds",
-      "features": {
-        "isBitsEnabled": true,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "2",
-      "isPopout": false,
-      "label": "",
-      "linked": false,
-      "linkedUserId": "",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Broadcaster"
-    }
-  ],
+  "extensionViews": [],
   "manifest": {
     "anchor": "panel",
     "assetUrls": [],
     "authorName": "",
     "bitsEnabled": true,
     "canInstall": true,
-    "configUrl": "http://127.0.0.1:8083/config",
+    "configUrl": "http://127.0.0.1:8082/config",
     "configurationLocation": "hosted",
     "description": "",
     "eulaTosUrl": "",
@@ -79,28 +34,28 @@
     "vendorCode": "",
     "version": "0.0.1",
     "viewerSummary": "",
-    "viewerUrl": "http://127.0.0.1:8083/panel",
+    "viewerUrl": "http://127.0.0.1:8082/panel",
     "viewerUrls": {
-      "mobile": "http://127.0.0.1:8083/mobile",
-      "panel": "http://127.0.0.1:8083/panel",
-      "videoOverlay": "http://127.0.0.1:8083/video_overlay",
-      "component": "http://127.0.0.1:8083/video_component"
+      "mobile": "http://127.0.0.1:8082/mobile",
+      "panel": "http://127.0.0.1:8082/panel",
+      "videoOverlay": "http://127.0.0.1:8082/video_overlay",
+      "component": "http://127.0.0.1:8082/video_component"
     },
     "views": {
       "mobile": {
-        "viewerUrl": "http://127.0.0.1:8083/mobile"
+        "viewerUrl": "http://127.0.0.1:8082/mobile"
       },
       "panel": {
-        "viewerUrl": "http://127.0.0.1:8083/panel",
+        "viewerUrl": "http://127.0.0.1:8082/panel",
         "height": 500,
         "canLinkExternalContent": false
       },
       "videoOverlay": {
-        "viewerUrl": "http://127.0.0.1:8083/video_overlay",
+        "viewerUrl": "http://127.0.0.1:8082/video_overlay",
         "canLinkExternalContent": false
       },
       "component": {
-        "viewerUrl": "http://127.0.0.1:8083/video_component",
+        "viewerUrl": "http://127.0.0.1:8082/video_component",
         "aspectWidth": 0,
         "aspectHeight": 0,
         "aspectRatioX": 300,
@@ -114,7 +69,7 @@
         "autoScale": true
       },
       "config": {
-        "viewerUrl": "http://127.0.0.1:8083/config",
+        "viewerUrl": "http://127.0.0.1:8082/config",
         "canLinkExternalContent": false
       }
     },

@@ -4,7 +4,7 @@ import { logOut } from '@/composable/auth'
 const axiosBackend = axios.create({
   baseURL: process.env.VUE_APP_BACKEND_URI,
   headers: {
-    'Content-Type': 'application/json',
+  'Content-Type': 'application/json',
     'Client-Id': process.env.VUE_APP_CLIENT_ID,
   }
 });
