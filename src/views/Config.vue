@@ -59,8 +59,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   h1 {
     color: var(--font-color);
+  }
+  .item {
   }
 }
 </style>

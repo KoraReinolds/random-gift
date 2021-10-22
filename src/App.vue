@@ -53,6 +53,60 @@
       v-else
     />
   </div>
+  <div :class="['dark', 'app']" @click="loading = false">
+    <div
+      id="nav"
+      v-if="!$route.meta.hideNavigation"
+    >
+      <a
+        :href="linkImplict"
+      >
+        LogIn implict
+      </a>
+      <a
+        :href="linkAuth"
+      >
+        LogIn authorization
+      </a>
+      <router-link
+        :to="{ name: 'Main' }"
+      >
+        main
+      </router-link>
+      <router-link
+        :to="{ name: 'Panel' }"
+      >
+        panel
+      </router-link>
+      <router-link
+        :to="{ name: 'Config' }"
+      >
+        config
+      </router-link>
+      <router-link
+        :to="{ name: 'Widget', query: { id: '536747276' } }"
+      >
+        widget
+      </router-link>
+      <a
+        @click="changeTheme"
+      >
+        Change_theme
+      </a>
+      <button
+        v-if="$store.getters['auth/token']"
+        @click="logout"
+      >
+        logout
+      </button>
+    </div>
+    <loader
+      v-if="loading"
+    />
+    <router-view
+      v-else
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -127,16 +181,11 @@ export default defineComponent({
 <style lang="scss">
 
 :root {
-  --main-color: #677DB7;
-  --main-color-light: #9CA3DB;
-  --main-color-dark: #454B66;
+  --main-color: #6441A5;
+  --main-color-light: #9271cf;
+  --main-color-dark: #3c2764;
   --secondary-color: #322A26;
 
-  // --none-color: rgb(200, 200, 222);
-  // --common-color: rgb(105, 212, 139);
-  // --rare-color: rgb(70, 131, 228);
-  // --epic-color: rgb(159, 87, 231);
-  // --legendary-color: rgb(241, 139, 88);
   --none-color: rgb(154, 154, 170);
   --common-color: rgb(93, 175, 119);
   --rare-color: rgb(57, 105, 182);
@@ -153,10 +202,19 @@ export default defineComponent({
   --background-color: rgb(24, 24, 27);
 }
 
+* {
+  color: var(--font-color);
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  color: var(--font-color);
+  box-sizing: border-box;
+}
+
 body,
 #app {
   margin: 0;
-  height: 100vh;
+  height: 50vh;
 }
 
 .app {
