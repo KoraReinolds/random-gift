@@ -31,10 +31,14 @@ export default defineComponent({
   setup(props) {
 
     const widget = ref(document.createElement('div'))
-    const style = getComputedStyle(document.body)
-    const color = style.getPropertyValue(`--${props.color}-color`) || `rgb(154, 154, 170)`
-    const [r, g, b] = color.slice(5, color.length - 1).split(', ')
-    const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
+    const theme = ref('light')
+    const getVector3ByColorName = (colorName: string) => {
+      const style = getComputedStyle(document.body)
+      const color = style.getPropertyValue(`--${colorName}-color`) || `rgb(0, 0, 0)`
+      const [r, g, b] = color.slice(5, color.length - 1).split(', ')
+      const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
+      return vectorColor
+    }
     let material: THREE.ShaderMaterial;
 
     watch(() => props.value, (value) => { 
@@ -42,6 +46,10 @@ export default defineComponent({
     })
 
     onMounted(() => {
+      // TODE: remove this ugly logic
+      theme.value = document
+        .querySelector('.app')
+        ?.contains(widget.value) ? 'light' : 'dark'
       initScene()
     })
 
@@ -60,9 +68,11 @@ export default defineComponent({
         uniform vec2 u_mouse;
         uniform float u_time;
         uniform vec3 u_mix_color;
+        uniform vec3 u_background;
         uniform float u_rotate;
         uniform float u_max_width;
         uniform float u_current_value;
+
 
         float random (in vec2 _st) {
           return fract(sin(dot(_st.xy, vec2(12.9898,78.233)))*43758.5453123);
@@ -116,7 +126,7 @@ export default defineComponent({
 
 
           if (gl_FragCoord.x/u_max_width > u_current_value) {
-            opacity_color = vec4(0.0, 0.0, 0.0, 0.1);
+            opacity_color = vec4(u_background, 1.0);
           } else {
             color = mix(vec3(0.101961,0.619608,0.666667),
                         vec3(0.666667,0.666667,0.498039),
@@ -149,9 +159,10 @@ export default defineComponent({
 
         uniforms: {
           
-          u_mix_color: { value: vectorColor },
+          u_mix_color: { value: getVector3ByColorName(props.color) },
           u_time: { value: 1.0 },
           u_resolution: { value: new THREE.Vector2(200, 200) },
+          u_background: { value: getVector3ByColorName(`${theme.value}-grey`) },
           u_mouse: { value: { x: null, y: null } },
           u_rotate: { value: Math.random() },
           u_max_width: { value: width },

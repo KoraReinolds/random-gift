@@ -191,6 +191,8 @@ export default defineComponent({
   --rare-color: rgb(57, 105, 182);
   --epic-color: rgb(122, 68, 177);
   --legendary-color: rgb(201, 116, 73);
+  --dark-grey-color: rgb(53, 53, 53);
+  --light-grey-color: rgb(224, 224, 224);
 }
 
 .light {
