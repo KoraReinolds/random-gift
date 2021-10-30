@@ -6,6 +6,13 @@
     ]"
     v-if="list.length"
   >
+    <icon
+      :class="['arrow prev', {
+        disabled,
+      }]"
+      @click="updateValue(+modelValue - 1)"
+      name="arrow"
+    />
     <div
       class="scale-box"
     >
@@ -21,43 +28,29 @@
         v-model="listIndex"
         :disabled="disabled"
       >
+      <div class="value" :style="`left: ${modelValue}%;`">
+        <span class="text" v-text="modelValue" />
+        <span class="fon" />
+      </div>
     </div>
-    <span
-      :class="['arrow prev', {
-        disabled,
-      }]"
-      @click="updateValue(+modelValue - 1)"
-    >
-      -
-    </span>
-    <base-input
-      type="number"
-      class="value"
-      :value="modelValue"
-      @update:modelValue="updateValue"
-      :disabled="disabled"
-    />
-    <span
+    <icon
       :class="['arrow next', {
         disabled,
       }]"
       @click="updateValue(+modelValue + 1)"
-    >
-      +
-    </span>
+      name="arrow"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import FragmentShader from '@/components/FragmentShader.vue'
-import BaseInput from '@/components/BaseInput.vue'
 
 export default defineComponent({
   name: 'InputRange',
   components: {
     FragmentShader,
-    BaseInput,
   },
   props: {
     list: {
@@ -81,7 +74,6 @@ export default defineComponent({
 
     const listIndex = ref(props.list.indexOf(props.modelValue))
     const updateValue = (index: number) => {
-      console.log(props.list[index], index, props.list)
       emit('update:modelValue', `${props.list[index]}`)
     }
 
@@ -138,6 +130,7 @@ $track-radius: 5px !default;
   top: 0;
   left: 0;
   cursor: pointer;
+  z-index: 2;
 
   .disabled & {
     cursor: default;
@@ -226,32 +219,51 @@ $track-radius: 5px !default;
 }
 
 .input-range {
+  position: relative;
   display: flex;
   justify-content: center;
   margin: $track-height 0;
-  width: 333px;
+
+  .next {
+    transform: rotate(-90deg);
+  }
+
+  .prev {
+    transform: rotate(90deg);
+  }
 
   .arrow {
     width: $track-height;
     margin: 0 10px;
+    color: var(--main-color);
     &.disabled {
-      visibility: hidden;
+      color: var(--disabled-color);
     }
   }
 
   .value {
-    text-align: center;
-    width: 30px;
-    margin-right: 10px;
-    height: $track-height;
-    background: rgb(236, 236, 236);
-    border-radius: 10px;
-    font-size: 12px;
-    border: 1px solid rgb(175, 175, 175);
-
-    &:disabled {
-      border: 0px;
-      color: rgb(175, 175, 175);
+    display: flex;
+    text-align:  center;
+    font-weight: 900;
+    position: absolute;
+    color: var(--font-color);
+    top: 20px;
+    transform: translateX(-50%);
+    .text {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      z-index: 1;
+      text-align: center;
+      font-size: 12px;
+      top: 5px;
+      cursor: default;
+    }
+    .fon {
+      transform: rotate(45deg);
+      width: 24px;
+      height: 24px;
+      background-color: var(--background-color);
     }
   }
 

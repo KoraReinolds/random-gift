@@ -197,19 +197,19 @@ export default defineComponent({
 
 .light {
   --font-color: #2c3e50;
-  --background-color: transparent;
+  --background-color: white;
+  --disabled-color: var(--light-grey-color);
 }
 .dark {
   --font-color: rgb(180, 180, 180);
   --background-color: rgb(24, 24, 27);
+  --disabled-color: var(--dark-grey-color);
 }
 
 * {
-  color: var(--font-color);
   box-sizing: border-box;
 }
 *, *:before, *:after {
-  color: var(--font-color);
   box-sizing: border-box;
 }
 

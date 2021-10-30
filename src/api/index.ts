@@ -21,7 +21,7 @@ const axiosHelix = axios.create({
     (response) => response,
     (error) => {
 
-      if (error.response.status === 401) logOut()
+      // if (error.response.status === 401) logOut()
     
       return Promise.reject(error)
     
