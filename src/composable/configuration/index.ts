@@ -23,6 +23,13 @@ const useConfiguration: UseConfiguration = () => {
           rare: 30,
           epic: 10,
           legendary: 1,
+        },
+        actions: {
+          none: ['none'],
+          common: ['common'],
+          rare: ['rare'],
+          epic: ['epic'],
+          legendary: ['legendary'],
         }
       }]
     })

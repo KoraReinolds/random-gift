@@ -6,13 +6,13 @@
     ]"
     v-if="list.length"
   >
-    <icon
+    <!-- <icon
       :class="['arrow prev', {
         disabled,
       }]"
       @click="updateValue(+modelValue - 1)"
       name="arrow"
-    />
+    /> -->
     <div
       class="scale-box"
     >
@@ -33,13 +33,13 @@
         <span class="fon" />
       </div>
     </div>
-    <icon
+    <!-- <icon
       :class="['arrow next', {
         disabled,
       }]"
       @click="updateValue(+modelValue + 1)"
       name="arrow"
-    />
+    /> -->
   </div>
 </template>
 
@@ -99,7 +99,7 @@ $thumb-width: 16px !default;
 $thumb-border-width: 2px !default;
 $thumb-border-color: transparent !default;
 
-$track-width: 200px !default;
+$track-width: 150px !default;
 $track-height: 24px !default;
 $track-border-width: 2px !default;
 $track-border-color: transparent !default;
@@ -124,7 +124,6 @@ $track-radius: 5px !default;
 [type='range'] {
   -webkit-appearance: none;
   background: transparent;
-  margin: 0;
   width: $track-width;
   position: absolute;
   top: 0;
@@ -222,7 +221,6 @@ $track-radius: 5px !default;
   position: relative;
   display: flex;
   justify-content: center;
-  margin: $track-height 0;
 
   .next {
     transform: rotate(-90deg);

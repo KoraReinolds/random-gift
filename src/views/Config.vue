@@ -9,7 +9,7 @@
       :key="item.sku"
       :item="item"
     />
-    {{config}}
+    <div v-text="config" />
     <button
       @click="pushNewGift"
     >
@@ -63,10 +63,9 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  h1 {
+
+  div {
     color: var(--font-color);
-  }
-  .item {
   }
 }
 </style>

@@ -2,24 +2,34 @@
   <div
     :class="['config-item']"
   >
-    <input-range
-      v-for="(value, type) in item.chances"
+    <div
+      class="row"
+      v-for="type in Object.keys(item.chances)"
       :key="type"
-      :list="[...Array(100).keys()].map(n => `${n}`)"
-      :color="type"
-      :modelValue="`${value}`"
-      :disabled="type === 'none'"
-      @update:modelValue="recalculateChances({
-        chances: item.chances,
-        type,
-        value: $event,
-      })"
-    />
+    >
+      <input-range
+        :list="[...Array(100).keys()].map(n => `${n}`)"
+        :color="type"
+        :modelValue="`${item.chances[type]}`"
+        :disabled="type === 'none'"
+        @update:modelValue="recalculateChances({
+          chances: item.chances,
+          type,
+          value: $event,
+        })"
+      />
+      <div
+        v-if="type !== 'none'"
+        class="actions"
+        :style="`color: var(--${type}-color)`"
+      >
+        {{ type }}
+      </div>
+    </div>
     <input-range
       :list="bitsCost"
       v-model="bitsValue"
     />
-    <div>Bits: {{ bitsValue }}</div>
   </div>
 </template>
 
@@ -68,5 +78,20 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .config-item {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+
+  .actions {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 24px;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+  }
 }
 </style>

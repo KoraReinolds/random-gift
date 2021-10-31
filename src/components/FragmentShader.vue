@@ -41,7 +41,7 @@ export default defineComponent({
     }
     let material: THREE.ShaderMaterial;
 
-    watch(() => props.value, (value) => { 
+    watch(() => props.value, (value) => {
       material.uniforms.u_current_value.value = value
     })
 

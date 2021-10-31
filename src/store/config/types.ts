@@ -12,10 +12,15 @@ export type ChancePercent = {
   [key in ChanceType]: number
 }
 
+export type ChanceActions = {
+  [key in ChanceType]: string[]
+}
+
 export type Gift = {
   title: string
   bits: string
   chances: ChancePercent
+  actions: ChanceActions
 }
 
 export type GiftList = Array<Gift>
