@@ -1,4 +1,8 @@
 import { Config } from '@/store/config/types'
+import {
+  EditActionParams,
+  DeleteActionParams,
+} from "@/store/config/types"
 
 interface Ref<T> {
   value: T
@@ -19,6 +23,8 @@ interface Configuration {
 type UseConfiguration = () => {
   config: Ref<Config>,
   saveConfig: () => void
+  editAction: (params: EditActionParams) => void
+  deleteAction: (params: DeleteActionParams) => void
 }
 
 export {

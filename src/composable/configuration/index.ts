@@ -27,9 +27,9 @@ const useConfiguration: UseConfiguration = () => {
         actions: {
           none: ['none'],
           common: ['common'],
-          rare: ['rare'],
+          rare: [],
           epic: ['epic'],
-          legendary: ['legendary'],
+          legendary: [],
         }
       }]
     })
@@ -70,6 +70,8 @@ const useConfiguration: UseConfiguration = () => {
   return {
     config,
     saveConfig,
+    editAction: (params) => store.commit('config/EDIT_ACTION', params),
+    deleteAction: (params) => store.commit('config/DELETE_ACTION', params),
   }
 
 }

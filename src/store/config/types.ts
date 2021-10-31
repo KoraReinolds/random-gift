@@ -12,15 +12,17 @@ export type ChancePercent = {
   [key in ChanceType]: number
 }
 
-export type ChanceActions = {
-  [key in ChanceType]: string[]
+export type ActionList = string[]
+
+export type ActionMap = {
+  [key in ChanceType]: ActionList
 }
 
 export type Gift = {
   title: string
   bits: string
   chances: ChancePercent
-  actions: ChanceActions
+  actions: ActionMap
 }
 
 export type GiftList = Array<Gift>
@@ -46,6 +48,19 @@ export enum MutationTypes {
   SET_CONFIG = 'SET_CONFIG',
   CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
+  DELETE_ACTION = 'DELETE_ACTION',
+  EDIT_ACTION = 'EDIT_ACTION',
+}
+
+export type DeleteActionParams = {
+  itemIndex: number,
+  actionList: ActionList,
+}
+
+export type EditActionParams = {
+  itemIndex: number,
+  actionList: ActionList,
+  newValue: string,
 }
 
 export type Mutations<S = State> = {
@@ -58,6 +73,10 @@ export type Mutations<S = State> = {
   }): string
 
   [MutationTypes.CHANGE_ITEM_CHANCES](state: S, payload: ChangeChances): void
+
+  [MutationTypes.DELETE_ACTION](state: S, payload: DeleteActionParams): void
+
+  [MutationTypes.EDIT_ACTION](state: S, payload: EditActionParams): void
 
 }
 
