@@ -1,5 +1,10 @@
 <template>
-  <div :class="[theme, 'app']" @click="loading = false">
+  <div
+    :class="[theme, 'app', {
+      'widget-active': widgetActive,
+    }]"
+    @click="loading = false"
+  >
     <div
       id="nav"
       v-if="!$route.meta.hideNavigation"
@@ -53,7 +58,12 @@
       v-else
     />
   </div>
-  <div :class="['dark', 'app']" @click="loading = false">
+  <div
+    :class="['dark', 'app', {
+      'widget-active': widgetActive,
+    }]"
+    @click="loading = false"
+  >
     <div
       id="nav"
       v-if="!$route.meta.hideNavigation"
@@ -110,7 +120,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed, onUnmounted } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import { axiosHelix, axiosBackend } from '@/api'
 import { useStore } from 'vuex'
@@ -128,6 +138,12 @@ export default defineComponent({
     const store = useStore()
     const theme = ref('light')
     const loading = ref(false)
+    const timer = ref(35)
+    setInterval(() => {
+      timer.value -= 1
+      if (!timer.value) store.commit('SET_WIDGET_ACTIVE', false)
+    }, 1000)
+    const widgetActive = computed(() => store.state.widgetIsActive)
 
     twitch?.bits.onTransactionComplete((bitsTransaction) => {
       axiosBackend.post('/bits/transaction', bitsTransaction)
@@ -151,12 +167,25 @@ export default defineComponent({
 
     })
 
+    const broadcastListener = (target: string, contentType: string, msg: string) => {
+      try {
+        const { active } = JSON.parse(msg)
+        store.commit('SET_WIDGET_ACTIVE', active)
+        timer.value = active ? 35 : 1
+      } catch (e) {
+        // handle error
+      }
+    }
+
+    twitch?.listen('broadcast', broadcastListener)
+
+    onUnmounted(() => twitch?.unlisten('broadcast', broadcastListener))
+
     twitch?.configuration.onChanged(() => {
       if (twitch.configuration.broadcaster) {
         try {
           
           const config = JSON.parse(twitch.configuration.broadcaster?.content)
-
           if (typeof config === 'object') store.commit('config/SET_CONFIG', config)
 
         } catch (e) {
@@ -171,7 +200,9 @@ export default defineComponent({
       logout: logOut,
       theme,
       loading,
-      changeTheme: () => theme.value = theme.value === 'dark' ? 'light' : 'dark'
+      changeTheme: () => theme.value = theme.value === 'dark' ? 'light' : 'dark',
+      widgetActive,
+      timer,
     }
 
   },

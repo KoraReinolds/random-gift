@@ -11,13 +11,15 @@ import {
   defineComponent,
   ref,
   onMounted,
-} from 'vue'
+  onUnmounted,
+} from 'vue' 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js'
 import { io } from 'socket.io-client'
 import { useRoute } from 'vue-router'
+import { axiosBackend } from '@/api'
 
 
 export default defineComponent({
@@ -40,9 +42,22 @@ export default defineComponent({
     }
 
     const widget = ref(document.createElement('div'))
+    const notifyAll = (active: boolean) => axiosBackend.post(
+      'emitWidgetStatus',
+      { active, channelId }
+    )
+    let intervalId: number
 
     onMounted(() => {
       // initScene()
+      notifyAll(true)
+      intervalId = setInterval(() => notifyAll(true), 30000)
+    })
+
+    onUnmounted(() => {
+      axiosBackend.post('emitWidgetStatus', { active: false })
+      notifyAll(false)
+      clearInterval(intervalId)
     })
 
     const initScene = () => {

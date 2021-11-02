@@ -3,7 +3,7 @@ import {
   State,
 } from './types'
 import { MutationTree, Module } from 'vuex'
-import { IRootState } from '@/store/interfaces'
+import { IRootState } from '@/store/root/types'
 
 const state: State = {
   config: null

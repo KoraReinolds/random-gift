@@ -1,5 +1,5 @@
 import { createStore } from "vuex"
-import { IRootState } from "@/store/interfaces"
+import { IRootState } from "@/store/root/types"
 import { RootStoreModuleTypes } from "@/store/root/types"
 import root from "@/store/root"
 import { ProductsStoreModuleTypes } from "@/store/products/types"

@@ -1,4 +1,4 @@
-import { IRootState } from '@/store/interfaces'
+import { IRootState } from '@/store/root/types'
 import {
   Store as VuexStore,
   CommitOptions,

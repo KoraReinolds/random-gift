@@ -4,7 +4,7 @@ import {
   Getters,
 } from './types'
 import { MutationTree, GetterTree, Module } from 'vuex'
-import { IRootState } from '@/store/interfaces'
+import { IRootState } from '@/store/root/types'
 
 const state: State = {
   authUrlData: JSON.parse(localStorage.getItem('authInfo') || '{}'),
