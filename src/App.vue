@@ -246,5 +246,9 @@ body,
   }
 }
 
+ul {
+  padding-left: 0px;
+  list-style: none;
+}
 
 </style>

@@ -18,13 +18,14 @@
           value: $event,
         })"
       />
-      <div
+      <action-list
         v-if="type !== 'none'"
         class="actions"
         :style="`color: var(--${type}-color)`"
-      >
-        {{ type }}
-      </div>
+        :list="item.actions[type]"
+      />
+        <!-- {{ type }}
+      </action-list> -->
     </div>
     <input-range
       :list="bitsCost"
@@ -35,6 +36,7 @@
 
 <script lang="ts">
 import InputRange from '@/components/InputRange.vue'
+import ActionList from '@/components/ActionList.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
@@ -44,6 +46,7 @@ export default defineComponent({
   name: 'ConfigItem',
   components: {
     InputRange,
+    ActionList,
   },
   props: {
     item: {
@@ -83,9 +86,6 @@ export default defineComponent({
   justify-content: center;
 
   .actions {
-    text-align: left;
-    font-size: 20px;
-    font-weight: bold;
     margin-top: 24px;
   }
   .row {
