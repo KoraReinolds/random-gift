@@ -1,12 +1,21 @@
 import {
   Mutations,
   State,
+  Getters,
 } from './types'
-import { MutationTree, Module } from 'vuex'
+import { MutationTree, GetterTree, Module } from 'vuex'
 import { IRootState } from '@/store/root/types'
 
 const state: State = {
   config: null
+}
+
+const getters: GetterTree<State, IRootState> & Getters = {
+
+  productCosts: (state) => state.config
+    ? state.config.giftList.map(g => g.bits)
+    : []
+
 }
 
 const mutations: MutationTree<State> & Mutations = {
@@ -39,6 +48,7 @@ const mutations: MutationTree<State> & Mutations = {
 const config: Module<State, IRootState>  = {
   namespaced: true,
   state,
+  getters,
   mutations,
 }
 

@@ -12,6 +12,7 @@ const useConfiguration: UseConfiguration = () => {
   const { twitch } = useTwitch()
   const store = useStore()
   const config = computed(() => store.state.config.config)
+  const productCosts = computed(() => store.getters['config/productCosts'])
   const defaultConfig = {
     content: JSON.stringify({
       giftList: [{
@@ -70,6 +71,7 @@ const useConfiguration: UseConfiguration = () => {
   return {
     config,
     saveConfig,
+    productCosts,
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
     deleteAction: (params) => store.commit('config/DELETE_ACTION', params),
   }

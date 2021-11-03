@@ -42,6 +42,7 @@ export interface State {
 }
 
 export type Getters = {
+  productCosts(state: State): string[]
 }
 
 export enum MutationTypes {

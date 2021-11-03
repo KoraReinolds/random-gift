@@ -21,7 +21,8 @@ interface Configuration {
 }
 
 type UseConfiguration = () => {
-  config: Ref<Config>,
+  config: Ref<Config>
+  productCosts: Ref<string[]>
   saveConfig: () => void
   editAction: (params: EditActionParams) => void
   deleteAction: (params: DeleteActionParams) => void
