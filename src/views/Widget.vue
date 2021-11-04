@@ -37,7 +37,13 @@ export default defineComponent({
     if (channelId && typeof channelId === 'string') {
       const socket = io(process.env.VUE_APP_BACKEND_URI)
       socket.on(channelId, (msg) => {
-        console.log(msg)
+        try {
+          const { displayName, type, reward } = JSON.parse(msg)
+          console.log(displayName, type, reward)
+          showText(reward)
+        } catch (e) {
+          // error
+        }
       })
     }
 
@@ -60,18 +66,47 @@ export default defineComponent({
       clearInterval(intervalId)
     })
 
-    const initScene = () => {
+    let mixer: THREE.AnimationMixer
+    let exrCubeRenderTarget: any
+    let textFont: THREE.Font
+    let textMesh1: THREE.Mesh<THREE.TextGeometry, THREE.MeshPhongMaterial[]>
+    const clock = new THREE.Clock()
+    const scene = new THREE.Scene()
 
-      let mixer: THREE.AnimationMixer
-      let exrCubeRenderTarget: any
-      const clock = new THREE.Clock()
-			const scene = new THREE.Scene()
+    const showText = (text: string) => {
+      const textGeo = new THREE.TextGeometry(text, {
+        font: textFont,
+        curveSegments: 4,
+        height: 20,
+        size: 70,
+        bevelThickness: 2,
+        bevelSize: 1.5,
+      })
+
+      textGeo.computeBoundingBox()
+      textMesh1 = new THREE.Mesh( textGeo, [
+        new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } ), // front
+        new THREE.MeshPhongMaterial( { color: 0x111111 } ) // side
+      ])
+
+      if (textGeo.boundingBox) {
+        const centerOffset = - 0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+        textMesh1.position.x = centerOffset;
+        textMesh1.rotation.y = Math.PI * 2 
+        textMesh1.position.z = 0;
+      }
+
+      scene.add(textMesh1)
+      setTimeout(() => scene.remove(textMesh1), 5000)
+    }
+    
+    const initScene = () => {
 
       // init camera
 			const camera = new THREE.PerspectiveCamera(
         75, window.innerWidth / window.innerHeight, 0.1, 1000
       )
-      camera.position.z = 10
+      camera.position.z = 1000
 
       // init renderer
 			const renderer = new THREE.WebGLRenderer({ alpha: true })
@@ -83,6 +118,14 @@ export default defineComponent({
       // Orbit controls
       const controls = new OrbitControls(camera, renderer.domElement)
       controls.update()
+
+      // font
+      const fontLoader = new THREE.FontLoader()
+      fontLoader.load('fonts/optimer_bold.typeface.json', (font) => textFont = font)
+
+      // light
+      const light = new THREE.AmbientLight(0x404040, 10)
+      scene.add(light)
 
       // init exr texture
       const pmremGenerator = new THREE.PMREMGenerator(renderer)
@@ -137,4 +180,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+
 </style>
