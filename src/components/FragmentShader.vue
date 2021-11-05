@@ -39,10 +39,18 @@ export default defineComponent({
       const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
       return vectorColor
     }
-    let material: THREE.ShaderMaterial;
+    let material: THREE.ShaderMaterial
+    let intervalId: number
 
     watch(() => props.value, (value) => {
-      material.uniforms.u_current_value.value = value
+      if (intervalId) clearInterval(intervalId)
+      let parts = 20
+      let delta = (value - material.uniforms.u_current_value.value) / parts
+      intervalId = setInterval(() => {
+        parts = parts - 1
+        material.uniforms.u_current_value.value += delta
+        if (!parts) clearInterval(intervalId)
+      }, 1000 / parts)
     })
 
     onMounted(() => {

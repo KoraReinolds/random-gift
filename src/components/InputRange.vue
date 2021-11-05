@@ -6,20 +6,13 @@
     ]"
     v-if="list.length"
   >
-    <!-- <icon
-      :class="['arrow prev', {
-        disabled,
-      }]"
-      @click="updateValue(+modelValue - 1)"
-      name="arrow"
-    /> -->
     <div
       class="scale-box"
     >
       <fragment-shader
         class="shader-range"
         :color="color"
-        :value="list.indexOf(modelValue)/(list.length - 1)"
+        :value="disabled ? 1 : list.indexOf(modelValue)/(list.length - 1)"
       />
       <input
         type='range'
@@ -28,18 +21,11 @@
         v-model="listIndex"
         :disabled="disabled"
       >
-      <div class="value" :style="`left: ${modelValue}%;`">
+      <div class="value" :style="`left: ${disabled ? 50 : modelValue}%;`">
         <span class="text" v-text="modelValue" />
         <span class="fon" />
       </div>
     </div>
-    <!-- <icon
-      :class="['arrow next', {
-        disabled,
-      }]"
-      @click="updateValue(+modelValue + 1)"
-      name="arrow"
-    /> -->
   </div>
 </template>
 
@@ -100,7 +86,7 @@ $thumb-border-width: 2px !default;
 $thumb-border-color: transparent !default;
 
 $track-width: 150px !default;
-$track-height: 24px !default;
+$track-height: 40px !default;
 $track-border-width: 2px !default;
 $track-border-color: transparent !default;
 
@@ -108,7 +94,7 @@ $track-radius: 5px !default;
 
 @mixin track {
   height: $track-height;
-  transition: all .2s ease;
+  transition: all .2s linear;
   width: $track-width;
 }
 
@@ -217,7 +203,16 @@ $track-radius: 5px !default;
   }
 }
 
+.disabled.input-range {
+  max-width: $track-height;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
 .input-range {
+  transition: linear 1s;
+  transition-property: max-width border-radius;
+  max-width: 200px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -239,15 +234,43 @@ $track-radius: 5px !default;
     }
   }
 
+  &.disabled .value {
+    // top: 0%;
+    width: 40px;
+    height: 40px;
+    bottom: 0px;
+    .text {
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+    }
+    .fon {
+      position: absolute;
+      transform: rotate(0deg);
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(
+        var(--background-color) 20%,
+        transparent 70%
+      );
+    }
+  }
   .value {
+    transition: linear 1s;
+    transition-property: bottom width height;
     display: flex;
     text-align:  center;
     font-weight: 900;
     position: absolute;
     color: var(--font-color);
-    top: 20px;
+    bottom: -20px;
     transform: translateX(-50%);
     .text {
+      transition: linear 1s;
+      transition-property: width height top;
       position: absolute;
       width: 24px;
       height: 24px;
@@ -258,10 +281,12 @@ $track-radius: 5px !default;
       cursor: default;
     }
     .fon {
+      transition: linear 1s;
+      transition-property: width height transform;
       transform: rotate(45deg);
       width: 24px;
       height: 24px;
-      background-color: var(--background-color);
+      background: var(--background-color);
     }
   }
 

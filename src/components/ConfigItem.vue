@@ -24,8 +24,6 @@
         :style="`color: var(--${type}-color)`"
         :list="item.actions[type]"
       />
-        <!-- {{ type }}
-      </action-list> -->
     </div>
     <input-range
       :list="bitsCost"
