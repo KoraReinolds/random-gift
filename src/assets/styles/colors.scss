@@ -1,0 +1,72 @@
+$colors: (
+  main: #6441A5,
+  light-main: #9271cf,
+  dark-main: #3c2764,
+  secondary: #322A26,
+  none: rgb(154, 154, 170),
+  common: rgb(93, 175, 119),
+  rare: rgb(57, 105, 182),
+  epic: rgb(122, 68, 177),
+  legendary: rgb(201, 116, 73),
+  dark-grey: rgb(53, 53, 53),
+  light-grey: rgb(224, 224, 224),
+);
+
+$light-theme: (
+  font: #2c3e50,
+  background: white,
+  disabled: var(--light-grey-color),
+);
+
+$dark-theme: (
+  font: rgb(180, 180, 180),
+  background: rgb(24, 24, 27),xw
+  disabled: var(--dark-grey-color),
+);
+
+$color-properties: (
+  background: bg,
+  color: c,
+);
+
+$themes: (
+  light: $light-theme,
+  dark: $dark-theme,
+);
+
+@each $class, $theme-map in $themes {
+  .#{$class} {
+    @each $name, $value in $theme-map {
+      @each $property, $prefix in $color-properties {
+        .#{$prefix}-#{$name} {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  }
+}
+
+:root {
+  --main-color: #6441A5;
+  --main-color-light: #9271cf;
+  --main-color-dark: #3c2764;
+  --secondary-color: #322A26;
+  --none-color: rgb(154, 154, 170);
+  --common-color: rgb(93, 175, 119);
+  --rare-color: rgb(57, 105, 182);
+  --epic-color: rgb(122, 68, 177);
+  --legendary-color: rgb(201, 116, 73);
+  --dark-grey-color: rgb(53, 53, 53);
+  --light-grey-color: rgb(224, 224, 224);
+}
+
+.light {
+  --font-color: #2c3e50;
+  --background-color: white;
+  --disabled-color: var(--light-grey-color);
+}
+.dark {
+  --font-color: rgb(180, 180, 180);
+  --background-color: rgb(24, 24, 27);
+  --disabled-color: var(--dark-grey-color);
+}

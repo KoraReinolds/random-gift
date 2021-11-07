@@ -1,114 +1,31 @@
 <template>
   <div
-    :class="[theme, 'app', {
+    v-for="theme in ['light', 'dark']"
+    :key="theme"
+    :class="[theme, 'app', 'text-center', 'h-100p', {
       'widget-active': widgetActive,
     }]"
-    @click="loading = false"
+    @click="addToken()"
   >
     <div
-      id="nav"
+      class="pa-32 flex-around"
       v-if="!$route.meta.hideNavigation"
     >
-      <a
-        :href="linkImplict"
-      >
-        LogIn implict
-      </a>
-      <a
-        :href="linkAuth"
-      >
-        LogIn authorization
-      </a>
-      <router-link
-        :to="{ name: 'Main' }"
-      >
-        main
-      </router-link>
-      <router-link
-        :to="{ name: 'Panel' }"
-      >
-        panel
-      </router-link>
-      <router-link
-        :to="{ name: 'Config' }"
-      >
-        config
-      </router-link>
-      <router-link
-        :to="{ name: 'Widget', query: { id: '536747276' } }"
-      >
-        widget
-      </router-link>
-      <a
-        @click="changeTheme"
-      >
-        Change_theme
-      </a>
-      <button
-        v-if="$store.getters['auth/token']"
-        @click="logout"
-      >
-        logout
-      </button>
-    </div>
-    <loader
-      v-if="loading"
-    />
-    <router-view
-      v-else
-    />
-  </div>
-  <div
-    :class="['dark', 'app', {
-      'widget-active': widgetActive,
-    }]"
-    @click="loading = false"
-  >
-    <div
-      id="nav"
-      v-if="!$route.meta.hideNavigation"
-    >
-      <a
-        :href="linkImplict"
-      >
-        LogIn implict
-      </a>
-      <a
-        :href="linkAuth"
-      >
-        LogIn authorization
-      </a>
-      <router-link
-        :to="{ name: 'Main' }"
-      >
-        main
-      </router-link>
-      <router-link
-        :to="{ name: 'Panel' }"
-      >
-        panel
-      </router-link>
-      <router-link
-        :to="{ name: 'Config' }"
-      >
-        config
-      </router-link>
-      <router-link
-        :to="{ name: 'Widget', query: { id: '536747276' } }"
-      >
-        widget
-      </router-link>
-      <a
-        @click="changeTheme"
-      >
-        Change_theme
-      </a>
-      <button
-        v-if="$store.getters['auth/token']"
-        @click="logout"
-      >
-        logout
-      </button>
+      <component
+        :class="['bold']"
+        v-for="(link, index) in navigationData"
+        :key="`${link}-${index}`"
+        :is="link.to ? 'router-link' : 'a'"
+        @click="link.onClick"
+        v-text="link.title"
+        v-show="!link.hidden"
+        v-bind="link.to ? {
+          to: link.to
+        } : {
+          href: link.href || '#'
+        }"
+      />
+
     </div>
     <loader
       v-if="loading"
@@ -120,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onUnmounted } from 'vue'
+import { defineComponent, ref, computed, onUnmounted, watch } from 'vue'
 import { getOAuthImplictUrl, getOAuthAuthorizationUrl, logOut } from '@/composable/auth'
 import { axiosHelix, axiosBackend } from '@/api'
 import { useStore } from 'vuex'
@@ -139,6 +56,46 @@ export default defineComponent({
     const theme = ref('light')
     const loading = ref(false)
     const timer = ref(35)
+    const token = computed(() => store.getters['auth/token'])
+    const linkData = ref({
+      hidden: !token.value,
+      title: 'logout',
+      onClick: logOut,
+    })
+    watch(token, token => linkData.value.hidden = !token)
+    const navigationData = [
+      {
+        title: 'LogIn implict',
+        href: 'linkImplict',
+      },
+      {
+        title: 'LogIn authorization',
+        href: 'linkAuth',
+      },
+      {
+        title: 'main',
+        to: { name: 'Main' },
+      },
+      {
+        title: 'panel',
+        to: { name: 'Panel' },
+      },
+      {
+        title: 'config',
+        to: { name: 'Config' },
+      },
+      {
+        title: 'widget',
+        to: { name: 'Widget', query: { id: '536747276' } },
+      },
+      {
+        title: 'Change_theme',
+        onClick: () => theme.value = theme.value === 'dark' ? 'light' : 'dark'
+      },
+      linkData.value,
+    ]
+
+
     setInterval(() => {
       timer.value -= 1
       if (!timer.value) store.commit('SET_WIDGET_ACTIVE', false)
@@ -197,83 +154,56 @@ export default defineComponent({
     return {
       linkImplict: getOAuthImplictUrl(),
       linkAuth: getOAuthAuthorizationUrl(),
-      logout: logOut,
       theme,
       loading,
-      changeTheme: () => theme.value = theme.value === 'dark' ? 'light' : 'dark',
       widgetActive,
       timer,
+      navigationData,
+      addToken: () => store.commit('auth/SET_AUTH_DATA', {
+        token_type: '123',
+        access_token: '123',
+      }),
+      token,
     }
-
   },
 });
 </script>
 
 <style lang="scss">
-
-:root {
-  --main-color: #6441A5;
-  --main-color-light: #9271cf;
-  --main-color-dark: #3c2764;
-  --secondary-color: #322A26;
-
-  --none-color: rgb(154, 154, 170);
-  --common-color: rgb(93, 175, 119);
-  --rare-color: rgb(57, 105, 182);
-  --epic-color: rgb(122, 68, 177);
-  --legendary-color: rgb(201, 116, 73);
-  --dark-grey-color: rgb(53, 53, 53);
-  --light-grey-color: rgb(224, 224, 224);
-}
-
-.light {
-  --font-color: #2c3e50;
-  --background-color: white;
-  --disabled-color: var(--light-grey-color);
-}
-.dark {
-  --font-color: rgb(180, 180, 180);
-  --background-color: rgb(24, 24, 27);
-  --disabled-color: var(--dark-grey-color);
-}
-
 * {
   box-sizing: border-box;
+  color: var(--font-color);
 }
 *, *:before, *:after {
   box-sizing: border-box;
+  color: var(--font-color);
 }
-
 body,
 #app {
   margin: 0;
   height: 50vh;
 }
 
+.pa-32 {
+  margin-left: -64px;
+}
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   background-color: var(--background-color);
-  height: 100%;
 }
 
-#nav {
-  padding: 30px;
-  color: var(--font-color);
 
-  a {
-    color: var(--font-color);
-    font-weight: bold;
+a {
+  // font-weight: bold;
 
-    &:not(a:last-child) {
-      margin-right: 8px;
-    }
+  &:not(a:last-child) {
+    // margin-right: 8px;
+  }
 
-    &.router-link-exact-active {
-      color: var(--main-color);
-    }
+  &.router-link-exact-active {
+    color: var(--main-color);
   }
 }
 

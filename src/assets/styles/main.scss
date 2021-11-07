@@ -1,0 +1,69 @@
+@import "@/assets/styles/colors.scss";
+@import "@/assets/styles/mixins.scss";
+@import "@/assets/styles/vars.scss";
+
+@each $size, $value in $sizes {
+  @each $direction, $shortcut in $directions {
+    @each $prefix, $property in (
+      m: 'margin',
+      p: 'padding',
+    ) {
+      .#{$prefix}#{$shortcut}-#{$size} {
+        @if $shortcut == 't' {
+          #{$property}-top: $value;
+        };
+        @if $shortcut == 'r' {
+          #{$property}-right: $value;
+        };
+        @if $shortcut == 'b' {
+          #{$property}-bottom: $value;
+        };
+        @if $shortcut == 'l' {
+          #{$property}-left: $value;
+        };
+        @if $shortcut == 'x' {
+          #{$property}-left: $value;
+          #{$property}-right: $value;
+        };
+        @if $shortcut == 'y' {
+          #{$property}-top: $value;
+          #{$property}-bottom: $value;
+        };
+        @if $shortcut == 'a' {
+          #{$property}-left: $value;
+          #{$property}-right: $value;
+          #{$property}-top: $value;
+          #{$property}-bottom: $value;
+        };
+      }
+    }
+  }
+}
+
+@each $prefix, $property in (
+  h: 'height',
+  w: 'weight',
+) {
+  @each $size, $value in (
+    0p: 0%,
+    50p: 50%,
+    100p: 100%,
+  ) {
+    .#{$prefix}-#{$size} {
+      #{$property}: $value;
+    }
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
