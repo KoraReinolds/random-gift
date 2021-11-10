@@ -2,13 +2,12 @@
   <ul
     class="action-list bold text-left"
   >
-    <button
+    <base-button
       class="w-100p"
       v-if="!list.length"
       :action="addActionToList"
-    >
-      Add action
-    </button>
+      v-text="'Add action'"
+    />
     <li
       class="flex-row-center-between"
       v-for="(action, index) in list"
@@ -47,6 +46,7 @@
 import { ref, PropType } from 'vue'
 import { ActionList } from '@/store/config/types'
 import BaseInput from '@/components/BaseInput.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration/index'
 
 export default {
@@ -59,6 +59,7 @@ export default {
   },
   components: {
     BaseInput,
+    BaseButton,
   },
   setup(props: any) {
     

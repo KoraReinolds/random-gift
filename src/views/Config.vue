@@ -9,16 +9,14 @@
       :item="item"
     />
     <div v-text="config" />
-    <button
+    <base-button
       @click="pushNewGift"
-    >
-      push new gift
-    </button>
-    <button
+      v-text="'push new gift'"
+    />
+    <base-button
       @click="saveConfig"
-    >
-      save changes
-    </button>
+      v-text="'save changes'"
+    />
   </div>
 </template>
 
@@ -26,12 +24,14 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import ConfigItem from '@/components/ConfigItem.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   name: 'About',
   components: {
     ConfigItem,
+    BaseButton,
   },
   setup() {
     

@@ -42,7 +42,7 @@
 
 @each $prefix, $property in (
   h: 'height',
-  w: 'weight',
+  w: 'width',
 ) {
   @each $size, $value in (
     0p: 0%,
