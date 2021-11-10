@@ -1,16 +1,16 @@
 <template>
   <ul
-    class="action-list"
+    class="action-list bold text-left"
   >
     <button
-      class="action-list__add"
+      class="w-100p"
       v-if="!list.length"
       :action="addActionToList"
     >
       Add action
     </button>
     <li
-      class="action-list__item"
+      class="flex-row-center-between"
       v-for="(action, index) in list"
       :key="`action-${index}`"
       v-else
@@ -22,17 +22,17 @@
       />
       <span v-else v-text="action" />
       <div
-        class="action-list__btns"
+        class="flex-row"
       >
           <icon
-            class="action-list__icon"
+            class="pointer"
             :name="editIndex === index ? 'accept' : 'delete'"
             :width="20"
             :height="20"
             @click="editIndex === index ? changeFieldValue() : deleteFieldValue(index)"
           />
           <icon
-            class="action-list__icon"
+            class="pointer"
             :name="editIndex === index ? 'close' : 'edit'"
             :width="20"
             :height="20"
@@ -101,24 +101,5 @@ export default {
 <style scoped lang="scss">
   .action-list {
     max-width: 150px;
-    text-align: left;
-    font-weight: bold;
-
-    &__btns {
-      display: flex;
-    }
-
-    &__item {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &__icon {
-      cursor: pointer;
-    }
-
-    &__add {
-      width: 100%;
-    }
   }
 </style>

@@ -1,10 +1,9 @@
 <template>
   <div
-    class="config"
+    class="flex-column-center-center"
     v-if="config"
   >
     <config-item
-      class="item"
       v-for="item in config.giftList"
       :key="item.sku"
       :item="item"
@@ -58,15 +57,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.config {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  div {
-    color: var(--font-color);
-  }
-}
 </style>
 

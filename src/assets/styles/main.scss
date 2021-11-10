@@ -59,11 +59,33 @@
   font-weight: bold;
 }
 
-.text-center {
-  text-align: center;
+.pointer {
+  cursor: pointer;
 }
 
-.flex-between {
-  display: flex;
-  justify-content: space-between;
+@each $text-align in ( left, right, center ) {
+  .text-#{$text-align} {
+    text-align: $text-align;
+  }
+}
+
+@each $direction in ( row, column ) {
+  .flex-#{$direction} {
+    display: flex;
+    flex-direction: $direction;
+  }
+  @each $align_items in ( start, end, center ) {
+    @each $justify_content_key, $justify_content_value in (
+      around: space-around,
+      between: space-between,
+      center: center,
+    ) {
+      .flex-#{$direction}-#{$align_items}-#{$justify_content_key} {
+        display: flex;
+        flex-direction: #{$direction};
+        align-items: $align_items;
+        justify-content: #{$justify_content_value};
+      }
+    }
+  }
 }

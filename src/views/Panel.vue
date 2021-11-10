@@ -1,9 +1,9 @@
 <template>
-  <div class="panel">
+  <div>
     <h1>Panel</h1>
     <!-- <h1>PRODUCTS: {{ products }}</h1> -->
     <div
-      class="bits-products-list"
+      class="flex-column"
     >
       <bits-product
         v-for="product in products"
@@ -38,13 +38,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.panel {
-  h1 {
-    color: var(--font-color);
-  }
-  .bits-products-list {
-    display: flex;
-    flex-direction: column;
-  }
-}
 </style>

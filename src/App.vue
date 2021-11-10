@@ -2,13 +2,14 @@
   <div
     v-for="theme in ['light', 'dark']"
     :key="theme"
-    :class="[theme, 'app', 'text-center', 'h-100p', {
+    :class="[theme,
+      'app text-center h-100p flex-column w-100', {
       'widget-active': widgetActive,
     }]"
     @click="addToken()"
   >
     <div
-      class="pa-32 flex-around"
+      class="pa-32 flex-row-center-around"
       v-if="!$route.meta.hideNavigation"
     >
       <component
@@ -184,9 +185,6 @@ body,
   height: 50vh;
 }
 
-.pa-32 {
-  margin-left: -64px;
-}
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -194,22 +192,17 @@ body,
   background-color: var(--background-color);
 }
 
-
-a {
-  // font-weight: bold;
-
-  &:not(a:last-child) {
-    // margin-right: 8px;
-  }
-
-  &.router-link-exact-active {
-    color: var(--main-color);
-  }
+.router-link-exact-active {
+  color: var(--main-color);
 }
 
 ul {
   padding-left: 0px;
   list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 </style>

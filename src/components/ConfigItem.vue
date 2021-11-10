@@ -1,9 +1,9 @@
 <template>
   <div
-    :class="['config-item']"
+    class="flex-row"
   >
     <div
-      class="row"
+      class="ma-8"
       v-for="type in Object.keys(item.chances)"
       :key="type"
     >
@@ -20,8 +20,7 @@
       />
       <action-list
         v-if="type !== 'none'"
-        class="actions"
-        :style="`color: var(--${type}-color)`"
+        class="mt-24"
         :list="item.actions[type]"
       />
     </div>
@@ -78,18 +77,4 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.config-item {
-  display: flex;
-  width: 90%;
-  justify-content: center;
-
-  .actions {
-    margin-top: 24px;
-  }
-  .row {
-    display: flex;
-    flex-direction: column;
-    margin: 12px;
-  }
-}
 </style>
