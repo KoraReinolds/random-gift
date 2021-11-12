@@ -4,16 +4,17 @@
       width: `${width || originalWidth}px`,
       height: `${height || originalHeight}px`,
     }"
-    :class="{
+    :class="['icon', `qa-icon-${name}`, {
       filled,
-      [`qa-icon-${name}`]: true,
-    }"
-    class="icon"
+    }]"
     v-html="svgHTML"
+    ref="icon"
   />
 </template>
 
 <script>
+import { onMounted, ref, watch, computed } from 'vue'
+
 export default {
   name: 'Icon',
   props: {
@@ -34,45 +35,32 @@ export default {
       default: false,
     },
   },
-  data() {
+  setup(props) {
+
+    const originalWidth = ref('')
+    const originalHeight = ref('')
+    const svgHTML = computed(() => require(`@/assets/svg/${props.name}.svg`))
+    const icon = ref(null)
+    // watch('props.name', () => svgHTML.value = require(`@/assets/svg/${props.name}.svg`))
+
+    onMounted(() => {
+      const el = icon.value.firstChild;
+
+      if (!el) return
+  
+      originalWidth.value = el.getAttribute('width');
+      originalHeight.value = el.getAttribute('height');
+  
+      el.removeAttribute('height')
+      el.removeAttribute('width')
+    })
     return {
-      originalWidth: undefined,
-      originalHeight: undefined,
-    };
-  },
-  computed: {
-    svgHTML() {
-      let html = '';
-
-      try {
-        // eslint-disable-next-line
-        html = require(`@/assets/svg/${this.name}.svg`);
-      } catch (error) {
-        console.warn(error.message);
-      }
-      return html;
-    },
-  },
-  mounted() {
-    const el = this.$el.firstChild;
-
-    if (!el) return;
-
-    el.classList.add('svg');
-
-    const width = el.getAttribute('width');
-    const height = el.getAttribute('height');
-
-    if (!this.width) {
-      this.originalWidth = width;
+      originalWidth,
+      originalHeight,
+      svgHTML,
+      icon,
     }
-    if (!this.height) {
-      this.originalHeight = height;
-    }
-
-    el.removeAttribute('height');
-    el.removeAttribute('width');
-  },
+  }
 };
 </script>
 
