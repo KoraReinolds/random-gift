@@ -1,5 +1,17 @@
 <template>
-  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  <div
+    class="h-100p w-100p flex-row-center-center"
+  >
+    <div
+      class="lds-ring absolute rounded"
+      v-for="n in 4"
+      :key="n"
+      :style="{
+        width: `${size}px`,
+        height: `${size}px`,
+      }"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,44 +20,29 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'Loader',
   props: {
+    size: {
+      type: Number,
+      default: 64,
+    }
   },
 });
 </script>
 
 <style scoped lang="scss">
 .lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
   border: 8px solid transparent;
-  border-radius: 50%;
+  border-top-color: var(--primary-color);
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-top-color: var(--main-color);
 }
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
+
+@for $i from 1 through 3 {
+  .lds-ring:nth-child(#{$i}) {
+    animation-delay: -#{$i * 0.15}s;
+  }
 }
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
+
 @keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

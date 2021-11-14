@@ -55,7 +55,7 @@ export default defineComponent({
 
     const store = useStore()
     const theme = ref('light')
-    const loading = ref(false)
+    const loading = ref(true)
     const timer = ref(35)
     const token = computed(() => store.getters['auth/token'])
     const linkData = ref({

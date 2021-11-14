@@ -63,6 +63,26 @@
   cursor: pointer;
 }
 
+.rounded {
+  border-radius: 50%;
+}
+
+@each $display_key, $dispaly_value in (
+  ib: inline-block,
+  i: inline,
+  b: block,
+) {
+  .d-#{$display_key} {
+    display: $dispaly_value;
+  }
+}
+
+@each $position in ( absolute, relative ) {
+  .#{$position} {
+    position: $position;
+  }
+}
+
 @each $text-align in ( left, right, center ) {
   .text-#{$text-align} {
     text-align: $text-align;
