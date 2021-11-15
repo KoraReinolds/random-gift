@@ -2,6 +2,7 @@ import { IRootState, Mutations } from "@/store/root/types"
 import products from "@/store/products"
 import config from "@/store/config"
 import auth from "@/store/auth"
+import notif from "@/store/notif"
 import {
   MutationTree,
   Module,
@@ -22,6 +23,7 @@ const modules: ModuleTree<IRootState> = {
   products,
   config,
   auth,
+  notif,
 };
 
 const root: Module<IRootState, IRootState> = {
