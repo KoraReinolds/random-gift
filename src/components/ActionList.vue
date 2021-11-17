@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="action-list bold text-left"
+    class="bold text-left"
   >
     <base-button
       class="w-100p"
@@ -100,7 +100,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .action-list {
-    max-width: 150px;
-  }
+
 </style>

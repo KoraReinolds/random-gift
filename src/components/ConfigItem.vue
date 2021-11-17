@@ -4,14 +4,14 @@
   >
     <div
       class="ma-8"
-      v-for="type in Object.keys(item.chances)"
+      v-for="(type, index) in Object.keys(item.chances)"
       :key="type"
     >
       <input-range
         :list="[...Array(100).keys()].map(n => `${n}`)"
         :color="type"
         :modelValue="`${item.chances[type]}`"
-        :disabled="type === 'none'"
+        :disabled="step !== index"
         @update:modelValue="recalculateChances({
           chances: item.chances,
           type,
@@ -19,7 +19,7 @@
         })"
       />
       <action-list
-        v-if="type !== 'none'"
+        v-if="step === index"
         class="mt-24"
         :list="item.actions[type]"
       />
@@ -28,12 +28,22 @@
       :list="bitsCost"
       v-model="bitsValue"
     />
+    <div
+      class="mx-32 flex-column-center-center"
+    >
+      <base-button
+        @click="changeStep"
+        v-text="'Next'"
+      />
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import InputRange from '@/components/InputRange.vue'
 import ActionList from '@/components/ActionList.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
@@ -43,6 +53,7 @@ export default defineComponent({
   name: 'ConfigItem',
   components: {
     InputRange,
+    BaseButton,
     ActionList,
   },
   props: {
@@ -56,6 +67,8 @@ export default defineComponent({
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
+    const step = ref(1)
+    const changeStep = () => step.value += 1
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
     }
@@ -68,6 +81,8 @@ export default defineComponent({
     })
 
     return {
+      step,
+      changeStep,
       bitsCost,
       bitsValue,
       recalculateChances,
