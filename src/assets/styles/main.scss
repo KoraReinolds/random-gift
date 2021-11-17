@@ -67,6 +67,10 @@
   border-radius: 50%;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 @each $display_key, $dispaly_value in (
   ib: inline-block,
   i: inline,
@@ -77,7 +81,7 @@
   }
 }
 
-@each $position in ( absolute, relative ) {
+@each $position in ( absolute, relative, fixed ) {
   .#{$position} {
     position: $position;
   }

@@ -8,7 +8,7 @@ import { ActionTree, MutationTree, GetterTree, Module } from 'vuex'
 import { IRootState } from '@/store/root/types'
 
 const state: State = {
-  notifications: [{ msg: '123', visible: true, id: '123' }],
+  notifications: [],
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {

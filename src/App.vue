@@ -3,11 +3,12 @@
     v-for="theme in ['light', 'dark']"
     :key="theme"
     :class="[theme,
-      'app text-center h-100p flex-column w-100', {
+      'app text-center h-100p flex-column w-100 relative', {
       'widget-active': widgetActive,
     }]"
     @click="addToken()"
   >
+    <notifications />
     <div
       class="pa-32 flex-row-center-around"
       v-if="!$route.meta.hideNavigation"
@@ -44,18 +45,20 @@ import { axiosHelix, axiosBackend } from '@/api'
 import { useStore } from 'vuex'
 import { useTwitch } from '@/composable/twitch'
 import Loader from '@/components/Loader.vue'
+import Notifications from '@/components/Notifications.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
     Loader,
+    Notifications,
   },
   setup() {
     const { twitch } = useTwitch()
 
     const store = useStore()
     const theme = ref('light')
-    const loading = ref(true)
+    const loading = ref(false)
     const timer = ref(35)
     const token = computed(() => store.getters['auth/token'])
     const linkData = ref({
