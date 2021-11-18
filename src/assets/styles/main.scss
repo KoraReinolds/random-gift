@@ -55,12 +55,14 @@
   }
 }
 
-.bold {
-  font-weight: bold;
+@each $cursor in ( pointer, default ) {
+  .#{$cursor} {
+    cursor: $cursor;
+  }
 }
 
-.pointer {
-  cursor: pointer;
+.hidden {
+  overflow: hidden;
 }
 
 .rounded {
@@ -69,6 +71,15 @@
 
 .grow {
   flex-grow: 1;
+}
+
+@each $bold_key, $bold_value in (
+  bold: bold,
+  fw-900: 900,
+  ) {
+  .#{$bold_key} {
+    font-weight: $bold_value;
+  }
 }
 
 @each $display_key, $dispaly_value in (

@@ -208,4 +208,8 @@ a {
   text-decoration: none;
 }
 
+input {
+  margin: 0;
+}
+
 </style>

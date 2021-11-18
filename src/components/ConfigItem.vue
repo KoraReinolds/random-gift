@@ -3,7 +3,7 @@
     class="flex-row"
   >
     <div
-      class="ma-8"
+      :class="['list ma-8', { current: step === index }]"
       v-for="(type, index) in Object.keys(item.chances)"
       :key="type"
     >
@@ -20,7 +20,7 @@
       />
       <action-list
         v-if="step === index"
-        class="mt-24"
+        :class="['list mt-24', { current: step === index }]"
         :list="item.actions[type]"
       />
     </div>
@@ -68,7 +68,9 @@ export default defineComponent({
     const store = useStore()
     const bitsValue = ref(props.item.bits)
     const step = ref(1)
-    const changeStep = () => step.value += 1
+    const changeStep = () => {
+      step.value = (step.value + 1) % Object.keys(props.item.chances).length
+    }
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
     }
