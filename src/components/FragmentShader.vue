@@ -40,17 +40,18 @@ export default defineComponent({
       return vectorColor
     }
     let material: THREE.ShaderMaterial
-    let intervalId: number
+    // let intervalId: number
 
     watch(() => props.value, (value) => {
-      if (intervalId) clearInterval(intervalId)
-      let parts = 20
-      let delta = (value - material.uniforms.u_current_value.value) / parts
-      intervalId = setInterval(() => {
-        parts = parts - 1
-        material.uniforms.u_current_value.value += delta
-        if (!parts) clearInterval(intervalId)
-      }, 1000 / parts)
+      material.uniforms.u_current_value.value = value
+    //   // if (intervalId) clearInterval(intervalId)
+    //   // let parts = 20
+    //   // let delta = (value - material.uniforms.u_current_value.value) / parts
+    //   // intervalId = setInterval(() => {
+    //   //   parts = parts - 1
+    //   //   material.uniforms.u_current_value.value += delta
+    //   //   if (!parts) clearInterval(intervalId)
+    //   // }, 1000 / parts)
     })
 
     onMounted(() => {
@@ -118,17 +119,17 @@ export default defineComponent({
 
         void main() {
           vec2 st = gl_FragCoord.xy/u_resolution.xy;
-          st += st * abs(5.0);
+          st += st * abs(.5);
           vec3 color = vec3(0.0);
           vec4 opacity_color = vec4(0.0);
 
           vec2 q = vec2(0.);
-          q.x = fbm( st + 0.00*u_time);
-          q.y = fbm( st + vec2(1.0));
+          q.x = fbm(st + 0.00*u_time);
+          q.y = fbm(st + vec2(1.0));
 
           vec2 r = vec2(0.);
-          r.x = fbm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*u_time );
-          r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*u_time);
+          r.x = fbm(st + 1.0*q + vec2(1.7,9.2)+ 0.15*u_time);
+          r.y = fbm(st + 1.0*q + vec2(8.3,2.8)+ 0.126*u_time);
 
           float f = fbm(st+r);
 
