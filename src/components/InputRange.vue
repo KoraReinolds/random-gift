@@ -32,7 +32,7 @@
         v-text="modelValue"
       />
       <span
-        class="fon absolute h-100p w-100p"
+        class="fon bg-background absolute h-100p w-100p"
       />
     </div>
   </div>
@@ -85,25 +85,15 @@ export default defineComponent({
 
 <style scoped lang="scss">
 
-$track-width: 150px;
-$track-height: 48px;
-
-@mixin chanceTransition {
-  transition: linear 0.8s;
-}
+$input-width: $config-item-max-width;
+$input-height: 48px;
 
 [type='range'] {
   -webkit-appearance: none;
   background: transparent;
-  width: $track-width;
   top: 0;
   left: 0;
   z-index: 2;
-
-  &::-webkit-slider-runnable-track {
-    height: $track-height;
-    width: $track-width;
-  }
 
   &::-webkit-slider-thumb {
     width: 0px;
@@ -115,54 +105,58 @@ $track-height: 48px;
 .scale-box {
   @include chanceTransition();
   transition-property: max-width border-radius;
-  max-width: $track-width;
   border-radius: 0%;
 
   .disabled & {
-    max-width: $track-height;
     border-radius: 50%;
   }
 }
 
 .shader-range {
-  height: $track-height;
-  width: $track-width;
+  height: $input-height;
+  width: $input-width;
 }
 
 .value {
   @include chanceTransition();
-  transition-property: bottom left;
+  transition-property: transform left;
   position: absolute;
-  bottom: -#{$track-height/2};
-  transform: translateX(-50%);
-  width: #{$track-height*0.6};
-  height: #{$track-height*0.6};
+  transform: translate(-50%, 50%);
+  height: $input-height;
+  width: $input-height;
 
   .disabled & {
-    width: $track-height;
-    height: $track-height;
-    bottom: 0px;
+    transform: translate(-50%, 0%);
   }
 }
 
 .text {
-  top: 0;
+  @include chanceTransition();
+  transition-property: font-size bottom;
   z-index: 2;
+  transform: scale(0.5);
+  font-size: 32px;
   background: radial-gradient(
     var(--background-color) 20%,
     transparent 70%
   );
+  bottom: -10px;
+
+  .disabled & {
+    font-size: 16px;
+    transform: scale(1);
+    bottom: 0px;
+  }
 }
 .fon {
   @include chanceTransition();
-  transition-property: height transform opacity border-radius;
-  transform: rotate(45deg) scale(1);
+  transition-property: opacity border-radius;
+  transform: rotate(45deg) scale(0.5);
   opacity: 1;
   border-radius: 0%;
-  background: var(--background-color);
 
   .disabled & {
-    transform: rotate(0deg) scale(0.5);
+    transform: rotate(0deg) scale(0.35);
     opacity: 0;
     border-radius: 50%;
   }

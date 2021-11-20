@@ -3,11 +3,12 @@
     class="flex-row"
   >
     <div
-      :class="['list ma-8', { current: step === index }]"
+      :class="['item-column ma-8', { current: step === index }]"
       v-for="(type, index) in Object.keys(item.chances)"
       :key="type"
     >
       <input-range
+        class="input-range"
         :list="[...Array(100).keys()].map(n => `${n}`)"
         :color="type"
         :modelValue="`${item.chances[type]}`"
@@ -19,7 +20,6 @@
         })"
       />
       <action-list
-        v-if="step === index"
         :class="['list mt-24', { current: step === index }]"
         :list="item.actions[type]"
       />
@@ -94,4 +94,29 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.item-column {
+  @include chanceTransition();
+  transition-property: max-width;
+  max-width: $config-item-min-width;
+
+  &.current {
+    max-width: $config-item-max-width;
+  }
+}
+
+.list {
+  @include chanceTransition();
+  transition-property: opacity;
+  opacity: 0;
+  overflow: hidden;
+
+  &.current {
+    opacity: 1;
+  }
+}
+
+.input-range {
+  width: 100%;
+  height: $config-item-min-width;
+}
 </style>
