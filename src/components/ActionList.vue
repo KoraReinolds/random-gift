@@ -6,7 +6,7 @@
       class="w-100p"
       v-if="!list.length"
       :action="addActionToList"
-      v-text="'Add action'"
+      v-text="$t('btn.addAction')"
     />
     <li
       class="flex-row-center-between"

@@ -46,6 +46,8 @@ import { useStore } from 'vuex'
 import { useTwitch } from '@/composable/twitch'
 import Loader from '@/components/Loader.vue'
 import Notifications from '@/components/Notifications.vue'
+import i18n from './plugins/i18n'
+
 
 export default defineComponent({
   name: 'App',
@@ -55,7 +57,6 @@ export default defineComponent({
   },
   setup() {
     const { twitch } = useTwitch()
-
     const store = useStore()
     const theme = ref('light')
     const loading = ref(false)
@@ -125,6 +126,8 @@ export default defineComponent({
     twitch?.onContext((context)=>{
 
       if (context.theme) theme.value = context.theme
+
+      if (context.language) i18n.global.locale = context.language
 
     })
 
