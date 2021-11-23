@@ -25,7 +25,9 @@
     </div>
     <div
       class="value flex-row-center-center"
-      :style="`left: ${disabled ? 50 : modelValue}%;`"
+      :style="{
+        marginLeft: `${disabled ? 0 : modelValue * 2}px`,
+      }"
     >
       <span
         class="text absolute h-100p w-100p fw-900 flex-row-center-center default"
@@ -67,16 +69,23 @@ export default defineComponent({
   },
   setup(props, { emit }) {
 
+    let intervalId: number
     const listIndex = ref(props.list.indexOf(props.modelValue))
-    const updateValue = (index: number) => {
-      emit('update:modelValue', `${props.list[index]}`)
-    }
 
-    watch(listIndex, updateValue)
+    watch(listIndex, (index: number, prevIndex: number) => {
+      if (intervalId) clearInterval(intervalId)
+      let parts = Math.min(20, Math.abs(index - prevIndex))
+      let delta = (+index - +prevIndex) / parts
+      intervalId = setInterval(() => {
+        parts -= 1
+        emit('update:modelValue', `${props.list[+index - +(Math.floor(delta * parts))]}`)
+        if (!parts) clearInterval(intervalId)
+      }, 500 / parts)
+
+    })
 
     return {
       listIndex,
-      updateValue,
     }
 
   }
@@ -86,7 +95,7 @@ export default defineComponent({
 <style scoped lang="scss">
 
 $input-width: $config-item-max-width;
-$input-height: 48px;
+$input-height: $config-item-min-width;
 
 [type='range'] {
   -webkit-appearance: none;
@@ -119,14 +128,17 @@ $input-height: 48px;
 
 .value {
   @include chanceTransition();
-  transition-property: transform left;
+  // transition-property: left bottom;
+  transition-property: bottom;
   position: absolute;
-  transform: translate(-50%, 50%);
+  bottom: -($input-height / 2);
+  left: -($input-height / 2);
   height: $input-height;
   width: $input-height;
 
   .disabled & {
-    transform: translate(-50%, 0%);
+    bottom: 0;
+    left: 0;
   }
 }
 
