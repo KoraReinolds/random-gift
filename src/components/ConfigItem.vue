@@ -1,42 +1,50 @@
 <template>
   <div
-    class="flex-row"
+    class="flex-column"
   >
-    <div
-      :class="['item-column ma-8', { current: step === index }]"
-      v-for="(type, index) in Object.keys(item.chances)"
-      :key="type"
-    >
-      <input-range
-        class="input-range"
-        :list="[...Array(100).keys()].map(n => `${n}`)"
-        :color="type"
-        :modelValue="`${item.chances[type]}`"
-        :disabled="step !== index"
-        @update:modelValue="recalculateChances({
-          chances: item.chances,
-          type,
-          value: $event,
-        })"
-      />
-      <action-list
-        :class="['list mt-24', { current: step === index }]"
-        :list="item.actions[type]"
-      />
-    </div>
-    <input-range
-      :list="bitsCost"
-      v-model="bitsValue"
+    <h1
+      v-text="$t(`title.configItem.${steps[step].title}`)"
     />
     <div
-      class="mx-32 flex-column-center-center"
+      class="flex-row"
     >
-      <base-button
-        @click="changeStep"
-        v-text="'Next'"
+      <div
+        :class="['item-column ma-8', { current: step === index }]"
+        v-for="(type, index) in Object.keys(item.chances)"
+        :key="type"
+      >
+        <input-range
+          class="input-range"
+          :list="[...Array(100).keys()].map(n => `${n}`)"
+          :color="type"
+          :modelValue="`${item.chances[type]}`"
+          :disabled="step !== index"
+          @update:modelValue="recalculateChances({
+            chances: item.chances,
+            type,
+            value: $event,
+          })"
+          @click="changeStep(index)"
+        />
+        <action-list
+          :class="['list mt-24', { current: step === index }]"
+          :list="item.actions[type]"
+        />
+      </div>
+      <input-range
+        :list="bitsCost"
+        v-model="bitsValue"
       />
-    </div>
+      <div
+        class="mx-32 flex-column-center-center"
+      >
+        <base-button
+          @click="changeStep(step + 1)"
+          v-text="'Next'"
+        />
+      </div>
 
+    </div>
   </div>
 </template>
 
@@ -68,12 +76,19 @@ export default defineComponent({
     const store = useStore()
     const bitsValue = ref(props.item.bits)
     const step = ref(1)
-    const changeStep = () => {
-      step.value = (step.value + 1) % Object.keys(props.item.chances).length
+    const changeStep = (index: number) => {
+      step.value = index % steps.length
     }
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
     }
+    const steps = [
+      { title: 'common' },
+      { title: 'uncommon' },
+      { title: 'rare' },
+      { title: 'epic' },
+      { title: 'legendary' },
+    ]
 
     watch(bitsValue, (value) => {
       store.commit('config/CHANGE_ITEM_COST', {
@@ -84,6 +99,7 @@ export default defineComponent({
 
     return {
       step,
+      steps,
       changeStep,
       bitsCost,
       bitsValue,
