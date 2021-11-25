@@ -8,7 +8,7 @@
       :key="item.sku"
       :item="item"
     />
-    <div v-text="config" />
+    <!-- <div v-text="config" />
     <base-button
       @click="pushNewGift"
       v-text="'push new gift'"
@@ -16,14 +16,14 @@
     <base-button
       @click="saveConfig"
       v-text="'save changes'"
-    />
+    /> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import ConfigItem from '@/components/ConfigItem.vue'
+import ConfigItem from '@/components/ConfigProduct.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration'
 

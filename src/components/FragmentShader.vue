@@ -25,7 +25,7 @@ export default defineComponent({
     },
     value: {
       type: Number,
-      default: 0,
+      default: 100,
     }
   },
   setup(props) {
@@ -40,18 +40,9 @@ export default defineComponent({
       return vectorColor
     }
     let material: THREE.ShaderMaterial
-    // let intervalId: number
 
     watch(() => props.value, (value) => {
       material.uniforms.u_current_value.value = value
-    //   // if (intervalId) clearInterval(intervalId)
-    //   // let parts = 20
-    //   // let delta = (value - material.uniforms.u_current_value.value) / parts
-    //   // intervalId = setInterval(() => {
-    //   //   parts = parts - 1
-    //   //   material.uniforms.u_current_value.value += delta
-    //   //   if (!parts) clearInterval(intervalId)
-    //   // }, 1000 / parts)
     })
 
     onMounted(() => {
@@ -119,7 +110,7 @@ export default defineComponent({
 
         void main() {
           vec2 st = gl_FragCoord.xy/u_resolution.xy;
-          st += st * abs(.5);
+          st += st * abs(0.01);
           vec3 color = vec3(0.0);
           vec4 opacity_color = vec4(0.0);
 
