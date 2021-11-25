@@ -4,6 +4,18 @@
 @import "@/assets/styles/animations.scss";
 
 @each $size, $value in $sizes {
+
+  @each $dir, $short in (
+    top: 't',
+    right: 'r',
+    bottom: 'b',
+    left: 'l',
+  ) {
+    .#{$short}-#{$size} {
+      #{$dir}: $value;
+    };
+  }
+
   @each $direction, $shortcut in $directions {
     @each $prefix, $property in (
       m: 'margin',

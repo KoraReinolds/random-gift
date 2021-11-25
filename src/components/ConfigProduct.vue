@@ -16,8 +16,31 @@
         class="my-8"
         v-text="$t(`title.configItem.${steps[step].title}`)"
       />
-      <div>
-        <fragment-shader class="fon" />
+      <div
+        class="relative"
+      >
+        <fragment-shader class="fon absolute" />
+      </div>
+      <div class="chances__content flex-row-center-between">
+
+        <div
+          class="chances__values bg-background h-100p"
+        >
+
+        </div>
+
+        <div
+          class="chances__actions bg-background h-100p"
+        >
+
+        </div>
+
+        <div
+          class="chances__range h-100p"
+        >
+
+        </div>
+
       </div>
     </div>
 
@@ -93,18 +116,52 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+$margin: 8px;
+$chances-length: 5;
+$chance-size: 64px;
+$range-width: 24px;
+
+$content-height: calc(#{$chance-size} * #{$chances-length});
+$height: calc(#{$content-height} + #{$margin} * 2);
+
+$content-width: calc(#{$chance-size} + #{$content-height} + #{$range-width} + #{$margin} * 2);
+$width: calc(#{$content-width} + #{$margin} * 2);
+
 .actions,
 .image {
   width: 300px;
 }
 
-.chances {
-  width: 600px;
+.fon {
+  width: $width;
+  height: $height;
 }
 
-.fon {
-  width: 600px;
-  height: 350px;
+.chances {
+  width: $width;
+
+  &__content {
+    box-sizing: border-box;
+    height: $content-height;
+    width: $content-width;
+    z-index: 1;
+    margin: $margin;
+  }
+
+  &__values {
+    width: $chance-size;
+  }
+
+  &__actions {
+    width: $content-height;
+  }
+
+  &__range {
+    width: $range-width;
+    border: 2px solid var(--background-color);
+    box-shadow: inset 0px 0px 2px 1px var(--background-color);
+  }
+
 }
 
 img {
