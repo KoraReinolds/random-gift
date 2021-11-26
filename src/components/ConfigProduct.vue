@@ -24,9 +24,30 @@
       <div class="chances__content flex-row-center-between">
 
         <div
-          class="chances__values bg-background h-100p"
+          class="chances__values h-100p flex-column-center-center"
         >
-
+          <div
+            :class="[
+              'value relative w-100p h-100p flex-row-center-center fw-900 pointer',
+              { active: step === index },
+              `bg-${type}`,
+            ]"
+            v-for="(type, index) in Object.keys(item.chances)"
+            :key="type"
+            @click="changeStep(index)"
+          >
+            <div
+              :class="[
+                'value__fon absolute bg-background w-100p h-100p',
+              ]"
+            />
+            <div
+              :class="[
+                `value__digit absolute c-${type}`
+              ]"
+              v-text="`${item.chances[type]}`"
+            />
+          </div>
         </div>
 
         <div
@@ -170,6 +191,44 @@ img {
 
 button {
   width: 150px;
+}
+
+.value {
+  $transition-duration: 0.5s;
+
+  font-size: 32px;
+  transition: $transition-duration background;
+
+  &.active {
+    background: transparent;
+    .value__fon {
+      opacity: 0;
+    }
+    .value__digit {
+      color: var(--background-color)
+    }
+  }
+
+  &:hover {
+    .value__fon {
+      opacity: 0;
+    }
+    .value__digit {
+      color: var(--background-color)
+    }
+  }
+
+  &__fon {
+    opacity: 1;
+    transition: $transition-duration opacity;
+
+  }
+
+  &__digit {
+    transition: $transition-duration color;
+  }
+  
+
 }
 
 </style>

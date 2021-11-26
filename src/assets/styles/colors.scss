@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $colors: (
   main: #6441A5,
   light-main: #9271cf,
@@ -12,17 +14,21 @@ $colors: (
   light-grey: rgb(224, 224, 224),
 );
 
-$light-theme: (
+$light: (
   font: #2c3e50,
   background: white,
   disabled: var(--light-grey-color),
 );
 
-$dark-theme: (
+$light-theme: map.merge($light, $colors);
+
+$dark: (
   font: rgb(180, 180, 180),
-  background: rgb(24, 24, 27),xw
+  background: rgb(24, 24, 27),
   disabled: var(--dark-grey-color),
 );
+
+$dark-theme: map.merge($dark, $colors);
 
 $color-properties: (
   background: bg,
