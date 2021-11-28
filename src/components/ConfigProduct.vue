@@ -26,12 +26,11 @@
           @change="changeStep"
           :step="step"
         />
-
-        <div
-          class="chances__actions bg-background h-100p"
-        >
-
-        </div>
+        
+        <action-list
+          class="chances__actions h-100p"
+          :list="actionList"
+        />
 
         <div
           class="chances__range h-100p"
@@ -58,7 +57,8 @@
 import BaseButton from '@/components/BaseButton.vue'
 import FragmentShader from '@/components/FragmentShader.vue'
 import ChancesValues from '@/components/ChancesValues.vue'
-import { defineComponent, PropType, ref, watch } from 'vue'
+import ActionList from '@/components/ActionList.vue'
+import { defineComponent, PropType, ref, watch, computed } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
 import { useStore } from 'vuex'
@@ -69,6 +69,7 @@ export default defineComponent({
     BaseButton,
     FragmentShader,
     ChancesValues,
+    ActionList,
   },
   props: {
     item: {
@@ -103,6 +104,11 @@ export default defineComponent({
       })
     })
 
+    const actionList = computed(() => {
+      const list = Object.values(props.item.actions)[+step.value]
+      return list.length ? list : ['']
+    })
+
     return {
       step,
       steps,
@@ -110,6 +116,7 @@ export default defineComponent({
       bitsCost,
       bitsValue,
       recalculateChances,
+      actionList,
     }
   }
 });
@@ -131,7 +138,7 @@ $range-width: 48px;
   }
 
   &__actions {
-    // z-index: 1;
+    z-index: 1;
     width: 300px;
   }
 
