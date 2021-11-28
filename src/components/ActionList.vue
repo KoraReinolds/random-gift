@@ -39,6 +39,7 @@
     <base-button
       class="w-100p mb-8"
       v-text="'Add action'"
+      type="classic"
     />
   </div>
 </template>

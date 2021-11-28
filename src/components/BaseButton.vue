@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn ma-0 py-8 px-16 pointer"
+    :class="`btn ma-0 py-8 px-16 pointer fw-900 ${type}`"
   >
     <slot />
   </button>
@@ -10,6 +10,10 @@
 export default {
   name: 'Button',
   props: {
+    type: {
+      type: String,
+      default: '',
+    }
   },
   setup() {
     return {}
@@ -19,13 +23,17 @@ export default {
 
 <style scoped lang="scss">
 .btn {
-  color: white;
   border: none;
-  background-color: var(--main-color);
   border-radius: 8px;
   transition: background-color 0.2s;
-  &:hover {
-    background-color: var(--main-color-light);
+  font-size: 16px;
+  color: var(--background-color);
+  background-color: var(--primary-color);
+
+  &.classic {
+    color: var(--font-color);
+    background-color: var(--background-color);
   }
+
 }
 </style>
