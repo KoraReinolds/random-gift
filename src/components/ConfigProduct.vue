@@ -16,39 +16,16 @@
         class="my-8"
         v-text="$t(`title.configItem.${steps[step].title}`)"
       />
-      <div
-        class="relative"
-      >
-        <fragment-shader class="fon absolute" />
-      </div>
-      <div class="chances__content flex-row-center-between">
 
-        <div
-          class="chances__values h-100p flex-column-center-center"
-        >
-          <div
-            :class="[
-              'value relative w-100p h-100p flex-row-center-center fw-900 pointer',
-              { active: step === index },
-              `bg-${type}`,
-            ]"
-            v-for="(type, index) in Object.keys(item.chances)"
-            :key="type"
-            @click="changeStep(index)"
-          >
-            <div
-              :class="[
-                'value__fon absolute bg-background w-100p h-100p',
-              ]"
-            />
-            <div
-              :class="[
-                `value__digit absolute c-${type}`
-              ]"
-              v-text="`${item.chances[type]}`"
-            />
-          </div>
-        </div>
+      <div class="chances__content flex-row-center-center relative">
+
+        <fragment-shader class="absolute top-left w-100p h-100p absolute" />
+
+        <chances-values
+          :chances="item.chances"
+          @change="changeStep"
+          :step="step"
+        />
 
         <div
           class="chances__actions bg-background h-100p"
@@ -80,6 +57,7 @@
 <script lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import FragmentShader from '@/components/FragmentShader.vue'
+import ChancesValues from '@/components/ChancesValues.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
@@ -90,6 +68,7 @@ export default defineComponent({
   components: {
     BaseButton,
     FragmentShader,
+    ChancesValues,
   },
   props: {
     item: {
@@ -102,9 +81,9 @@ export default defineComponent({
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
-    const step = ref(1)
+    const step = ref('1')
     const changeStep = (index: number) => {
-      step.value = index % steps.length
+      step.value = `${index % steps.length}`
     }
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
@@ -137,50 +116,29 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$margin: 8px;
-$chances-length: 5;
-$chance-size: 64px;
-$range-width: 24px;
-
-$content-height: calc(#{$chance-size} * #{$chances-length});
-$height: calc(#{$content-height} + #{$margin} * 2);
-
-$content-width: calc(#{$chance-size} + #{$content-height} + #{$range-width} + #{$margin} * 2);
-$width: calc(#{$content-width} + #{$margin} * 2);
+$range-width: 48px;
 
 .actions,
 .image {
   width: 300px;
 }
 
-.fon {
-  width: $width;
-  height: $height;
-}
-
 .chances {
-  width: $width;
 
   &__content {
     box-sizing: border-box;
-    height: $content-height;
-    width: $content-width;
     z-index: 1;
-    margin: $margin;
-  }
-
-  &__values {
-    width: $chance-size;
   }
 
   &__actions {
-    width: $content-height;
+    // z-index: 1;
+    width: 300px;
   }
 
   &__range {
+    z-index: 1;
     width: $range-width;
-    border: 2px solid var(--background-color);
-    box-shadow: inset 0px 0px 2px 1px var(--background-color);
+    border-left: 8px solid var(--background-color);
   }
 
 }
@@ -191,44 +149,6 @@ img {
 
 button {
   width: 150px;
-}
-
-.value {
-  $transition-duration: 0.5s;
-
-  font-size: 32px;
-  transition: $transition-duration background;
-
-  &.active {
-    background: transparent;
-    .value__fon {
-      opacity: 0;
-    }
-    .value__digit {
-      color: var(--background-color)
-    }
-  }
-
-  &:hover {
-    .value__fon {
-      opacity: 0;
-    }
-    .value__digit {
-      color: var(--background-color)
-    }
-  }
-
-  &__fon {
-    opacity: 1;
-    transition: $transition-duration opacity;
-
-  }
-
-  &__digit {
-    transition: $transition-duration color;
-  }
-  
-
 }
 
 </style>

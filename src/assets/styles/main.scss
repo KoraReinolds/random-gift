@@ -86,6 +86,11 @@
   flex-grow: 1;
 }
 
+.top-left {
+  top: 0;
+  left: 0;
+}
+
 @each $bold_key, $bold_value in (
   bold: bold,
   fw-900: 900,
