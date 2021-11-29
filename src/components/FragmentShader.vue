@@ -15,6 +15,7 @@ import {
   watch,
 } from 'vue'
 import * as THREE from 'three'
+import { VectorKeyframeTrack } from 'three';
 
 export default defineComponent({
   name: 'FragmentShader',
@@ -32,14 +33,39 @@ export default defineComponent({
 
     const widget = ref(document.createElement('div'))
     const theme = ref('light')
-    const getVector3ByColorName = (colorName: string) => {
+    const getRGBArr = (colorName: string) => {
       const style = getComputedStyle(document.body)
       const color = style.getPropertyValue(`--${colorName}-color`) || `rgb(0, 0, 0)`
-      const [r, g, b] = color.slice(5, color.length - 1).split(', ')
-      const vectorColor = new THREE.Vector3(+r/255, +g/255, +b/255)
-      return vectorColor
+      return color.slice(5, color.length - 1).split(', ')
+    }
+    const getVecFromRGBArr = ([r, g, b]: string[]) => {
+      return new THREE.Vector3(+r/255, +g/255, +b/255)
+    }
+    const getVector3ByColorName = (colorName: string) => {
+      return getVecFromRGBArr(getRGBArr(colorName))
     }
     let material: THREE.ShaderMaterial
+    let intervalId: number
+
+    watch(() => props.color, (color: string, prevColor: string) => {
+      if (intervalId) clearInterval(intervalId)
+      let parts = 20
+      const prevRGBColorArr = getRGBArr(prevColor)
+      const RGBColorArr = getRGBArr(color)
+      let deltaArr = RGBColorArr.map(
+        (n: string, i: number) => (+n - +prevRGBColorArr[i]) / parts
+      )
+      intervalId = setInterval(() => {
+        parts -= 1
+        material.uniforms.u_mix_color.value = getVecFromRGBArr(
+          RGBColorArr.map(
+            (n: string, i: number) => `${+n - (+deltaArr[i] * parts)}`
+          )
+        )
+        if (!parts) clearInterval(intervalId)
+      }, 500 / parts)
+
+    })
 
     watch(() => props.value, (value) => {
       material.uniforms.u_current_value.value = value

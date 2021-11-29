@@ -19,7 +19,10 @@
 
       <div class="chances__content flex-row-center-center relative">
 
-        <fragment-shader class="absolute top-left w-100p h-100p absolute" />
+        <fragment-shader
+          class="absolute top-left w-100p h-100p absolute"
+          :color="steps[step].title"
+        />
 
         <chances-values
           :chances="item.chances"
@@ -90,8 +93,8 @@ export default defineComponent({
       store.commit('config/CHANGE_ITEM_CHANCES', params)
     }
     const steps = [
+      { title: 'none' },
       { title: 'common' },
-      { title: 'uncommon' },
       { title: 'rare' },
       { title: 'epic' },
       { title: 'legendary' },

@@ -6,8 +6,8 @@ const messagesData = (index: number) => ({
   },
   title: {
     configItem: {
-      common: ['Common chance', 'Обычный шанс'][index],
-      uncommon: ['Uncommon chance', 'Необычный шанс'][index],
+      none: ['Common chance', 'Обычный шанс'][index],
+      common: ['Uncommon chance', 'Необычный шанс'][index],
       rare: ['Rare chance', 'Редкий шанс'][index],
       epic: ['Epic chance', 'Эпический шанс'][index],
       legendary: ['Legendary chance', 'Легендарный шанс'][index],
