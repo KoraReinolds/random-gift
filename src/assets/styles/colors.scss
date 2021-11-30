@@ -1,26 +1,30 @@
 @use "sass:map";
 
-$colors: (
-  main: #6441A5,
-  light-main: #9271cf,
-  dark-main: #3c2764,
-  secondary: #322A26,
-  none: rgb(154, 154, 170),
-  common: rgb(93, 175, 119),
-  rare: rgb(57, 105, 182),
-  epic: rgb(122, 68, 177),
-  legendary: rgb(252, 144, 90),
-  dark-grey: rgb(53, 53, 53),
-  light-grey: rgb(224, 224, 224),
+$colors_vars: (
+  main: '100, 65, 165',
+  light-main: '146, 113, 207',
+  dark-main: '60, 39, 100',
+  secondary: '50, 42, 38',
+  none: '154, 154, 170',
+  common: '93, 175, 119',
+  rare: '57, 105, 182',
+  epic: '122, 68, 177',
+  legendary: '252, 144, 90',
+  dark-grey: '53, 53, 53',
+  light-grey: '224, 224, 224',
 );
+
+$colors: ();
+
+@each $color, $vars in $colors_vars {
+  $colors: map.set($colors, #{$color}, 'rgb(#{$vars})');
+}
 
 $light: (
-  font: #2c3e50,
-  background: white,
+  font: rgb(44, 62, 80),
+  background: rgb(255, 255, 255),
   disabled: var(--light-grey-color),
 );
-
-$light-theme: map.merge($light, $colors);
 
 $dark: (
   font: rgb(180, 180, 180),
@@ -28,21 +32,20 @@ $dark: (
   disabled: var(--dark-grey-color),
 );
 
-$dark-theme: map.merge($dark, $colors);
-
 $color-properties: (
   background: bg,
   color: c,
 );
 
 $themes: (
-  light: $light-theme,
-  dark: $dark-theme,
+  light: map.merge($light, $colors),
+  dark: map.merge($dark, $colors),
 );
 
 @each $class, $theme-map in $themes {
   .#{$class} {
     @each $name, $value in $theme-map {
+      --#{$name}-color : #{$value};
       @each $property, $prefix in $color-properties {
         .#{$prefix}-#{$name} {
           #{$property}: #{$value};
@@ -52,29 +55,8 @@ $themes: (
   }
 }
 
-:root {
-  --main-color: #6441A5;
-  --main-color-light: #9271cf;
-  --main-color-dark: #3c2764;
-  --secondary-color: #322A26;
-  --none-color: rgb(154, 154, 170);
-  --common-color: rgb(93, 175, 119);
-  --rare-color: rgb(57, 105, 182);
-  --epic-color: rgb(122, 68, 177);
-  --legendary-color: rgb(252, 144, 90);
-  --dark-grey-color: rgb(53, 53, 53);
-  --light-grey-color: rgb(224, 224, 224);
-}
-
-.light {
-  --primary-color: var(--main-color-dark);
-  --font-color: #2c3e50;
-  --background-color: white;
-  --disabled-color: var(--light-grey-color);
-}
-.dark {
-  --primary-color: var(--main-color-light);
-  --font-color: rgb(180, 180, 180);
-  --background-color: rgb(24, 24, 27);
-  --disabled-color: var(--dark-grey-color);
+:root{
+  @each $key, $value in $colors {
+    --#{$key}-color : #{$value};
+  }
 }
