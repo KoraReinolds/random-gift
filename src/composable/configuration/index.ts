@@ -26,11 +26,26 @@ const useConfiguration: UseConfiguration = () => {
           legendary: 1,
         },
         actions: {
-          none: ['none', 'random long none string wow'],
-          common: ['common', 'random long common string wow'],
-          rare: ['rare', 'random long rare string wow'],
-          epic: ['epic', 'random long epic string wow'],
-          legendary: ['legendary', 'random long legendary string wow'],
+          none: [
+            { value: 'none' },
+            { value: 'random long none string wow' },
+          ],
+          common: [
+            { value: 'common' },
+            { value: 'random long common string wow' },
+          ],
+          rare: [
+            { value: 'rare' },
+            { value: 'random long rare string wow' },
+          ],
+          epic: [
+            { value: 'epic' },
+            { value: 'random long epic string wow' },
+          ],
+          legendary: [
+            { value: 'legendary' },
+            { value: 'random long legendary string wow' },
+          ],
         }
       }]
     })

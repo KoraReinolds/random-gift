@@ -1,38 +1,36 @@
 <template>
   <div
-    class="flex-column-center-between mr-8"
+    class="w-100p flex-column-center-between mr-8"
   >
     <ul
-      class="bold text-left"
+      class="w-100p bold text-left"
     >
       <li
-        class="text flex-row-center-between mt-8 pa-8 bg-background"
+        class="action-item text flex-row-center-between mt-8 bg-background"
         v-for="(action, index) in list"
         :key="`action-${index}`"
       >
         <base-input
-          v-if="editIndex === index"
-          v-model="newValue"
-          v-focus
+          class="bold pa-8"
+          :modelValue="action.value"
+          @update:modelValue="editAction({
+            actionItem: action,
+            newValue: $event,
+          })"
         />
-        <span v-else v-text="action" />
         <div
           class="actions flex-row"
         >
-            <icon
-              class="pointer ml-8"
-              :name="editIndex === index ? 'accept' : 'delete'"
-              :width="20"
-              :height="20"
-              @click="editIndex === index ? changeFieldValue() : deleteFieldValue(index)"
-            />
-            <icon
-              class="pointer ml-8"
-              :name="editIndex === index ? 'close' : 'edit'"
-              :width="20"
-              :height="20"
-              @click="editIndex === index ? stopEditField() : editField(index, action)"
-            />
+          <icon
+            class="icon pointer mx-8"
+            name="delete"
+            :width="20"
+            :height="20"
+            @click="deleteAction({
+              itemIndex: index,
+              actionList: list,
+            })"
+          />
         </div>
       </li>
     </ul>
@@ -45,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { ref, PropType } from 'vue'
+import { PropType } from 'vue'
 import { ActionList } from '@/store/config/types'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
@@ -63,39 +61,13 @@ export default {
     BaseInput,
     BaseButton,
   },
-  setup(props: any) {
+  setup() {
     
     const { editAction, deleteAction } = useConfiguration()
-    const editIndex = ref(-1)
-    const newValue = ref('')
-    const editField = (index: number, value: string) => {
-      editIndex.value = index
-      newValue.value = value
-    }
-    const deleteFieldValue = (itemIndex: number) => {
-      deleteAction({
-        itemIndex,
-        actionList: props.list,
-      })
-      editField(-1, '')
-    }
-    const stopEditField = () => editField(-1, '')
-    const changeFieldValue = () => {
-      editAction({
-        itemIndex: editIndex.value,
-        actionList: props.list,
-        newValue: newValue.value,
-      })
-      editField(-1, '')
-    }
 
     return {
-      editIndex,
-      newValue,
-      editField,
-      stopEditField,
-      changeFieldValue,
-      deleteFieldValue,
+      editAction,
+      deleteAction,
     }
   }
 }
@@ -103,11 +75,17 @@ export default {
 
 <style scoped lang="scss">
 
+// hide delete icon
+.action-item:first-of-type.action-item:last-of-type {
+  .icon:first-child {
+    display: none;
+  }
+}
+
 .actions {
   transition: 0.5s opacity;
   opacity: 0;
 
-  .text input+&,
   .text:hover & {
     opacity: 1;
   }

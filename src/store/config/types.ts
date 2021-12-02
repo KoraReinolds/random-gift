@@ -12,7 +12,11 @@ export type ChancePercent = {
   [key in ChanceType]: number
 }
 
-export type ActionList = string[]
+export type ActionItem = {
+  value: string
+}
+
+export type ActionList = ActionItem[]
 
 export type ActionMap = {
   [key in ChanceType]: ActionList
@@ -59,8 +63,7 @@ export type DeleteActionParams = {
 }
 
 export type EditActionParams = {
-  itemIndex: number,
-  actionList: ActionList,
+  actionItem: ActionItem,
   newValue: string,
 }
 

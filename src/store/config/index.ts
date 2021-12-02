@@ -39,8 +39,8 @@ const mutations: MutationTree<State> & Mutations = {
     actionList.splice(itemIndex, 1)
   },
 
-  EDIT_ACTION: (state, { itemIndex, actionList, newValue }) => {
-    actionList[itemIndex] = newValue
+  EDIT_ACTION: (state, { actionItem, newValue }) => {
+    actionItem.value = newValue
   }
 
 }

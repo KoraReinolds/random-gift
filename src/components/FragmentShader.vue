@@ -15,7 +15,6 @@ import {
   watch,
 } from 'vue'
 import * as THREE from 'three'
-import { VectorKeyframeTrack } from 'three';
 
 export default defineComponent({
   name: 'FragmentShader',
@@ -37,12 +36,6 @@ export default defineComponent({
       const style = getComputedStyle(document.body)
       const color = style.getPropertyValue(`--${colorName}-color`) || `rgb(0, 0, 0)`
       return color.slice(5, color.length - 1).split(', ')
-    }
-    const hexToRgb = (hex: string) => {
-      return hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
-                ,(m, r, g, b) => '#' + r + r + g + g + b + b)
-        .substring(1).match(/.{2}/g)
-        .map(x => parseInt(x, 16))
     }
     const getVecFromRGBArr = ([r, g, b]: string[]) => {
       return new THREE.Vector3(+r/255, +g/255, +b/255)

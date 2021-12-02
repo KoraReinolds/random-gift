@@ -1,5 +1,6 @@
 <template>
   <component
+    class="w-100p h-100p bg-background"
     :is="this.many ? 'textarea' : 'input'"
     :value="modelValue"
     @input="($e) => $emit('update:modelValue', $e.target.value)"
@@ -37,14 +38,12 @@ input[type=number] {
 }
 textarea,
 input {
-  width: 100%;
-  height: 100%;
   resize: none;
   border: none;
   border-radius: inherit;
   &:focus {
     outline: none;
-  }
+  };
 }
 textarea {
   margin-bottom: -4px;
