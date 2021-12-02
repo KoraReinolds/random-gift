@@ -51,6 +51,7 @@ export type Getters = {
 
 export enum MutationTypes {
   SET_CONFIG = 'SET_CONFIG',
+  ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
   DELETE_ACTION = 'DELETE_ACTION',
@@ -70,6 +71,8 @@ export type EditActionParams = {
 export type Mutations<S = State> = {
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
+
+  [MutationTypes.ADD_NEW_ITEM](state: S, payload: ActionList): number
 
   [MutationTypes.CHANGE_ITEM_COST](state: S, payload: {
     item: Gift,

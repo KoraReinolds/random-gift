@@ -3,6 +3,7 @@ import { createI18n } from 'vue-i18n'
 const messagesData = (index: number) => ({
   btn: {
     addAction: ['Add action', 'Добавить действие'][index],
+    newAction: ['New action', 'Новое действие'][index],
   },
   title: {
     configItem: {

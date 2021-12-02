@@ -17,6 +17,8 @@
             actionItem: action,
             newValue: $event,
           })"
+          :placeholder="$t(`btn.newAction`)"
+          v-focus
         />
         <div
           class="actions flex-row"
@@ -30,14 +32,15 @@
               itemIndex: index,
               actionList: list,
             })"
-          />
+          />e
         </div>
       </li>
     </ul>
     <base-button
       class="w-100p mb-8"
-      v-text="'Add action'"
+      v-text="$t(`btn.addAction`)"
       type="classic"
+      @click="addAction(list)"
     />
   </div>
 </template>
@@ -63,9 +66,10 @@ export default {
   },
   setup() {
     
-    const { editAction, deleteAction } = useConfiguration()
+    const { editAction, deleteAction, addAction } = useConfiguration()
 
     return {
+      addAction,
       editAction,
       deleteAction,
     }

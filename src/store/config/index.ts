@@ -22,7 +22,7 @@ const mutations: MutationTree<State> & Mutations = {
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
 
-  ADD_NEW_ITEM: (state, { item, bits }) => item.bits = `${bits}`,
+  ADD_NEW_ITEM: (state, actionList) => actionList.push({ value: '' }),
 
   CHANGE_ITEM_COST: (state, { item, bits }) => item.bits = `${bits}`,
 

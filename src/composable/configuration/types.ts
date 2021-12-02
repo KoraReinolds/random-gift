@@ -1,4 +1,4 @@
-import { Config } from '@/store/config/types'
+import { ActionList, Config } from '@/store/config/types'
 import {
   EditActionParams,
   DeleteActionParams,
@@ -26,6 +26,7 @@ type UseConfiguration = () => {
   saveConfig: () => void
   editAction: (params: EditActionParams) => void
   deleteAction: (params: DeleteActionParams) => void
+  addAction: (params: ActionList) => void
 }
 
 export {

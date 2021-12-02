@@ -89,6 +89,7 @@ const useConfiguration: UseConfiguration = () => {
     productCosts,
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
     deleteAction: (params) => store.commit('config/DELETE_ACTION', params),
+    addAction: (params) => store.commit('config/ADD_NEW_ITEM', params),
   }
 
 }
