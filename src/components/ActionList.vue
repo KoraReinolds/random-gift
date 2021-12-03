@@ -32,7 +32,7 @@
               itemIndex: index,
               actionList: list,
             })"
-          />e
+          />
         </div>
       </li>
     </ul>

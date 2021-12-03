@@ -35,11 +35,9 @@
           :list="actionList"
         />
 
-        <div
-          class="chances__range h-100p"
-        >
-
-        </div>
+        <chance-bar
+          :modelValue="chanceValue"
+        />
 
       </div>
     </div>
@@ -61,6 +59,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import FragmentShader from '@/components/FragmentShader.vue'
 import ChancesValues from '@/components/ChancesValues.vue'
 import ActionList from '@/components/ActionList.vue'
+import ChanceBar from '@/components/ChanceBar.vue'
 import { defineComponent, PropType, ref, watch, computed } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
@@ -73,6 +72,7 @@ export default defineComponent({
     FragmentShader,
     ChancesValues,
     ActionList,
+    ChanceBar,
   },
   props: {
     item: {
@@ -99,6 +99,16 @@ export default defineComponent({
       { title: 'epic' },
       { title: 'legendary' },
     ]
+    const chanceValue = computed(() => {
+      return Object.values(props.item.chances)[+step.value]
+    })
+
+    watch(bitsValue, (value) => {
+      store.commit('config/CHANGE_ITEM_COST', {
+        item: props.item,
+        bits: value,
+      })
+    })
 
     watch(bitsValue, (value) => {
       store.commit('config/CHANGE_ITEM_COST', {
@@ -120,6 +130,7 @@ export default defineComponent({
       bitsValue,
       recalculateChances,
       actionList,
+      chanceValue,
     }
   }
 });
@@ -127,6 +138,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 $range-width: 48px;
+$range-border: 8px;
 
 .actions,
 .image {
@@ -148,7 +160,7 @@ $range-width: 48px;
   &__range {
     z-index: 1;
     width: $range-width;
-    border-left: 8px solid var(--background-color);
+    border-left: $range-border solid var(--background-color);
   }
 
 }
