@@ -28,10 +28,10 @@ const mutations: MutationTree<State> & Mutations = {
 
   CHANGE_ITEM_CHANCES: (state, { chances, type, value }) => {
     const prevValue = chances[type]
-    const delta = value - prevValue
-    if (delta < chances.none) {
-      chances[type] = value
-      chances.none -= delta
+    const delta = +value - +prevValue
+    if (delta < +chances.none) {
+      chances[type] = `${value}`
+      chances.none = `${+chances.none - +delta}`
     }
   },
 

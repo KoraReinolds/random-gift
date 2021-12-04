@@ -9,7 +9,7 @@ import {
 export type ChanceType = 'none' | 'common' | 'rare' | 'epic' | 'legendary'
 
 export type ChancePercent = {
-  [key in ChanceType]: number
+  [key in ChanceType]: string
 }
 
 export type ActionItem = {

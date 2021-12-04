@@ -19,11 +19,11 @@ const useConfiguration: UseConfiguration = () => {
         title: 'Gift',
         bits: '100',
         chances: {
-          none: 9,
-          common: 50,
-          rare: 30,
-          epic: 10,
-          legendary: 1,
+          none: '9',
+          common: '50',
+          rare: '30',
+          epic: '10',
+          legendary: '1',
         },
         actions: {
           none: [

@@ -8,12 +8,12 @@
     />
     <div
       class="relative track bg-disabled"
-      :style="{ height: `${100 - modelValue}%` }"
+      :style="{ height: `${100 - value}%` }"
     />
     <div
-      v-text="`${modelValue}%`"
+      v-text="`${value}%`"
       class="percent"  
-      :style="{ top: `${100 - modelValue}%` }"
+      :style="{ top: `${100 - value}%` }"
     />
     <div
       v-text="'0%'"
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
   name: "ChanceBar",
@@ -33,6 +33,27 @@ export default defineComponent({
       default: '100',
     },
   },
+  setup(props) {
+
+    let intervalId: number
+    const value = ref(props.modelValue)
+
+    watch(() => props.modelValue, (index: string, prevIndex: string) => {
+      if (intervalId) clearInterval(intervalId)
+      let parts = Math.min(20, Math.abs(+index - +prevIndex))
+      let delta = (+index - +prevIndex) / parts
+      intervalId = setInterval(() => {
+        parts -= 1
+        value.value = `${+props.modelValue - +(Math.floor(delta * parts))}`
+        if (!parts) clearInterval(intervalId)
+      }, 800 / parts)
+    })
+
+    return {
+      value,
+    }
+
+  }
 })
 
 </script>
@@ -42,9 +63,6 @@ $range-width: 48px;
 $range-border: 8px;
 
 .track {
-  @include chanceTransition;
-  transition-property: height;
-
   width: calc(#{$range-width} - #{$range-border} + 1px);
   position: absolute;
   top: 0;
@@ -52,9 +70,6 @@ $range-border: 8px;
 }
 
 .percent {
-  @include chanceTransition;
-  transition-property: top;
-
   font-weight: bold;
   position: absolute;
   text-align: left;
