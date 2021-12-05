@@ -37,6 +37,12 @@
 
         <chance-bar
           :modelValue="chanceValue"
+          :maxValue="maxValue"
+          @update:modelValue="recalculateChances({
+            chances: item.chances,
+            type: steps[step].title,
+            value: $event,
+          })"
         />
 
       </div>
@@ -103,6 +109,13 @@ export default defineComponent({
       return Object.values(props.item.chances)[+step.value]
     })
 
+    const maxValue = computed(() => {
+      const [none, ...rest] = Object.values(props.item.chances)
+      return step.value === "0"
+        ? `${100 - rest.reduce((sum, cur) => sum + +cur, 0)}`
+        : `${+chanceValue.value + +props.item.chances.none}`
+    })
+
     watch(bitsValue, (value) => {
       store.commit('config/CHANGE_ITEM_COST', {
         item: props.item,
@@ -131,6 +144,7 @@ export default defineComponent({
       recalculateChances,
       actionList,
       chanceValue,
+      maxValue,
     }
   }
 });

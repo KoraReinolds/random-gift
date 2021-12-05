@@ -3,27 +3,29 @@
     class="chances__range pointer relative h-100p"
   >
     <div
-      v-text="'100%'"
-      class="percent"  
-    />
-    <div
       class="relative track bg-disabled"
-      :style="{ height: `${100 - value}%` }"
+      :style="{ height: displayValue }"
     />
     <div
-      v-text="`${value}%`"
-      class="percent"  
-      :style="{ top: `${100 - value}%` }"
+      v-text="`${modelValue}%`"
+      class="percent flex-row-center-center w-100p bold absolute"  
+      :style="{ top: displayValue }"
     />
-    <div
-      v-text="'0%'"
-      class="percent"  
-    />
+    <input
+      ref="input"
+      class="absolute pointer top-left"
+      :style="inputStyle"
+      type='range'
+      min='0'
+      :max="maxValue"
+      :value="modelValue"
+      @input="changeValue"
+    >
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 
 export default defineComponent({
   name: "ChanceBar",
@@ -32,25 +34,43 @@ export default defineComponent({
       type: String,
       default: '100',
     },
+    maxValue: {
+      type: String,
+      default: '0',
+    },
   },
-  setup(props) {
+  setup(props, { emit }) {
 
-    let intervalId: number
+    const input = ref(document.createElement('input'))
     const value = ref(props.modelValue)
+    const inputStyle = ref({})
+    const displayValue = computed(
+      () => `${100 - (+props.modelValue / +props.maxValue * 100)}%`
+    )
+    const changeValue = (e: any) => {
+      const { value } = e.target
+      emit('update:modelValue', value)
+    }
 
-    watch(() => props.modelValue, (index: string, prevIndex: string) => {
-      if (intervalId) clearInterval(intervalId)
-      let parts = Math.min(20, Math.abs(+index - +prevIndex))
-      let delta = (+index - +prevIndex) / parts
-      intervalId = setInterval(() => {
-        parts -= 1
-        value.value = `${+props.modelValue - +(Math.floor(delta * parts))}`
-        if (!parts) clearInterval(intervalId)
-      }, 800 / parts)
+    watch(input, (i) => {
+      const { width, height } = i.getBoundingClientRect()
+      inputStyle.value = {
+        width: `${height}px`,
+        height: `${width}px`,
+        transform: `
+          rotate(-90deg)
+          translate(-${height/2}px, -${height/2}px)
+          translate(${width/2}px, 50%)
+        `,
+      }
     })
 
     return {
       value,
+      displayValue,
+      input,
+      inputStyle,
+      changeValue,
     }
 
   }
@@ -59,30 +79,41 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$range-width: 48px;
+$range-width: 40px;
 $range-border: 8px;
 
 .track {
-  width: calc(#{$range-width} - #{$range-border} + 1px);
+  @include chanceTransition;
+  transition-property: height;
+
+  width: calc(#{$range-width} + 1px);
   position: absolute;
   top: 0;
   left: -1px;
 }
 
 .percent {
-  font-weight: bold;
-  position: absolute;
+  @include chanceTransition;
+  transition-property: top;
+
+  font-size: 12px;
   text-align: left;
-  left: 48px;
-  transform: translateY(-50%);
+  transform: translateY(-100%);
+}
 
-  &:last-of-type {
-    bottom: 0;
-    transform: translateY(50%);
-  }
+[type='range'] {
+  width: 100%;
+  height: 100%;
 
-  &:first-of-type {
-    top: 0;
+  -webkit-appearance: none;
+  background: transparent;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  &::-webkit-slider-thumb {
+    width: 0px;
+    -webkit-appearance: none;
   }
 }
 </style>
