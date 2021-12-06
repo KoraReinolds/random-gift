@@ -1,6 +1,12 @@
 import { createI18n } from 'vue-i18n'
 
 const messagesData = (index: number) => ({
+  tooltip: {
+    changeChance: [
+      'Click to change value',
+      'Нажмите для изменения значения',
+    ][index],
+  },
   btn: {
     addAction: ['Add action', 'Добавить действие'][index],
     newAction: ['New action', 'Новое действие'][index],

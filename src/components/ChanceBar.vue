@@ -116,4 +116,9 @@ $range-border: 8px;
     -webkit-appearance: none;
   }
 }
+
+.icon {
+  z-index: 1;
+  left: calc(#{$range-width} / 2);
+}
 </style>
