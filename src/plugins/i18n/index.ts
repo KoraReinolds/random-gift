@@ -10,6 +10,8 @@ const messagesData = (index: number) => ({
   btn: {
     addAction: ['Add action', 'Добавить действие'][index],
     newAction: ['New action', 'Новое действие'][index],
+    configNext: ['Next', 'Далее'][index],
+    configSave: ['Save', 'Сохранить'][index],
   },
   title: {
     configItem: {

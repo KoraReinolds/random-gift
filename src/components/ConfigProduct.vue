@@ -52,8 +52,13 @@
       class="actions flex-column-center-center"
     >
       <base-button
-        @click="changeStep(step + 1)"
-        v-text="'Next'"
+        @click="changeStep(+step + 1)"
+        v-text="$t('btn.configNext')"
+      />
+      <base-button
+        class="mt-8"
+        @click="saveConfig"
+        v-text="$t('btn.configSave')"
       />
     </div>
 
@@ -69,6 +74,7 @@ import ChanceBar from '@/components/ChanceBar.vue'
 import { defineComponent, PropType, ref, watch, computed } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
+import { useConfiguration } from '@/composable/configuration/index'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -88,6 +94,7 @@ export default defineComponent({
   },
   setup(props) {
 
+    const { saveConfig } = useConfiguration()
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
@@ -106,7 +113,7 @@ export default defineComponent({
       { title: 'legendary' },
     ]
     const chanceValue = computed(() => {
-      return Object.values(props.item.chances)[+step.value]
+      return `${Object.values(props.item.chances)[+step.value]}`
     })
 
     const maxValue = computed(() => {
@@ -136,6 +143,7 @@ export default defineComponent({
     })
 
     return {
+      saveConfig,
       step,
       steps,
       changeStep,
