@@ -2,46 +2,61 @@
   <div
     class="w-100p flex-column-center-between mr-8"
   >
-    <ul
-      class="w-100p bold text-left"
+    <div
+      v-if="empty"
+      class="relative w-100p h-100p flex-column-center-center"
     >
-      <li
-        class="action-item text flex-row-center-between mt-8 bg-background"
-        v-for="(action, index) in list"
-        :key="`action-${index}`"
+      <div
+        class="empty-fon h-100p w-100p my-8 bg-background"
+      />
+      <div
+        class="empty-text absolute fw-900"
+        v-text="$t('title.emptyConfig', { chance })"
+      />
+
+    </div>
+    <template v-else>
+      <ul
+        class="w-100p bold text-left"
       >
-        <base-input
-          class="bold pa-8"
-          :modelValue="action.value"
-          @update:modelValue="editAction({
-            actionItem: action,
-            newValue: $event,
-          })"
-          :placeholder="$t(`btn.newAction`)"
-          v-focus
-        />
-        <div
-          class="actions flex-row"
+        <li
+          class="action-item text flex-row-center-between mt-8 bg-background"
+          v-for="(action, index) in list"
+          :key="`action-${index}`"
         >
-          <icon
-            class="icon pointer mx-8"
-            name="delete"
-            :width="20"
-            :height="20"
-            @click="deleteAction({
-              itemIndex: index,
-              actionList: list,
+          <base-input
+            class="bold pa-8"
+            :modelValue="action.value"
+            @update:modelValue="editAction({
+              actionItem: action,
+              newValue: $event,
             })"
+            :placeholder="$t(`btn.newAction`)"
+            v-focus
           />
-        </div>
-      </li>
-    </ul>
-    <base-button
-      class="w-100p mb-8"
-      v-text="$t(`btn.addAction`)"
-      type="classic"
-      @click="addAction(list)"
-    />
+          <div
+            class="actions flex-row"
+          >
+            <icon
+              class="icon pointer mx-8"
+              name="delete"
+              :width="20"
+              :height="20"
+              @click="deleteAction({
+                itemIndex: index,
+                actionList: list,
+              })"
+            />
+          </div>
+        </li>
+      </ul>
+      <base-button
+        class="w-100p mb-8"
+        v-text="$t(`btn.addAction`)"
+        type="classic"
+        @click="addAction(list)"
+      />
+    </template>
   </div>
 </template>
 
@@ -58,7 +73,14 @@ export default {
     list: {
       type: Object as PropType<ActionList>,
       required: true
-    }
+    },
+    chance: {
+      type: String,
+    },
+    empty: {
+      type: Boolean,
+      default: true
+    },
   },
   components: {
     BaseInput,
@@ -93,6 +115,14 @@ export default {
   .text:hover & {
     opacity: 1;
   }
+}
+
+.empty-fon {
+  opacity: .7;
+}
+
+.empty-text {
+  font-size: 24px;
 }
 
 </style>

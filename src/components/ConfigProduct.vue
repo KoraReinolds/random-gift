@@ -33,6 +33,8 @@
         <action-list
           class="chances__actions h-100p"
           :list="actionList"
+          :chance="chanceValue"
+          :empty="step == 0"
         />
 
         <chance-bar

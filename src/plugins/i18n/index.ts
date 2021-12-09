@@ -14,6 +14,10 @@ const messagesData = (index: number) => ({
     configSave: ['Save', 'Сохранить'][index],
   },
   title: {
+    emptyConfig: [
+      'Nothing will happen with a {chance}% chance',
+      'С вероятностью {chance}% ничего не произойдет'
+    ][index],
     configItem: {
       none: ['Common chance', 'Обычный шанс'][index],
       common: ['Uncommon chance', 'Необычный шанс'][index],
