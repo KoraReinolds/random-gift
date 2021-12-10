@@ -54,6 +54,7 @@
         class="w-100p mb-8"
         v-text="$t(`btn.addAction`)"
         type="classic"
+        v-bind="{ disabled: !isValid }"
         @click="addAction(list)"
       />
     </template>
@@ -81,6 +82,10 @@ export default {
       type: Boolean,
       default: true
     },
+    isValid: {
+      type: Boolean,
+      default: true
+    }
   },
   components: {
     BaseInput,

@@ -28,11 +28,12 @@
           :chances="item.chances"
           @change="changeStep"
           :step="step"
-        />
+        /> 
         
         <action-list
           class="chances__actions h-100p"
           :list="actionList"
+          :isValid="validationActionList[step]"
           :chance="chanceValue"
           :empty="step == 0"
         />
@@ -140,8 +141,14 @@ export default defineComponent({
     })
 
     const actionList = computed(() => {
-      const list = Object.values(props.item.actions)[+step.value]
-      return list.length ? list : ['']
+      return Object.values(props.item.actions)[+step.value]
+    })
+
+    const validationActionList = computed(() => {
+      return Object.values(props.item.actions).map((list) => {
+        if (!list.length) return true
+        return list.every(itemList => !!itemList.value)
+      })
     })
 
     return {
@@ -155,6 +162,7 @@ export default defineComponent({
       actionList,
       chanceValue,
       maxValue,
+      validationActionList,
     }
   }
 });

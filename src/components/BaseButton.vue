@@ -35,5 +35,10 @@ export default {
     background-color: var(--background-color);
   }
 
+  &:disabled {
+    cursor: default;
+    background-color: var(--disabled-color);
+  }
+
 }
 </style>

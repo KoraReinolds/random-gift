@@ -19,33 +19,18 @@ const useConfiguration: UseConfiguration = () => {
         title: 'Gift',
         bits: '100',
         chances: {
-          none: '9',
-          common: '50',
-          rare: '30',
-          epic: '10',
-          legendary: '1',
+          none: '100',
+          common: '0',
+          rare: '0',
+          epic: '0',
+          legendary: '0',
         },
         actions: {
-          none: [
-            { value: 'none' },
-            { value: 'random long none string wow' },
-          ],
-          common: [
-            { value: 'common' },
-            { value: 'random long common string wow' },
-          ],
-          rare: [
-            { value: 'rare' },
-            { value: 'random long rare string wow' },
-          ],
-          epic: [
-            { value: 'epic' },
-            { value: 'random long epic string wow' },
-          ],
-          legendary: [
-            { value: 'legendary' },
-            { value: 'random long legendary string wow' },
-          ],
+          none: [],
+          common: [],
+          rare: [],
+          epic: [],
+          legendary: [],
         }
       }]
     })
