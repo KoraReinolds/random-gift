@@ -5,6 +5,18 @@
 @import "@/assets/styles/tooltip.scss";
 
 @each $size, $value in $sizes {
+  @each $dir, $short in (
+    width: 'w',
+    height: 'h',
+    font-size: 'fs',
+  ) {
+    .#{$short}-#{$size} {
+      #{$dir}: $value;
+    };
+  }
+}
+
+@each $size, $value in $sizes {
 
   @each $dir, $short in (
     top: 't',

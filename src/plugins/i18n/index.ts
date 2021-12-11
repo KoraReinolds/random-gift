@@ -14,6 +14,14 @@ const messagesData = (index: number) => ({
     configSave: ['Save', 'Сохранить'][index],
   },
   title: {
+    emptyActionList: [
+      'this category will be displayed with a {chance}% chance. Click the button below to add messages that will also be displayed',
+      'Эта категория будет отображаться с вероятностью {chance}%. Нажмите кнопку ниже, чтобы добавить сообщения, которые также будут отображаться'
+    ][index],
+    actionList: [
+      'One of the following messages will appear randomly with a {chance}% chance',
+      'Одно из следующих сообщений будет случайным образом отображено с вероятностью {chance}%'
+    ][index],
     emptyConfig: [
       'Nothing will happen with a {chance}% chance',
       'С вероятностью {chance}% ничего не произойдет'
