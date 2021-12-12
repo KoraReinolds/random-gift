@@ -70,12 +70,11 @@
 </template>
 
 <script lang="ts">
-import { PropType, ref } from 'vue'
+import { PropType } from 'vue'
 import { ActionList } from '@/store/config/types'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration/index'
-// import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'ActionList',
@@ -102,16 +101,9 @@ export default {
   },
   setup() {
     
-    // const { t } = useI18n()
     const { editAction, deleteAction, addAction } = useConfiguration()
 
-    // const fullTitle = ref(props.empty)
-
-    // const title = props.empty ? t('title.emptyConfig', { chance: props.chance }) : '123'
-
     return {
-      // title,
-      // fullTitle,
       addAction,
       editAction,
       deleteAction,
@@ -130,16 +122,6 @@ export default {
 .action-list {
   height: calc(36px * 3);
   overflow: scroll;
-}
-
-// hide delete icon
-.action-item {
-  &:first-of-type.action-item:last-of-type {
-    .icon:first-child {
-      display: none;
-    }
-  }
-
 }
 
 .actions {
