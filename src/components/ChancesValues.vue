@@ -6,11 +6,13 @@
       v-for="(type, index) in Object.keys(chances)"
       :key="type"
       :class="[
-        'value relative w-100p h-100p flex-row-center-center fw-900 pointer',
+        'value relative w-100p h-100p flex-row-center-center fw-900',
+        disabled ? 'default' : 'pointer',
         { active: step == index },
+        { disabled },
         `bg-${type}`,
       ]"
-      @click="$emit('change', index)"
+      @click="!disabled && $emit('change', index)"
     >
       <div
         :class="[
@@ -40,6 +42,10 @@ export default defineComponent({
       type: String,
       required: true
     },
+    disabled: {
+      type: Boolean,
+      required: false
+    },
     chances: {
       type: Object as PropType<ChancePercent>,
       required: true
@@ -68,7 +74,7 @@ $chance-size: 64px;
     }
   }
 
-  &:hover {
+  &:hover:not(.disabled) {
     .value__fon {
       opacity: 0;
     }
