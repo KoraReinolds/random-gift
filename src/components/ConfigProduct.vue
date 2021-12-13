@@ -121,9 +121,10 @@ export default defineComponent({
 
     const maxValue = computed(() => {
       const [none, ...rest] = Object.values(props.item.chances)
+      const noneValue = 100 - rest.reduce((sum, cur) => sum + +cur, 0)
       return step.value === "0"
-        ? `${100 - rest.reduce((sum, cur) => sum + +cur, 0)}`
-        : `${+chanceValue.value + +props.item.chances.none}`
+        ? `${noneValue}`
+        : `${noneValue + +chanceValue.value}`
     })
 
     watch(bitsValue, (value) => {
