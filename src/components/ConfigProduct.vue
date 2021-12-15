@@ -28,6 +28,7 @@
           :chances="item.chances"
           @change="changeStep"
           :step="step"
+          :disabled="!configValid"
         /> 
         
         <action-list
@@ -39,6 +40,7 @@
         />
 
         <chance-bar
+          :disabled="step === '0'"
           :modelValue="chanceValue"
           :maxValue="maxValue"
           @update:modelValue="recalculateChances({
@@ -55,13 +57,16 @@
       class="actions flex-column-center-center"
     >
       <base-button
+        v-if="+step !== steps.length - 1"
         @click="changeStep(+step + 1)"
         v-text="$t('btn.configNext')"
+        :disabled="!configValid"
       />
       <base-button
         class="mt-8"
         @click="saveConfig"
         v-text="$t('btn.configSave')"
+        :disabled="!(configValid && chanceIsFull)"
       />
     </div>
 
@@ -115,8 +120,12 @@ export default defineComponent({
       { title: 'epic' },
       { title: 'legendary' },
     ]
+    const chancesList = computed(() => {
+      return Object.values(props.item.chances)
+    })
+
     const chanceValue = computed(() => {
-      return `${Object.values(props.item.chances)[+step.value]}`
+      return `${chancesList.value[+step.value]}`
     })
 
     const maxValue = computed(() => {
@@ -152,7 +161,17 @@ export default defineComponent({
       })
     })
 
+    const chanceIsFull = computed(() => {
+      return chancesList.value.reduce((sum, cur) => sum + +cur, 0) === 100
+    })
+
+    const configValid = computed(() => {
+      return validationActionList.value.every(isValid => isValid)
+    })
+
     return {
+      chanceIsFull,
+      configValid,
       saveConfig,
       step,
       steps,

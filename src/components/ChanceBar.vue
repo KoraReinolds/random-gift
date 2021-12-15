@@ -13,13 +13,15 @@
     />
     <input
       ref="input"
-      class="absolute pointer top-left"
+      :class="['absolute top-left',
+        disabled ? 'default' : 'pointer'
+      ]"
       :style="inputStyle"
       type='range'
       min='0'
       :max="maxValue"
       :value="modelValue"
-      @input="changeValue"
+      @input="!disabled && changeValue($event)"
     >
   </div>
 </template>
@@ -37,6 +39,10 @@ export default defineComponent({
     maxValue: {
       type: String,
       default: '0',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { emit }) {
