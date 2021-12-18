@@ -23,12 +23,24 @@
       <div class="grow" />
     </div>
   </div>
+  <div
+    class="flex-row mt-24"
+  >
+    <base-button
+      v-if="!step"
+      class="ml-24"
+      @click="$emit('changeStep', 1)"
+      v-text="'Continue'"
+    />
+  </div>
 </template>
 
 <script lang="ts">
+import BaseButton from '@/components/BaseButton.vue'
 
 export default {
   components: {
+    BaseButton,
   },
   name: 'ConfigMain',
   setup() {

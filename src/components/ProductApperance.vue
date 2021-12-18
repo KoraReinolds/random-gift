@@ -1,10 +1,12 @@
 <template>
   <div
-    class="flex-row-center-center w-100p"
+    :class="['flex-row-center-center w-100p',
+      { disabled: productsCount < 2 }
+    ]"
   >
     <div
-      :class="['arrow prev disabled']"
-      @click="!disabled && nextProduct"
+      :class="['arrow prev']"
+      @click="changeProduct(productItem - 1)"
     />
 
     <div
@@ -17,28 +19,60 @@
     </div>
 
     <div
-      :class="['arrow next disabled']"
-      @click="!disabled && nextProduct"
+      :class="['arrow next']"
+      @click="changeProduct(productItem + 1)"
     />
 
+  </div>
+  <div
+    class="flex-row mt-24"
+  >
+    <base-button
+      @click="$emit('changeStep', 0)"
+      v-text="'Back'"
+    />
+    <base-button
+      class="ml-24"
+      @click="$emit('save')"
+      v-text="'Save'"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { ref } from 'vue'
+import BaseButton from '@/components/BaseButton.vue'
 
 export default {
   name: 'ProductApperance',
-  setup() {
-    const productItem = ref(1)
+  components: {
+    BaseButton,
+  },
+  props: {
+    type: {
+      type: String,
+      required: true,
+    }
+  },
+  setup(props: any) {
+    const productsCount = 2
+    const productItem = ref(+props.type)
 
-    const nextProduct = () => {
-      productItem.value = +(!productItem.value)
+    const changeProduct = (newValue: number) => {
+
+      if (productsCount < 2) return
+
+      productItem.value = (newValue === -1
+        ? productsCount - 1
+        : newValue
+      ) % productsCount
+
     }
 
     return {
+      productsCount,
       productItem,
-      nextProduct,
+      changeProduct,
     }
   }
 }
@@ -57,7 +91,7 @@ export default {
   border-right: 24px solid transparent;
   cursor: pointer;
 
-  &.disabled {
+  .disabled & {
     cursor: default;
     border-bottom-color: var(--disabled-color);
     border-left-color: var(--disabled-color);
