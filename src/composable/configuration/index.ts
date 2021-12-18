@@ -15,8 +15,10 @@ const useConfiguration: UseConfiguration = () => {
   const productCosts = computed(() => store.getters['config/productCosts'])
   const defaultConfig = {
     content: JSON.stringify({
+      type: '1',
       giftList: [{
         title: 'Gift',
+        type: '1',
         bits: '100',
         chances: {
           none: '100',
@@ -72,6 +74,7 @@ const useConfiguration: UseConfiguration = () => {
     config,
     saveConfig,
     productCosts,
+    changeItem: (params) => store.commit('config/CHANGE_ITEM', params),
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
     deleteAction: (params) => store.commit('config/DELETE_ACTION', params),
     addAction: (params) => store.commit('config/ADD_NEW_ITEM', params),

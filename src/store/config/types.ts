@@ -33,6 +33,7 @@ export type GiftList = Array<Gift>
 
 export interface Config {
   giftList: GiftList
+  type: string
 }
 
 export interface ChangeChances {
@@ -50,6 +51,7 @@ export type Getters = {
 }
 
 export enum MutationTypes {
+  CHANGE_ITEM = 'CHANGE_ITEM',
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
@@ -69,6 +71,8 @@ export type EditActionParams = {
 }
 
 export type Mutations<S = State> = {
+
+  [MutationTypes.CHANGE_ITEM](state: S, payload: string): string
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
 

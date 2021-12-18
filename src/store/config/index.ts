@@ -20,6 +20,8 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
 const mutations: MutationTree<State> & Mutations = {
 
+  CHANGE_ITEM: (state, newType) => state.config ? state.config.type = newType : '',
+
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
 
   ADD_NEW_ITEM: (state, actionList) => actionList.push({ value: '' }),

@@ -33,7 +33,7 @@
     />
     <base-button
       class="ml-24"
-      @click="$emit('save')"
+      @click="save"
       v-text="'Save'"
     />
   </div>
@@ -42,6 +42,7 @@
 <script lang="ts">
 import { ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
+import { useConfiguration } from '@/composable/configuration'
 
 export default {
   name: 'ProductApperance',
@@ -54,9 +55,10 @@ export default {
       required: true,
     }
   },
-  setup(props: any) {
+  setup(props: any, { emit }: any) {
     const productsCount = 2
     const productItem = ref(+props.type)
+    const { changeItem } = useConfiguration()
 
     const changeProduct = (newValue: number) => {
 
@@ -70,6 +72,10 @@ export default {
     }
 
     return {
+      save: () => {
+        changeItem(`${productItem.value}`)
+        emit('save')
+      },
       productsCount,
       productItem,
       changeProduct,

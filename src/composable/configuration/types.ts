@@ -24,6 +24,7 @@ type UseConfiguration = () => {
   config: Ref<Config>
   productCosts: Ref<string[]>
   saveConfig: () => void
+  changeItem: (params: string) => void
   editAction: (params: EditActionParams) => void
   deleteAction: (params: DeleteActionParams) => void
   addAction: (params: ActionList) => void
