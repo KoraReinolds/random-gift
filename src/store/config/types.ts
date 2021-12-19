@@ -25,6 +25,7 @@ export type ActionMap = {
 export type Gift = {
   title: string
   bits: string
+  type: string
   chances: ChancePercent
   actions: ActionMap
 }
@@ -33,7 +34,6 @@ export type GiftList = Array<Gift>
 
 export interface Config {
   giftList: GiftList
-  type: string
 }
 
 export interface ChangeChances {
@@ -51,9 +51,9 @@ export type Getters = {
 }
 
 export enum MutationTypes {
-  CHANGE_ITEM = 'CHANGE_ITEM',
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
+  CHANGE_ITEM_TYPE = 'CHANGE_ITEM_TYPE',
   CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
   DELETE_ACTION = 'DELETE_ACTION',
@@ -70,18 +70,25 @@ export type EditActionParams = {
   newValue: string,
 }
 
+export type ChangeBitsParams = {
+  item: Gift,
+  bits: number
+}
+
+export type ChangeTypeParams = {
+  item: Gift,
+  type: string
+}
+
 export type Mutations<S = State> = {
 
-  [MutationTypes.CHANGE_ITEM](state: S, payload: string): string
+  [MutationTypes.CHANGE_ITEM_TYPE](state: S, payload: ChangeTypeParams): string
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
 
   [MutationTypes.ADD_NEW_ITEM](state: S, payload: ActionList): number
 
-  [MutationTypes.CHANGE_ITEM_COST](state: S, payload: {
-    item: Gift,
-    bits: number
-  }): string
+  [MutationTypes.CHANGE_ITEM_COST](state: S, payload: ChangeBitsParams): string
 
   [MutationTypes.CHANGE_ITEM_CHANCES](state: S, payload: ChangeChances): void
 

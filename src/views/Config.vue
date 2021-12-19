@@ -9,14 +9,12 @@
     />
     <product-apperance
       v-else-if="step === 1"
-      :type="config.type"
+      :item="item"
       @changeStep="changeStep"
       @save="saveConfig"
     />
     <config-product
       v-else-if="step === 2"
-      v-for="item in config.giftList"
-      :key="item.sku"
       :item="item"
     />
   </div>
@@ -40,7 +38,7 @@ export default defineComponent({
   setup() {
     
     const { config, saveConfig } = useConfiguration()
-    const step = ref()
+    const step = ref(3)
     const changeStep = (newStep: number) => step.value = newStep
 
     const store = useStore()
@@ -53,6 +51,7 @@ export default defineComponent({
     }
 
     return {
+      item: config.value.giftList[0],
       step,
       changeStep,
       pushNewGift,

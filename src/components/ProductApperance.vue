@@ -40,9 +40,10 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, PropType } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration'
+import { Gift } from '@/store/config/types'
 
 export default {
   name: 'ProductApperance',
@@ -51,14 +52,14 @@ export default {
   },
   emits: ['changeStep', 'save'],
   props: {
-    type: {
-      type: String,
+    item: {
+      type: Object as PropType<Gift>,
       required: true,
     }
   },
   setup(props: any, { emit }: any) {
     const productsCount = 2
-    const productItem = ref(+props.type)
+    const productItem = ref(+props.item.type)
     const { changeItem } = useConfiguration()
 
     const changeProduct = (newValue: number) => {
@@ -74,7 +75,10 @@ export default {
 
     return {
       save: () => {
-        changeItem(`${productItem.value}`)
+        changeItem({
+          item: props.item,
+          type: `${productItem.value}`
+        })
         emit('save')
       },
       productsCount,
