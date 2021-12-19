@@ -49,6 +49,7 @@ export default {
   components: {
     BaseButton,
   },
+  emits: ['changeStep', 'save'],
   props: {
     type: {
       type: String,

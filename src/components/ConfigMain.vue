@@ -27,7 +27,6 @@
     class="flex-row mt-24"
   >
     <base-button
-      v-if="!step"
       class="ml-24"
       @click="$emit('changeStep', 1)"
       v-text="'Continue'"
@@ -42,6 +41,7 @@ export default {
   components: {
     BaseButton,
   },
+  emits: ['changeStep'],
   name: 'ConfigMain',
   setup() {
     return {
