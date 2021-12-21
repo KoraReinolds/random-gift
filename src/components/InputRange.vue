@@ -12,10 +12,10 @@
       <fragment-shader
         class="shader-range"
         :color="color"
-        :value="disabled ? 1 : list.indexOf(modelValue)/(list.length - 1)"
+        :value="disabled ? 1 : value"
       />
       <input
-        class="absolute pointer"
+        class="absolute pointer h-100p w-100p"
         type='range'
         min='0'
         :max="list.length - 1"
@@ -26,7 +26,7 @@
     <div
       class="value flex-row-center-center"
       :style="{
-        marginLeft: `${disabled ? 0 : modelValue * 2}px`,
+        marginLeft: `${disabled ? 0 : list.indexOf(modelValue)/(list.length - 1) * 200}px`,
       }"
     >
       <span
@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import FragmentShader from '@/components/FragmentShader.vue'
 
 export default defineComponent({
@@ -66,13 +66,26 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    smoothChange: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props, { emit }) {
 
     let intervalId: number
     const listIndex = ref(props.list.indexOf(props.modelValue))
+    const value = computed(() => {
+      return props.list.indexOf(props.modelValue)/(props.list.length - 1)
+    })
 
     watch(listIndex, (index: number, prevIndex: number) => {
+
+      if (!props.smoothChange) {
+        emit('update:modelValue', `${props.list[+index]}`)
+        return
+      }
+
       if (intervalId) clearInterval(intervalId)
       let parts = Math.min(20, Math.abs(index - prevIndex))
       let delta = (+index - +prevIndex) / parts
@@ -86,6 +99,7 @@ export default defineComponent({
 
     return {
       listIndex,
+      value,
     }
 
   }

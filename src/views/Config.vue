@@ -17,6 +17,11 @@
       v-else-if="step === 2"
       :item="item"
     />
+    <product-cost
+      v-else-if="step === 3"
+      @changeStep="changeStep"
+      @save="saveConfig"
+    />
   </div>
 </template>
 
@@ -26,11 +31,13 @@ import { useStore } from 'vuex'
 import ConfigProduct from '@/components/ConfigProduct.vue'
 import ConfigMain from '@/components/ConfigMain.vue'
 import ProductApperance from '@/components/ProductApperance.vue'
+import ProductCost from '@/components/ProductCost.vue'
 import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   name: 'About',
   components: {
+    ProductCost,
     ProductApperance,
     ConfigProduct,
     ConfigMain,
