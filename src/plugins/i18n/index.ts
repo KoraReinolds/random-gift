@@ -13,6 +13,38 @@ const messagesData = (index: number) => ({
     configNext: ['Next', 'Далее'][index],
     configSave: ['Save', 'Сохранить'][index],
   },
+  configMain: [
+    {
+      title: [
+        'Appearance',
+        'Внешний вид',
+      ][index],
+      description: [
+        'Choose the look of the lootbox that will be displayed on your stream',
+        'Выберите внешний вид лутбокса, который будет отображаться у вас на трансляции',
+      ][index],
+    },
+    {
+      title: [
+        'Settings',
+        'Настройка',
+      ][index],
+      description: [
+        'Customize the contents of the selected lootbox',
+        'Настройте содержимое выбранного лутбокса',
+      ][index],
+    },
+    {
+      title: [
+        'Cost',
+        'Стоимость',
+      ][index],
+      description: [
+        'Set the price that viewers must pay to open the selected lootbox',
+        'Установить цену которую зрители должны заплатить за открытие выбранного лутбокса',
+      ][index],
+    },
+  ],
   title: {
     emptyActionList: [
       'this category will be displayed with a {chance}% chance. Click the button below to add messages that will also be displayed',
