@@ -31,8 +31,9 @@
 
 <script lang="ts">
 import { useNotifications } from '@/composable/notifications'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'Notifications',
   setup() {
 
@@ -42,7 +43,7 @@ export default {
       notifications,
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

@@ -40,12 +40,12 @@
 </template>
 
 <script lang="ts">
-import { ref, PropType } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration'
 import { Gift } from '@/store/config/types'
 
-export default {
+export default defineComponent({
   name: 'ProductApperance',
   components: {
     BaseButton,
@@ -86,7 +86,7 @@ export default {
       changeProduct,
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

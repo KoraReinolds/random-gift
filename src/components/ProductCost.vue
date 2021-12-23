@@ -29,14 +29,14 @@
 </template>
 
 <script lang="ts">
-import { ref, PropType } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
 import InputRange from '@/components/InputRange.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useProducts } from '@/composable/products'
 import { useConfiguration } from '@/composable/configuration'
 import { Gift } from '@/store/config/types'
 
-export default {
+export default defineComponent({
   name: 'ProductCost',
   components: {
     InputRange,
@@ -67,7 +67,7 @@ export default {
       cost,
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

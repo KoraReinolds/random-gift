@@ -36,8 +36,9 @@
 
 <script lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: {
     BaseButton,
   },
@@ -47,7 +48,7 @@ export default {
     return {
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

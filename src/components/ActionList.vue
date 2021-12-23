@@ -70,13 +70,13 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { ActionList } from '@/store/config/types'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration/index'
 
-export default {
+export default defineComponent({
   name: 'ActionList',
   props: {
     list: {
@@ -109,7 +109,7 @@ export default {
       deleteAction,
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

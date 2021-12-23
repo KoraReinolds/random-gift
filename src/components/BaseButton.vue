@@ -7,7 +7,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'Button',
   props: {
     type: {
@@ -18,7 +20,7 @@ export default {
   setup() {
     return {}
   }
-};
+});
 </script>
 
 <style scoped lang="scss">

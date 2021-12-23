@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import { onMounted, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'Icon',
   props: {
     name: {
@@ -61,7 +61,7 @@ export default {
       icon,
     }
   }
-};
+});
 </script>
 
 <style lang="scss">
