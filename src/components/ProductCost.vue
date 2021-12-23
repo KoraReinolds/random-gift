@@ -22,31 +22,49 @@
     />
     <base-button
       class="ml-24"
-      @click="$emit('save')"
+      @click="save"
       v-text="'Save'"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, PropType } from 'vue'
 import InputRange from '@/components/InputRange.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import { useProducts } from '@/composable/products'
+import { useConfiguration } from '@/composable/configuration'
+import { Gift } from '@/store/config/types'
 
 export default {
+  name: 'ProductCost',
   components: {
     InputRange,
     BaseButton,
   },
   emits: ['changeStep', 'save'],
-  name: 'ProductCost',
-  setup() {
-    const bitsCostList = ref(['0', '1', '100', '500', '1000'])
-    const bitsCost = ref('500')
+  props: {
+    item: {
+      type: Object as PropType<Gift>,
+      required: true,
+    }
+  },
+  setup(props: any, { emit }: any) {
+    const { changeBits } = useConfiguration()
+    const { bitsCost } = useProducts()
+    const cost = ref(props.item.bits)
     return {
-      change: (e: string) => bitsCost.value = e,
-      bitsCostList,
-      bitsCost,
+      save: () => {
+        changeBits({
+          item: props.item,
+          bits: cost.value,
+        })
+        emit('save')
+      },
+      bitsCost: cost,
+      change: (newCost: string) => cost.value = newCost,
+      bitsCostList: bitsCost,
+      cost,
     }
   }
 }

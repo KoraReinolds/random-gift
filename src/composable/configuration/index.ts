@@ -60,6 +60,7 @@ const useConfiguration: UseConfiguration = () => {
   }
   const saveConfig = () => {
     const configuration = JSON.stringify(config.value)
+    console.log(configuration)
     twitch
       ? twitch.configuration.set('broadcaster', '1', configuration)
       : axiosBackend.post('/congig/save', configuration)
@@ -73,7 +74,7 @@ const useConfiguration: UseConfiguration = () => {
     config,
     saveConfig,
     productCosts,
-    changeBits: (params) => store.commit('config/CHANGE_ITEM_BITS', params),
+    changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
     deleteAction: (params) => store.commit('config/DELETE_ACTION', params),

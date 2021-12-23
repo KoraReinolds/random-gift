@@ -72,7 +72,7 @@ export type EditActionParams = {
 
 export type ChangeBitsParams = {
   item: Gift,
-  bits: number
+  bits: string
 }
 
 export type ChangeTypeParams = {

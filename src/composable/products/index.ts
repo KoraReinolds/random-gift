@@ -6,7 +6,6 @@ import { useStore } from 'vuex'
 import { useConfiguration } from '@/composable/configuration'
 
 const useProducts: UseProducts = () => {
-
   const store = useStore()
   const { productCosts } = useConfiguration()
   const products = ref([])
@@ -20,12 +19,13 @@ const useProducts: UseProducts = () => {
       }
     )
   })
-
+  
   if (!allProducts.value) {
     store.dispatch('products/GET_PRODUCTS')
   }
 
   return {
+    allProducts,
     products,
     bitsCost,
   }

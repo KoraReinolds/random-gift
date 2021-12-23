@@ -6,7 +6,7 @@
   >
     <div
       :class="['arrow prev']"
-      @click="changeProduct(productItem - 1)"
+      @click="changeProduct(+productItem - 1)"
     />
 
     <div
@@ -14,13 +14,13 @@
     >
       <img
         class="absolute top-left w-100p h-100p"
-        :src="`type${productItem + 1}.gif`"
+        :src="`type${+productItem + 1}.gif`"
       />
     </div>
 
     <div
       :class="['arrow next']"
-      @click="changeProduct(productItem + 1)"
+      @click="changeProduct(+productItem + 1)"
     />
 
   </div>

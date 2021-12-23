@@ -19,6 +19,7 @@
     />
     <product-cost
       v-else-if="step === 3"
+      :item="item"
       @changeStep="changeStep"
       @save="saveConfig"
     />
@@ -45,7 +46,7 @@ export default defineComponent({
   setup() {
     
     const { config, saveConfig } = useConfiguration()
-    const step = ref(3)
+    const step = ref(1)
     const changeStep = (newStep: number) => step.value = newStep
 
     const store = useStore()
