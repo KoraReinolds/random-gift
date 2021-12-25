@@ -3,6 +3,7 @@
     class="config flex-column-center-center"
     v-if="config"
   >
+    {{ config }}
     <config-main
       v-if="!step"
       @changeStep="changeStep"

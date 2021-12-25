@@ -3,15 +3,15 @@
     :class="['product']"
     @click="useBits(product.sku)"
   >
-    <img class="image" src="" alt="">
+    <!-- <img class="image" src="" alt="">
     <div class="info">
       <div>
         {{ product.displayName }}
       </div>
       <div>
         {{ product.cost.amount }}
-      </div>
-    </div>
+      </div>``
+    </div> -->
   </div>
 </template>
 
