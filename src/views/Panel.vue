@@ -1,17 +1,32 @@
 <template>
-  <div>
-    <h1>Panel</h1>
-    <!-- <h1>PRODUCTS: {{ products }}</h1> -->
+  <div
+  >
+    <h2
+      v-text="'Panel'"
+      class="my-16"
+    />
     <div
-      class="flex-column"
+      class="flex-column-center-center"
     >
       <bits-product
+        class="product"
         v-for="product in products"
         :product="product"
         :key="product.sku"
       />
+      <bits-product
+        class="product"
+        v-for="product in products"
+        :product="product"
+        :key="product.sku"
+      />
+      <bits-product
+        v-for="product in products"
+        class="product"
+        :product="product"
+        :key="product.sku"
+      />
     </div>
-    <!-- <h1>CONFIG: {{ $store.state.config.config }}</h1> -->
   </div>
 </template>
 
@@ -38,4 +53,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.product {
+  width: 318px;
+  border-bottom: 2px solid var(--disabled-color);
+}
 </style>

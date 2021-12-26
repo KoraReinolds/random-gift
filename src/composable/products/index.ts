@@ -4,7 +4,6 @@ import {
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useConfiguration } from '@/composable/configuration'
-import { mapLinear } from 'three/src/math/MathUtils'
 
 const useProducts: UseProducts = () => {
   const store = useStore()
@@ -16,6 +15,7 @@ const useProducts: UseProducts = () => {
   watch(allProducts, (productList) => {
     products.value = (productList || [])
       .filter((product: Twitch.ext.BitsProduct) => {
+        console.log(productList)
         return productCosts.value.includes(product.cost.amount)
       })
       .map((product: Twitch.ext.BitsProduct) => {
