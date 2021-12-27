@@ -14,15 +14,15 @@ const useProducts: UseProducts = () => {
 
   watch(allProducts, (productList) => {
     products.value = (productList || [])
-      .filter((product: Twitch.ext.BitsProduct) => {
-        console.log(productList)
-        return productCosts.value.includes(product.cost.amount)
+    .filter((product: Twitch.ext.BitsProduct) => {
+      return productCosts.value.includes(product.cost.amount)
+    })
+    .map((product: Twitch.ext.BitsProduct) => {
+      return config.value?.giftList.find((gift) => {
+        return gift.bits === product.cost.amount
       })
-      .map((product: Twitch.ext.BitsProduct) => {
-        return config.value?.giftList.find((gift) => {
-          return gift.bits === product.cost.amount
-        })
-      })
+    })
+    console.log(products.value)
   })
   
   if (!allProducts.value) {

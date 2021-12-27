@@ -1,9 +1,9 @@
 <template>
   <div
-    class="product relative"
+    class="product relative flex-column-center-center w-100p"
   >
     <div
-      :class="['flex-row-center-between pt-32 pb-16']"
+      :class="['flex-row-center-between py-32 w-100p']"
     >
       <div
         class="image relative w-50p"
@@ -35,12 +35,28 @@
         />
       </div>
     </div>
-    <div
+    <ul
       :class="['product-list pb-32', {
         hidden: listHidden,
       }]"
-      v-text="product"
-    />
+    >
+      <li
+        :class="['product-item mb-8', `c-${type}`]"
+        v-for="(productList, type) in product.actions"
+        :key="`product-item-${type}`"
+      >
+        <span
+          :class="['fw-900', `c-${type}`]"
+          v-text="`${product.chances[type]}%`"
+        />
+        <div
+          :class="['text-left', `c-${type}`]"
+          v-for="(product, index) in productList"
+          :key="`product-text-${index}-${type}`"
+          v-text="`- ${product.value}`"
+        />
+      </li>
+    </ul>
     <icon
       class="toggler bg-background rounded absolute pointer"
       name="arrow-down"
@@ -88,11 +104,12 @@ export default defineComponent({
 <style scoped lang="scss">
 .product-list {
   overflow: hidden;
-  border-bottom: 2px solid var(--font-color);
+  border-bottom: 1px solid var(--font-color);
+  width: 250px;
   position: relative;
   transition: 0.3s;
   transition-property: max-height padding;
-  max-height: 200px;
+  max-height: 1000px;
   &.hidden {
     max-height: 0px;
     padding: 0px;
@@ -103,12 +120,17 @@ export default defineComponent({
   position:relative;
 
 }
+.product-item {
+  width: 200px;
+}
 .toggler {
+  bottom: 0;
+  left: 50%;
   z-index: 1;
-  transform: translate(-50%, -50%) rotate(180deg);
+  transform: translate(-50%, 50%) rotate(180deg);
   transition: 0.3s;
   .product-list.hidden + & {
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, 50%) rotate(0deg);
   }
 }
 .image {

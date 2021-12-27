@@ -42,7 +42,7 @@ export default defineComponent({
     const { products } = useProducts()
 
     return {
-      products: [{ "title": "Gift", "type": "1", "bits": "100", "chances": { "none": "100", "common": "0", "rare": "0", "epic": "0", "legendary": "0" }, "actions": { "none": [], "common": [], "rare": [], "epic": [], "legendary": [] } }],
+      products,
     }
 
   },
