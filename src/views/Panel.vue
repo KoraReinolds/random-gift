@@ -9,20 +9,17 @@
       class="flex-column-center-center"
     >
       <bits-product
-        class="product"
-        v-for="product in products"
-        :product="product"
-        :key="product.sku"
-      />
-      <bits-product
-        class="product"
         v-for="product in products"
         :product="product"
         :key="product.sku"
       />
       <bits-product
         v-for="product in products"
-        class="product"
+        :product="product"
+        :key="product.sku"
+      />
+      <bits-product
+        v-for="product in products"
         :product="product"
         :key="product.sku"
       />
@@ -45,7 +42,7 @@ export default defineComponent({
     const { products } = useProducts()
 
     return {
-      products,
+      products: [{ "title": "Gift", "type": "1", "bits": "100", "chances": { "none": "100", "common": "0", "rare": "0", "epic": "0", "legendary": "0" }, "actions": { "none": [], "common": [], "rare": [], "epic": [], "legendary": [] } }],
     }
 
   },
@@ -53,8 +50,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.product {
-  width: 318px;
-  border-bottom: 2px solid var(--disabled-color);
-}
 </style>
