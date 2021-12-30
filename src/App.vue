@@ -1,6 +1,7 @@
 <template>
+    <!-- v-for="theme in ['dark', 'light']" -->
   <div
-    v-for="theme in ['light', 'dark']"
+    v-for="theme in ['dark']"
     :key="theme"
     :class="[theme,
       'app text-center h-100p flex-column w-100 relative', {
@@ -9,7 +10,7 @@
     @click="addToken()"
   >
     <notifications />
-    <div
+    <!-- <div
       class="pa-8 flex-row-center-around"
       v-if="!$route.meta.hideNavigation"
     >
@@ -28,7 +29,7 @@
         }"
       />
 
-    </div>
+    </div> -->
     <loader
       v-if="loading"
     />
@@ -177,10 +178,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
-  color: var(--font-color);
-}
 *, *:before, *:after {
   box-sizing: border-box;
   color: var(--font-color);
@@ -188,7 +185,7 @@ export default defineComponent({
 body,
 #app {
   margin: 0;
-  height: 50vh;
+  height: 100vh;
 }
 
 .app {

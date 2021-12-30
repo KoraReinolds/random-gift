@@ -28,7 +28,7 @@
     class="flex-row mt-24"
   >
     <base-button
-      @click="$emit('changeStep', 0)"
+      @click="$emit('changeStep', -1)"
       v-text="'Back'"
     />
     <base-button

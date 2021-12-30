@@ -8,6 +8,10 @@
       v-if="!step"
       @changeStep="changeStep"
     />
+    <add-product
+      v-else-if="step === -1"
+      @changeStep="changeStep"
+    />
     <product-apperance
       v-else-if="step === 1"
       :item="item"
@@ -32,6 +36,7 @@ import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import ConfigProduct from '@/components/ConfigProduct.vue'
 import ConfigMain from '@/components/ConfigMain.vue'
+import AddProduct from '@/components/AddProduct.vue'
 import ProductApperance from '@/components/ProductApperance.vue'
 import ProductCost from '@/components/ProductCost.vue'
 import { useConfiguration } from '@/composable/configuration'
@@ -43,11 +48,12 @@ export default defineComponent({
     ProductApperance,
     ConfigProduct,
     ConfigMain,
+    AddProduct,
   },
   setup() {
     
     const { config, saveConfig } = useConfiguration()
-    const step = ref(1)
+    const step = ref(0)
     const changeStep = (newStep: number) => step.value = newStep
 
     const store = useStore()

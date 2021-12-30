@@ -42,7 +42,46 @@ export default defineComponent({
     const { products } = useProducts()
 
     return {
-      products,
+      // products,
+      products: [{ "title": "Gift", "type": "1", "bits": "100", "chances": { "none": "30", "common": "10", "rare": "11", "epic": "22", "legendary": "4" }, "actions": {
+    "none": [
+        {
+            "value": "none"
+        }
+    ],
+    "common": [
+        {
+            "value": "common"
+        },
+        {
+            "value": "random long common string wow"
+        }
+    ],
+    "rare": [
+        {
+            "value": "rare"
+        },
+        {
+            "value": "random long rare string wow"
+        }
+    ],
+    "epic": [
+        {
+            "value": "epic"
+        },
+        {
+            "value": "random long epic string wow"
+        }
+    ],
+    "legendary": [
+        {
+            "value": "legendary"
+        },
+        {
+            "value": "random long legendary string wow"
+        }
+    ]
+} }],
     }
 
   },
