@@ -38,7 +38,16 @@ export default defineComponent({
   setup(props) {
 
     const index = ref(0)
-    const changeIndex = (newIndex) => index.value = newIndex % props.list.length
+    let interval
+    const changeIndex = (newIndex) => {
+      if (interval) clearInterval(interval)
+      index.value = newIndex % props.list.length
+      interval = setInterval(() => {
+        newIndex += 1;
+        index.value = newIndex % props.list.length
+      }, 5000)
+    }
+    changeIndex(index.value)
 
     return {
       index,
