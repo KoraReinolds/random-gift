@@ -28,12 +28,12 @@
   >
     <base-button
       @click="$emit('changeStep', 0)"
-      v-text="'Back'"
+      v-text="$t('btn.configBack')"
     />
     <base-button
       class="ml-24"
       @click="$emit('changeStep', 1)"
-      v-text="'Continue'"
+      v-text="$t('btn.configContinue')"
     />
   </div>
 </template>

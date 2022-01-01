@@ -40,7 +40,7 @@
       >
         <base-button
           @click="changeStep(step + 1)"
-          v-text="'Next'"
+          v-text="$t('btn.configNext')"
         />
       </div>
 

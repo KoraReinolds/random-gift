@@ -30,7 +30,7 @@
         </div>
         <base-button
           class="w-100p mb-16"
-          v-text="`Buy`"
+          v-text="$t('btn.configBuy')"
           @click="useBits(`Box-${product.bits}`)"
         />
       </div>

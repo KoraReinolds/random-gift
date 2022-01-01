@@ -12,7 +12,7 @@
     <base-button
       class="ml-24"
       @click="$emit('changeStep', -1)"
-      v-text="'Add product'"
+      v-text="$t('btn.addLootBox')"
     />
   </div>
 </template>

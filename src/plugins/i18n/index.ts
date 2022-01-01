@@ -11,7 +11,11 @@ const messagesData = (index: number) => ({
     addAction: ['Add action', 'Добавить действие'][index],
     newAction: ['New action', 'Новое действие'][index],
     configNext: ['Next', 'Далее'][index],
+    configBack: ['Back', 'Назад'][index],
+    configContinue: ['Continue', 'Продолжить'][index],
     configSave: ['Save', 'Сохранить'][index],
+    configBuy: ['Buy', 'Купить'][index],
+    addLootBox: ['Add lootbox', 'Добавить лутбокс'][index],
   },
   configMain: [
     {
