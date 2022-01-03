@@ -1,12 +1,13 @@
 <template>
   <div
+    class="image relative"
   >
     <img
-      class="image"
+      class="h-100p w-100p"
       :src="`type${index + 1}.gif`"
     >
     <ul
-      :class="'flex-row-center-center'"
+      :class="'dots py-8 absolute w-100p flex-row-center-center'"
     >
       <li
         v-for="(imgSrc, i) in list"
@@ -61,6 +62,11 @@ export default defineComponent({
 .image {
   width: 300px;
   height: 300px;
+}
+
+.dots {
+  background: linear-gradient(transparent, var(--background-color));
+  bottom: 0px;
 }
 
 li {
