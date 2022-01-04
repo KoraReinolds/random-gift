@@ -2,6 +2,15 @@
   <div
     class="config-main flex-row-center-center w-100p"
   >
+    <div
+      class="flex-row-center-center"
+    >
+      <div
+        v-for="(product, index) in products"
+        :key="`product-${index}`"
+        v-text="product"
+      />
+    </div>
     <carousel
       :list="['type1.gif', 'type2.gif']"
     />
@@ -21,6 +30,7 @@
 import Carousel from '@/components/Carousel.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { defineComponent } from 'vue'
+import { useProducts } from '@/composable/products'
 
 export default defineComponent({
   components: {
@@ -30,7 +40,11 @@ export default defineComponent({
   emits: ['changeStep'],
   name: 'ConfigMain',
   setup() {
+
+    const { products } = useProducts()
+
     return {
+      products,
     }
   }
 })
