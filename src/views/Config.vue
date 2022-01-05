@@ -52,7 +52,7 @@ export default defineComponent({
   },
   setup() {
     
-    const { config, saveConfig } = useConfiguration()
+    const { config, saveConfig, item } = useConfiguration()
     const step = ref(0)
     const changeStep = (newStep: number) => step.value = newStep
 
@@ -66,7 +66,7 @@ export default defineComponent({
     }
 
     return {
-      item: config.value.giftList[0],
+      item,
       step,
       changeStep,
       pushNewGift,

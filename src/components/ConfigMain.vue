@@ -1,14 +1,16 @@
 <template>
   <div
-    class="config-main flex-row-center-center w-100p"
+    class="config-main flex-row-start-center w-100p"
   >
     <div
-      class="flex-row-center-center"
+      class="item-list flex-column-start-center"
     >
-      <div
-        v-for="(product, index) in products"
+      <img
+        class='w-100p h-100p pointer'
+        v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
-        v-text="product"
+        :src="`type${product.type}.gif`"
+        @click="configurateItem(index)"
       />
     </div>
     <carousel
@@ -30,7 +32,7 @@
 import Carousel from '@/components/Carousel.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { defineComponent } from 'vue'
-import { useProducts } from '@/composable/products'
+import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   components: {
@@ -41,10 +43,11 @@ export default defineComponent({
   name: 'ConfigMain',
   setup() {
 
-    const { products } = useProducts()
+    const { config, configurateItem } = useConfiguration()
 
     return {
-      products,
+      config,
+      configurateItem,
     }
   }
 })
@@ -54,6 +57,10 @@ export default defineComponent({
 
 .config-main {
   max-width: 900px;
+}
+
+.item-list {
+  width: 100px;
 }
 
 </style>

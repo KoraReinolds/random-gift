@@ -1,4 +1,4 @@
-import { ActionList, Config } from '@/store/config/types'
+import { ActionList, Config, Gift } from '@/store/config/types'
 import {
   EditActionParams,
   DeleteActionParams,
@@ -23,9 +23,11 @@ interface Configuration {
 }
 
 type UseConfiguration = () => {
+  item: Ref<Gift | null>
   config: Ref<Config>
   productCosts: Ref<string[]>
   saveConfig: () => void
+  configurateItem: (params: number) => void
   changeBits: (params: ChangeBitsParams) => void
   changeItem: (params: ChangeTypeParams) => void
   editAction: (params: EditActionParams) => void

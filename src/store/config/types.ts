@@ -44,9 +44,11 @@ export interface ChangeChances {
 
 export interface State {
   config: Config | null
+  currentIndex: number
 }
 
 export type Getters = {
+  currentProduct(state: State): Gift | null
   productCosts(state: State): string[]
 }
 

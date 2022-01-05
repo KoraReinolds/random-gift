@@ -7,10 +7,17 @@ import { MutationTree, GetterTree, Module } from 'vuex'
 import { IRootState } from '@/store/root/types'
 
 const state: State = {
-  config: null
+  config: null,
+  currentIndex: -1,
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {
+
+  currentProduct: (state) => {
+    if (!state.config || state.currentIndex === -1) return null
+
+    return state.config.giftList[state.currentIndex]
+  },
 
   productCosts: (state) => state.config
     ? state.config.giftList.map(g => g.bits)
@@ -19,6 +26,8 @@ const getters: GetterTree<State, IRootState> & Getters = {
 }
 
 const mutations: MutationTree<State> & Mutations = {
+
+  CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
   

@@ -3,7 +3,7 @@ import {
   Configuration,
   UseConfiguration,
 } from "./types"
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
 
@@ -12,6 +12,7 @@ const useConfiguration: UseConfiguration = () => {
   const { twitch } = useTwitch()
   const store = useStore()
   const config = computed(() => store.state.config.config)
+  const item = computed(() => store.getters['config/currentProduct'])
   const productCosts = computed(() => store.getters['config/productCosts'])
   const defaultConfig = {
     content: JSON.stringify({
@@ -71,9 +72,11 @@ const useConfiguration: UseConfiguration = () => {
   }
   
   return {
+    item,
     config,
     saveConfig,
     productCosts,
+    configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
     changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
