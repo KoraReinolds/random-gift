@@ -15,7 +15,7 @@
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
         :src="`type${product.type}.gif`"
-        @click="configurateItem(index); $emit('changeStep', -1)"
+        @click="chooseProduct(index)"
       />
     </div>
     <carousel
@@ -27,7 +27,7 @@
   >
     <base-button
       class="ml-24"
-      @click="$emit('changeStep', -1)"
+      @click="addNewGift(); chooseProduct(config.giftList.length - 1)"
       v-text="$t('btn.addLootBox')"
     />
   </div>
@@ -46,13 +46,19 @@ export default defineComponent({
   },
   emits: ['changeStep'],
   name: 'ConfigMain',
-  setup() {
+  setup(props, { emit }) {
 
-    const { config, configurateItem } = useConfiguration()
+    const { config, configurateItem, addNewGift } = useConfiguration()
+    const chooseProduct = (index: number) => {
+      configurateItem(index)
+      emit('changeStep', -1)
+    }
 
     return {
       config,
       configurateItem,
+      addNewGift,
+      chooseProduct,
     }
   }
 })

@@ -14,28 +14,27 @@ const useConfiguration: UseConfiguration = () => {
   const config = computed(() => store.state.config.config)
   const item = computed(() => store.getters['config/currentProduct'])
   const productCosts = computed(() => store.getters['config/productCosts'])
+  const emptyConfig = {
+    title: 'Gift',
+    type: '1',
+    bits: '100',
+    chances: {
+      none: '100',
+      common: '0',
+      rare: '0',
+      epic: '0',
+      legendary: '0',
+    },
+    actions: {
+      none: [],
+      common: [],
+      rare: [],
+      epic: [],
+      legendary: [],
+    }
+  }
   const defaultConfig = {
-    content: JSON.stringify({
-      giftList: [{
-        title: 'Gift',
-        type: '1',
-        bits: '100',
-        chances: {
-          none: '100',
-          common: '0',
-          rare: '0',
-          epic: '0',
-          legendary: '0',
-        },
-        actions: {
-          none: [],
-          common: [],
-          rare: [],
-          epic: [],
-          legendary: [],
-        }
-      }]
-    })
+    content: JSON.stringify({ giftList: [emptyConfig] })
   }
   const getConfigFromBackend = () => {
     axiosBackend.get('/configuration').then(
@@ -76,6 +75,7 @@ const useConfiguration: UseConfiguration = () => {
     config,
     saveConfig,
     productCosts,
+    addNewGift: () => store.commit('config/ADD_GIFT_TO_LIST', emptyConfig),
     configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
     changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),

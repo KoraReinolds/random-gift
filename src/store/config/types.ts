@@ -53,6 +53,7 @@ export type Getters = {
 }
 
 export enum MutationTypes {
+  ADD_GIFT_TO_LIST = 'ADD_GIFT_TO_LIST',
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   CHANGE_ITEM_TYPE = 'CHANGE_ITEM_TYPE',
@@ -83,6 +84,8 @@ export type ChangeTypeParams = {
 }
 
 export type Mutations<S = State> = {
+
+  [MutationTypes.ADD_GIFT_TO_LIST](state: S, payload: Gift): void
 
   [MutationTypes.CHANGE_ITEM_TYPE](state: S, payload: ChangeTypeParams): string
 

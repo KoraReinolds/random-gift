@@ -27,6 +27,12 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
 const mutations: MutationTree<State> & Mutations = {
 
+  ADD_GIFT_TO_LIST: (state, gift) => {
+    if (!state.config) return
+
+    state.config.giftList.push(gift)
+  },
+
   CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
