@@ -1,16 +1,21 @@
 <template>
   <div
-    class="config-main flex-row-start-center w-100p"
+    class="config-main flex-row-start-center w-100p mt-16"
   >
     <div
-      class="item-list flex-column-start-center"
+      class="item-list"
+      v-if="config.giftList"
     >
+      <div
+        class="h-32 fw-900"
+        v-text="'Lootboxes'"
+      />
       <img
         class='w-100p h-100p pointer'
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
         :src="`type${product.type}.gif`"
-        @click="configurateItem(index)"
+        @click="configurateItem(index); $emit('changeStep', -1)"
       />
     </div>
     <carousel
@@ -60,7 +65,18 @@ export default defineComponent({
 }
 
 .item-list {
-  width: 100px;
+  width: 90px;
+  max-height: 300px;
+  overflow: scroll;
+  img {
+    border: 1px solid var(--font-color);
+    border-radius: 16px;
+    background-color: var(--disabled-color);
+
+    &:hover {
+      background-color: var(--background-color);
+    }
+  }
 }
 
 </style>
