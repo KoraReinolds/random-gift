@@ -30,7 +30,7 @@ export default defineComponent({
   transition: background-color 0.2s;
   font-size: 16px;
   color: var(--background-color);
-  background-color: var(--main-color);
+  background-color: var(--button-color);
 
   &.classic {
     color: var(--font-color);
