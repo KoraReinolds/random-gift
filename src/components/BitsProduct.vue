@@ -41,12 +41,12 @@
       }]"
     >
       <li
-        :class="['product-item mb-8', `c-${type}`]"
+        :class="['product-item mb-8 w-100p br-8 pa-8', `bc-${type} c-${type}`]"
         v-for="(productList, type) in product.actions"
         :key="`product-item-${type}`"
       >
         <span
-          :class="['fw-900', `c-${type}`]"
+          :class="['float-right ml-8 w-48 h-48 br-8 flex-row-center-center border fw-900 c-background', `bg-${type}`]"
           v-text="`${product.chances[type]}%`"
         />
         <div
@@ -121,7 +121,8 @@ export default defineComponent({
 
 }
 .product-item {
-  width: 200px;
+  min-height: 64px;
+  border: 1px solid black;
 }
 .toggler {
   bottom: 0;

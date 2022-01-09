@@ -9,6 +9,7 @@
     width: 'w',
     height: 'h',
     font-size: 'fs',
+    border-radius: 'br',
   ) {
     .#{$short}-#{$size} {
       #{$dir}: $value;
@@ -102,6 +103,14 @@
 .top-left {
   top: 0;
   left: 0;
+}
+
+.float-right {
+  float: right;
+}
+
+.border {
+  border: 1px solid;
 }
 
 @each $bold_key, $bold_value in (

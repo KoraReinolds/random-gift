@@ -23,6 +23,7 @@
     />
   </div>
   <div
+    v-if="config.giftList.length < 2"
     class="flex-row mt-24"
   >
     <base-button
