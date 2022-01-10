@@ -11,7 +11,7 @@
         v-text="'Lootboxes'"
       />
       <img
-        class='w-100p h-100p pointer'
+        class='w-100p h-100p pointer border bc-font bg-disabled br-16'
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
         :src="`type${product.type}.gif`"
@@ -75,14 +75,8 @@ export default defineComponent({
   width: 90px;
   max-height: 300px;
   overflow: scroll;
-  img {
-    border: 1px solid var(--font-color);
-    border-radius: 16px;
-    background-color: var(--disabled-color);
-
-    &:hover {
-      background-color: var(--background-color);
-    }
+  img:hover {
+    background-color: var(--background-color);
   }
 }
 

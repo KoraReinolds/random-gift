@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="`btn ma-0 py-8 px-16 pointer fw-900 ${type}`"
+    :class="`btn ma-0 py-8 px-16 fs-16 br-8 c-background bg-button pointer fw-900 ${type}`"
   >
     <slot />
   </button>
@@ -26,11 +26,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .btn {
   border: none;
-  border-radius: 8px;
   transition: background-color 0.2s;
-  font-size: 16px;
-  color: var(--background-color);
-  background-color: var(--button-color);
 
   &.classic {
     color: var(--font-color);

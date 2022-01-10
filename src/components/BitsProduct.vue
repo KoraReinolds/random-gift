@@ -41,7 +41,7 @@
       }]"
     >
       <li
-        :class="['product-item mb-8 w-100p br-8 pa-8', `bc-${type} c-${type}`]"
+        :class="['product-item border mb-8 w-100p br-8 pa-8', `bc-${type} c-${type}`]"
         v-for="(productList, type) in product.actions"
         :key="`product-item-${type}`"
       >
@@ -122,7 +122,6 @@ export default defineComponent({
 }
 .product-item {
   min-height: 64px;
-  border: 1px solid black;
 }
 .toggler {
   bottom: 0;
