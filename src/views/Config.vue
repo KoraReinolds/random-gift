@@ -4,12 +4,13 @@
     v-if="config"
   >
     {{ config }}
-    <config-main
-      v-if="!step"
+    <add-product-header
+      v-if="step > 0"
+      :step="step"
       @changeStep="changeStep"
     />
-    <add-product
-      v-else-if="step === -1"
+    <config-main
+      v-if="!step"
       @changeStep="changeStep"
     />
     <product-apperance
@@ -36,7 +37,7 @@ import { defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import ConfigProduct from '@/components/ConfigProduct.vue'
 import ConfigMain from '@/components/ConfigMain.vue'
-import AddProduct from '@/components/AddProduct.vue'
+import AddProductHeader from '@/components/AddProduct.vue'
 import ProductApperance from '@/components/ProductApperance.vue'
 import ProductCost from '@/components/ProductCost.vue'
 import { useConfiguration } from '@/composable/configuration'
@@ -48,7 +49,7 @@ export default defineComponent({
     ProductApperance,
     ConfigProduct,
     ConfigMain,
-    AddProduct,
+    AddProductHeader,
   },
   setup() {
     

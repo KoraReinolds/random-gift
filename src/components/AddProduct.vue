@@ -3,51 +3,40 @@
     class="add-product flex-row-center-center w-100p"
   >
     <div
-      v-for="index in [0,1,2]"
+      v-for="index in [1,2,3]"
       :key="`section-${index}`"
-      class="add-product__section pointer pa-64 h-100p flex-column-center-center"
-      @click="$emit('changeStep', index + 1)"
+      :class="[
+        `add-product__section pointer pa-32 h-100p flex-row-center-center`,
+        { active: index === step },
+      ]"
+      @click="$emit('changeStep', index)"
     >
       <div
-        class="add-product__step flex-row-center-center fs-24 bold w-48 h-48 rounded"
-        v-text="index + 1"
+        class="border mr-8 flex-row-center-center fs-24 bold w-48 h-48 rounded"
+        v-text="index"
       />
       <div
-        class="add-product__title fs-24 my-16 bold"
-        v-text="$t(`configMain.${index}.title`)"
+        class="fs-24 my-16 bold"
+        v-text="$t(`configMain.${index - 1}.title`)"
       />
-      <div
-        class="add-product__desc  fs-16 mb-16"
-        v-text="$t(`configMain.${index}.description`)"
-      />
-      <div class="grow" />
     </div>
-  </div>
-  <div
-    class="flex-row mt-24"
-  >
-    <base-button
-      @click="$emit('changeStep', 0)"
-      v-text="$t('btn.configBack')"
-    />
-    <base-button
-      class="ml-24"
-      @click="$emit('changeStep', 1)"
-      v-text="$t('btn.configContinue')"
-    />
   </div>
 </template>
 
 <script lang="ts">
-import BaseButton from '@/components/BaseButton.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {
-    BaseButton,
   },
   emits: ['changeStep'],
   name: 'AddProduct',
+  props: {
+    step: {
+      type: Number,
+      required: true,
+    }
+  },
   setup() {
     return {
     }
@@ -60,35 +49,17 @@ export default defineComponent({
 .add-product {
   max-width: 900px;
 
-  &__step {
-    border: 2px solid var(--font-color);
-  }
-
-  .add-product__step,
-  .add-product__title,
-  .add-product__desc {
-    transition: 0.3s;
-  }
-
-  .add-product__title,
-  .add-product__desc {
-    width: 250px;
-  }
-
   &__section {
     max-width: 300px;
+
+    &.active div {
+      color: var(--light-main-color);
+    }
     
     &:not(.add-product__section:last-child) {
       border-right: 2px solid var(--disabled-color);
     }
 
-    &:hover {
-      .add-product__step,
-      .add-product__title,
-      .add-product__desc {
-        transform: scale(1.1);
-      }
-    }
   }
 }
 
