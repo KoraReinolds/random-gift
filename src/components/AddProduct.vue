@@ -8,6 +8,7 @@
       :class="[
         `add-product__section pointer pa-32 h-100p flex-row-center-center`,
         { active: index === step },
+        { disabled: !availableSteps.includes(index) },
       ]"
       @click="$emit('changeStep', index)"
     >
@@ -35,6 +36,10 @@ export default defineComponent({
     step: {
       type: Number,
       required: true,
+    },
+    availableSteps: {
+      type: Array,
+      required: true,
     }
   },
   setup() {
@@ -51,6 +56,14 @@ export default defineComponent({
 
   &__section {
     max-width: 300px;
+
+    &.disabled {
+      cursor: default;
+
+      div {
+        color: var(--disabled-color);
+      }
+    }
 
     &.active div {
       color: var(--light-main-color);

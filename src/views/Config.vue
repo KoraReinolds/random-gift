@@ -3,10 +3,11 @@
     class="config flex-column-center-center"
     v-if="config"
   >
-    {{ config }}
+    {{ item }}
     <add-product-header
       v-if="step > 0"
       :step="step"
+      :availableSteps="availableSteps"
       @changeStep="changeStep"
     />
     <config-main
@@ -55,7 +56,12 @@ export default defineComponent({
     
     const { config, saveConfig, item } = useConfiguration()
     const step = ref(0)
-    const changeStep = (newStep: number) => step.value = newStep
+    const availableSteps = [1, 2]
+    const changeStep = (newStep: number) => {
+      if (availableSteps.includes(newStep)) {
+        step.value = newStep
+      }
+    }
 
     const store = useStore()
 
@@ -73,6 +79,7 @@ export default defineComponent({
       pushNewGift,
       saveConfig,
       config,
+      availableSteps,
     }
 
   }
