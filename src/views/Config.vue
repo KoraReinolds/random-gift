@@ -3,29 +3,28 @@
     class="config flex-column-center-center"
     v-if="config"
   >
-    {{ item }}
     <add-product-header
-      v-if="step > 0"
+      v-if="step !== '0'"
       :step="step"
-      :availableSteps="availableSteps"
+      :availableSteps="item.availableSteps"
       @changeStep="changeStep"
     />
     <config-main
-      v-if="!step"
+      v-if="step === '0'"
       @changeStep="changeStep"
     />
     <product-apperance
-      v-else-if="step === 1"
+      v-else-if="step === '1'"
       :item="item"
       @changeStep="changeStep"
       @save="saveConfig"
     />
     <config-product
-      v-else-if="step === 2"
+      v-else-if="step === '2'"
       :item="item"
     />
     <product-cost
-      v-else-if="step === 3"
+      v-else-if="step === '3'"
       :item="item"
       @changeStep="changeStep"
       @save="saveConfig"
@@ -55,10 +54,9 @@ export default defineComponent({
   setup() {
     
     const { config, saveConfig, item } = useConfiguration()
-    const step = ref(0)
-    const availableSteps = [1, 2]
-    const changeStep = (newStep: number) => {
-      if (availableSteps.includes(newStep)) {
+    const step = ref('0')
+    const changeStep = (newStep: string) => {
+      if (item.value && item.value.availableSteps.includes(newStep)) {
         step.value = newStep
       }
     }
@@ -79,7 +77,6 @@ export default defineComponent({
       pushNewGift,
       saveConfig,
       config,
-      availableSteps,
     }
 
   }

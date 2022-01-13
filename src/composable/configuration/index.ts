@@ -3,7 +3,7 @@ import {
   Configuration,
   UseConfiguration,
 } from "./types"
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
 
@@ -16,6 +16,7 @@ const useConfiguration: UseConfiguration = () => {
   const productCosts = computed(() => store.getters['config/productCosts'])
   const emptyConfig = {
     title: 'Gift',
+    availableSteps: ['0', '1'],
     type: '1',
     bits: '100',
     chances: {

@@ -52,7 +52,7 @@ export default defineComponent({
     const { config, configurateItem, addNewGift } = useConfiguration()
     const chooseProduct = (index: number) => {
       configurateItem(index)
-      emit('changeStep', 1)
+      emit('changeStep', '1')
     }
 
     return {

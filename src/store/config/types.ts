@@ -24,6 +24,7 @@ export type ActionMap = {
 
 export type Gift = {
   title: string
+  availableSteps: string[]
   bits: string
   type: string
   chances: ChancePercent

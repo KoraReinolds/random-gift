@@ -3,7 +3,7 @@
     class="add-product flex-row-center-center w-100p"
   >
     <div
-      v-for="index in [1,2,3]"
+      v-for="index in ['1', '2', '3']"
       :key="`section-${index}`"
       :class="[
         `add-product__section pointer pa-32 h-100p flex-row-center-center`,
@@ -34,7 +34,7 @@ export default defineComponent({
   name: 'AddProduct',
   props: {
     step: {
-      type: Number,
+      type: String,
       required: true,
     },
     availableSteps: {

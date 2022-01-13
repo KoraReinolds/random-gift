@@ -17,7 +17,7 @@
     class="flex-row mt-48"
   >
     <base-button
-      @click="$emit('changeStep', -1)"
+      @click="$emit('changeStep', '0')"
       v-text="$t('btn.configBack')"
     />
     <base-button
