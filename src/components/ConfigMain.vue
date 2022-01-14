@@ -28,7 +28,7 @@
   >
     <base-button
       class="ml-24"
-      @click="addNewGift(); chooseProduct(config.giftList.length - 1)"
+      @click="btnClick"
       v-text="$t('btn.addLootBox')"
     />
   </div>
@@ -52,13 +52,17 @@ export default defineComponent({
     const { config, configurateItem, addNewGift } = useConfiguration()
     const chooseProduct = (index: number) => {
       configurateItem(index)
-      emit('changeStep', '1')
+      emit('changeStep', config.value.giftList[index].availableSteps.slice(-1)[0])
+    }
+    const btnClick = () => {
+      addNewGift();
+      chooseProduct(config.value.giftList.length - 1)
     }
 
     return {
+      btnClick,
       config,
       configurateItem,
-      addNewGift,
       chooseProduct,
     }
   }

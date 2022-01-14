@@ -34,7 +34,7 @@
     <base-button
       class="ml-24"
       @click="save"
-      v-text="$t('btn.configSave')"
+      v-text="$t('btn.configContinue')"
     />
   </div>
 </template>
@@ -60,7 +60,8 @@ export default defineComponent({
   setup(props: any, { emit }: any) {
     const productsCount = 2
     const productItem = ref(+props.item.type)
-    const { changeItem } = useConfiguration()
+    const { changeItem, changeAvailableSteps } = useConfiguration()
+    const nextStep = '2'
 
     const changeProduct = (newValue: number) => {
 
@@ -79,6 +80,8 @@ export default defineComponent({
           item: props.item,
           type: `${productItem.value}`
         })
+        changeAvailableSteps([...props.item.availableSteps, nextStep])
+        emit('changeStep', nextStep)
         emit('save')
       },
       productsCount,
