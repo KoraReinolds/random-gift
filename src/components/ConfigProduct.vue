@@ -26,7 +26,7 @@
 
         <chances-values
           :chances="item.chances"
-          @change="changeStep"
+          @change="changeIndex"
           :step="step"
           :disabled="!configValid"
         /> 
@@ -57,16 +57,14 @@
       class="actions flex-column-center-center"
     >
       <base-button
-        v-if="+step !== steps.length - 1"
-        @click="changeStep(+step + 1)"
-        v-text="$t('btn.configNext')"
-        :disabled="!configValid"
+        @click="$emit('changeStep', '1')"
+        v-text="$t('btn.configBack')"
       />
       <base-button
         class="mt-8"
-        @click="saveConfig"
-        v-text="$t('btn.configSave')"
-        :disabled="!(configValid && chanceIsFull)"
+        @click="changeIndex(+step + 1)"
+        v-text="$t('btn.configNext')"
+        :disabled="!configValid"
       />
     </div>
 
@@ -100,15 +98,22 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
 
-    const { saveConfig } = useConfiguration()
+    const { saveConfig, changeAvailableSteps } = useConfiguration()
+    const nextStep = '3'
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
     const step = ref('1')
-    const changeStep = (index: number) => {
-      step.value = `${index % steps.length}`
+    const changeIndex = (index: number) => {
+      if (index === steps.length) {
+        changeAvailableSteps([...props.item.availableSteps, nextStep])
+        emit('changeStep', nextStep)
+        emit('save')
+      } else {
+        step.value = `${index % steps.length}`
+      }
     }
     const recalculateChances = (params: ChangeChances) => {
       store.commit('config/CHANGE_ITEM_CHANCES', params)
@@ -175,7 +180,7 @@ export default defineComponent({
       saveConfig,
       step,
       steps,
-      changeStep,
+      changeIndex,
       bitsCost,
       bitsValue,
       recalculateChances,
