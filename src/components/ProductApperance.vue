@@ -50,7 +50,7 @@ export default defineComponent({
   components: {
     BaseButton,
   },
-  emits: ['changeStep', 'save'],
+  emits: ['changeStep'],
   props: {
     item: {
       type: Object as PropType<Gift>,
@@ -60,7 +60,7 @@ export default defineComponent({
   setup(props: any, { emit }: any) {
     const productsCount = 2
     const productItem = ref(+props.item.type)
-    const { changeItem, changeAvailableSteps } = useConfiguration()
+    const { changeItem, saveConfig, changeAvailableSteps } = useConfiguration()
     const nextStep = '2'
 
     const changeProduct = (newValue: number) => {
@@ -82,7 +82,7 @@ export default defineComponent({
         })
         changeAvailableSteps([...props.item.availableSteps, nextStep])
         emit('changeStep', nextStep)
-        emit('save')
+        saveConfig()
       },
       productsCount,
       productItem,

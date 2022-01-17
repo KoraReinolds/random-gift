@@ -17,19 +17,16 @@
       v-else-if="step === '1'"
       :item="item"
       @changeStep="changeStep"
-      @save="saveConfig"
     />
     <config-product
       v-else-if="step === '2'"
       :item="item"
       @changeStep="changeStep"
-      @save="saveConfig"
     />
     <product-cost
       v-else-if="step === '3'"
       :item="item"
       @changeStep="changeStep"
-      @save="saveConfig"
     />
   </div>
 </template>
@@ -55,7 +52,7 @@ export default defineComponent({
   },
   setup() {
     
-    const { config, saveConfig, item } = useConfiguration()
+    const { config, item } = useConfiguration()
     const step = ref('0')
     const changeStep = (newStep: string) => {
       console.log('newStep: ', newStep)
@@ -78,7 +75,6 @@ export default defineComponent({
       step,
       changeStep,
       pushNewGift,
-      saveConfig,
       config,
     }
 

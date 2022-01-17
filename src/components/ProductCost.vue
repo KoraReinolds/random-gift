@@ -49,8 +49,8 @@ export default defineComponent({
       required: true,
     }
   },
-  setup(props: any, { emit }: any) {
-    const { changeBits } = useConfiguration()
+  setup(props: any) {
+    const { changeBits, saveConfig } = useConfiguration()
     const { bitsCost } = useProducts()
     const cost = ref(props.item.bits)
     return {
@@ -59,7 +59,7 @@ export default defineComponent({
           item: props.item,
           bits: cost.value,
         })
-        emit('save')
+        saveConfig()
       },
       bitsCost: cost,
       change: (newCost: string) => cost.value = newCost,

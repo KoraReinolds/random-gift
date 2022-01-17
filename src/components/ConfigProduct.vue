@@ -110,7 +110,7 @@ export default defineComponent({
       if (index === steps.length) {
         changeAvailableSteps([...props.item.availableSteps, nextStep])
         emit('changeStep', nextStep)
-        emit('save')
+        saveConfig()
       } else {
         step.value = `${index % steps.length}`
       }
@@ -177,7 +177,6 @@ export default defineComponent({
     return {
       chanceIsFull,
       configValid,
-      saveConfig,
       step,
       steps,
       changeIndex,
