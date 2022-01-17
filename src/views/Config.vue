@@ -7,6 +7,7 @@
       v-if="step !== '0'"
       :step="step"
       :availableSteps="item.availableSteps"
+      :finishedSteps="item.finishedSteps"
       @changeStep="changeStep"
     />
     <config-main
@@ -55,7 +56,6 @@ export default defineComponent({
     const { config, item } = useConfiguration()
     const step = ref('0')
     const changeStep = (newStep: string) => {
-      console.log('newStep: ', newStep)
       if (item.value && item.value.availableSteps.includes(newStep)) {
         step.value = newStep
       }

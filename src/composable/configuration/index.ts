@@ -17,6 +17,7 @@ const useConfiguration: UseConfiguration = () => {
   const emptyConfig = {
     title: 'Gift',
     availableSteps: ['0', '1'],
+    finishedSteps: [],
     type: '1',
     bits: '100',
     chances: {

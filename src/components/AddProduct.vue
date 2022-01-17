@@ -8,14 +8,25 @@
       :class="[
         `add-product__section pointer pa-32 h-100p flex-row-center-center`,
         { active: index === step },
+        { finished: finishedSteps.includes(index) },
         { disabled: !availableSteps.includes(index) },
       ]"
       @click="$emit('changeStep', index)"
     >
       <div
         class="border mr-8 flex-row-center-center fs-24 bold w-48 h-48 rounded"
-        v-text="index"
-      />
+      >
+        <icon
+          v-if="finishedSteps.includes(index)"
+          name="accept"
+          :width="32"
+          :height="32"
+        />
+        <div
+          v-else
+          v-text="index"
+        />
+      </div>
       <div
         class="fs-24 my-16 bold"
         v-text="$t(`configMain.${index - 1}.title`)"
@@ -40,7 +51,11 @@ export default defineComponent({
     availableSteps: {
       type: Array,
       required: true,
-    }
+    },
+    finishedSteps: {
+      type: Array,
+      required: true,
+    },
   },
   setup() {
     return {
@@ -65,9 +80,14 @@ export default defineComponent({
       }
     }
 
+    &.finished div {
+      color: var(--common-color);
+    }
+
     &.active div {
       color: var(--light-main-color);
     }
+    
     
     &:not(.add-product__section:last-child) {
       border-right: 2px solid var(--disabled-color);
