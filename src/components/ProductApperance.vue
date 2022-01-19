@@ -60,7 +60,7 @@ export default defineComponent({
   setup(props: any, { emit }: any) {
     const productsCount = 2
     const productItem = ref(+props.item.type)
-    const { changeItem, saveConfig, changeAvailableSteps } = useConfiguration()
+    const { changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
     const nextStep = '2'
 
     const changeProduct = (newValue: number) => {
@@ -81,6 +81,7 @@ export default defineComponent({
           type: `${productItem.value}`
         })
         changeAvailableSteps([...props.item.availableSteps, nextStep])
+        changeFinishedSteps([...props.item.finishedSteps, '1'])
         emit('changeStep', nextStep)
         saveConfig()
       },

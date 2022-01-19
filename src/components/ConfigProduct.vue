@@ -100,19 +100,20 @@ export default defineComponent({
   },
   setup(props, { emit }) {
 
-    const { saveConfig, changeAvailableSteps } = useConfiguration()
+    const { saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
     const nextStep = '3'
     const { bitsCost } = useProducts()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
-    const step = ref('1')
-    const changeIndex = (index: number) => {
-      if (index === steps.length) {
+    const index = ref('1')
+    const changeIndex = (newIndex: number) => {
+      if (newIndex === steps.length) {
         changeAvailableSteps([...props.item.availableSteps, nextStep])
+        changeFinishedSteps([...props.item.finishedSteps, '2'])
         emit('changeStep', nextStep)
         saveConfig()
       } else {
-        step.value = `${index % steps.length}`
+        index.value = `${newIndex % steps.length}`
       }
     }
     const recalculateChances = (params: ChangeChances) => {
@@ -130,13 +131,13 @@ export default defineComponent({
     })
 
     const chanceValue = computed(() => {
-      return `${chancesList.value[+step.value]}`
+      return `${chancesList.value[+index.value]}`
     })
 
     const maxValue = computed(() => {
       const [none, ...rest] = Object.values(props.item.chances)
       const noneValue = 100 - rest.reduce((sum, cur) => sum + +cur, 0)
-      return step.value === "0"
+      return index.value === "0"
         ? `${noneValue}`
         : `${noneValue + +chanceValue.value}`
     })
@@ -156,7 +157,7 @@ export default defineComponent({
     })
 
     const actionList = computed(() => {
-      return Object.values(props.item.actions)[+step.value]
+      return Object.values(props.item.actions)[+index.value]
     })
 
     const validationActionList = computed(() => {
@@ -177,7 +178,7 @@ export default defineComponent({
     return {
       chanceIsFull,
       configValid,
-      step,
+      step: index,
       steps,
       changeIndex,
       bitsCost,

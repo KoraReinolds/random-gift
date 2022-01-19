@@ -79,6 +79,7 @@ const useConfiguration: UseConfiguration = () => {
     productCosts,
     addNewGift: () => store.commit('config/ADD_GIFT_TO_LIST', emptyConfig),
     configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
+    changeFinishedSteps: (params) => store.commit('config/CHANGE_FINISHED_STEPS', params),
     changeAvailableSteps: (params) => store.commit('config/CHANGE_AVAILABLE_STEPS', params),
     changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),

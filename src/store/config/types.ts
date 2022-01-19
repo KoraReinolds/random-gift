@@ -25,6 +25,7 @@ export type ActionMap = {
 export type Gift = {
   title: string
   availableSteps: string[]
+  finishedSteps: string[]
   bits: string
   type: string
   chances: ChancePercent
@@ -54,6 +55,7 @@ export type Getters = {
 }
 
 export enum MutationTypes {
+  CHANGE_FINISHED_STEPS = 'CHANGE_FINISHED_STEPS',
   CHANGE_AVAILABLE_STEPS = 'CHANGE_AVAILABLE_STEPS',
   ADD_GIFT_TO_LIST = 'ADD_GIFT_TO_LIST',
   SET_CONFIG = 'SET_CONFIG',
@@ -86,6 +88,8 @@ export type ChangeTypeParams = {
 }
 
 export type Mutations<S = State> = {
+
+  [MutationTypes.CHANGE_FINISHED_STEPS](state: S, payload: string[]): void
 
   [MutationTypes.CHANGE_AVAILABLE_STEPS](state: S, payload: string[]): void
 

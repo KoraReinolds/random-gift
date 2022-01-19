@@ -29,6 +29,7 @@ type UseConfiguration = () => {
   saveConfig: () => void
   addNewGift: () => void
   configurateItem: (params: number) => void
+  changeFinishedSteps: (params: string[]) => void
   changeAvailableSteps: (params: string[]) => void
   changeBits: (params: ChangeBitsParams) => void
   changeItem: (params: ChangeTypeParams) => void
