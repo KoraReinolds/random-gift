@@ -27,6 +27,12 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
 const mutations: MutationTree<State> & Mutations = {
 
+  CHANGE_GIFT_LIST: (state, newGiftList) => {
+    if (!state.config || state.currentIndex === -1) return
+
+    state.config.giftList = newGiftList
+  },
+
   CHANGE_FINISHED_STEPS: (state, newSteps) => {
     if (!state.config || state.currentIndex === -1) return
 

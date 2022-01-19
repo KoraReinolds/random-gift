@@ -55,6 +55,7 @@ export type Getters = {
 }
 
 export enum MutationTypes {
+  CHANGE_GIFT_LIST = 'CHANGE_GIFT_LIST',
   CHANGE_FINISHED_STEPS = 'CHANGE_FINISHED_STEPS',
   CHANGE_AVAILABLE_STEPS = 'CHANGE_AVAILABLE_STEPS',
   ADD_GIFT_TO_LIST = 'ADD_GIFT_TO_LIST',
@@ -88,6 +89,8 @@ export type ChangeTypeParams = {
 }
 
 export type Mutations<S = State> = {
+
+  [MutationTypes.CHANGE_GIFT_LIST](state: S, payload: Gift[]): void
 
   [MutationTypes.CHANGE_FINISHED_STEPS](state: S, payload: string[]): void
 
