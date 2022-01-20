@@ -28,9 +28,9 @@ const getters: GetterTree<State, IRootState> & Getters = {
 const mutations: MutationTree<State> & Mutations = {
 
   CHANGE_GIFT_LIST: (state, newGiftList) => {
-    if (!state.config || state.currentIndex === -1) return
+    if (!state.config) return
 
-    state.config.giftList = newGiftList
+    return state.config.giftList = newGiftList
   },
 
   CHANGE_FINISHED_STEPS: (state, newSteps) => {
@@ -43,12 +43,6 @@ const mutations: MutationTree<State> & Mutations = {
     if (!state.config || state.currentIndex === -1) return
 
     state.config.giftList[state.currentIndex].availableSteps = newSteps
-  },
-
-  ADD_GIFT_TO_LIST: (state, gift) => {
-    if (!state.config) return
-
-    state.config.giftList.push(gift)
   },
 
   CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,

@@ -6,6 +6,7 @@ import {
 import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
+import { Gift } from '@/store/config/types'
 
 const useConfiguration: UseConfiguration = () => {
 
@@ -71,13 +72,21 @@ const useConfiguration: UseConfiguration = () => {
   if (!config.value) {
     twitch ? getConfigFromHelper() : getConfigFromBackend()
   }
+
+  const changeGiftList = (params: Gift[]) => store.commit('config/CHANGE_GIFT_LIST', params)
   
+  const addNewGift = () => changeGiftList([
+    ...config.value.giftList,
+    emptyConfig,
+  ])
+
   return {
     item,
     config,
     saveConfig,
     productCosts,
-    addNewGift: () => store.commit('config/ADD_GIFT_TO_LIST', emptyConfig),
+    changeGiftList,
+    addNewGift,
     configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
     changeFinishedSteps: (params) => store.commit('config/CHANGE_FINISHED_STEPS', params),
     changeAvailableSteps: (params) => store.commit('config/CHANGE_AVAILABLE_STEPS', params),

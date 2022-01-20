@@ -26,6 +26,7 @@ type UseConfiguration = () => {
   item: Ref<Gift | null>
   config: Ref<Config>
   productCosts: Ref<string[]>
+  changeGiftList: (params: Gift[]) => void
   saveConfig: () => void
   addNewGift: () => void
   configurateItem: (params: number) => void
