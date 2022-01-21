@@ -33,12 +33,6 @@ const mutations: MutationTree<State> & Mutations = {
     return state.config.giftList = newGiftList
   },
 
-  CHANGE_AVAILABLE_STEPS: (state, newSteps) => {
-    if (!state.config || state.currentIndex === -1) return
-
-    state.config.giftList[state.currentIndex].availableSteps = newSteps
-  },
-
   CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
