@@ -13,6 +13,7 @@ const useConfiguration: UseConfiguration = () => {
   const { twitch } = useTwitch()
   const store = useStore()
   const config = computed(() => store.state.config.config)
+  const currentIndex = computed(() => store.state.config.currentIndex)
   const item = computed(() => store.getters['config/currentProduct'])
   const productCosts = computed(() => store.getters['config/productCosts'])
   const emptyConfig = {
@@ -79,6 +80,13 @@ const useConfiguration: UseConfiguration = () => {
     ...config.value.giftList,
     emptyConfig,
   ])
+  
+  const changeFinishedSteps = (newSteps: string[]) => {
+    if (!config.value || currentIndex.value === -1) return
+
+    config.value.giftList[currentIndex.value].finishedSteps = newSteps
+    changeGiftList(config.value.giftList)
+  }
 
   return {
     item,
@@ -88,7 +96,7 @@ const useConfiguration: UseConfiguration = () => {
     changeGiftList,
     addNewGift,
     configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
-    changeFinishedSteps: (params) => store.commit('config/CHANGE_FINISHED_STEPS', params),
+    changeFinishedSteps,
     changeAvailableSteps: (params) => store.commit('config/CHANGE_AVAILABLE_STEPS', params),
     changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),
