@@ -94,6 +94,13 @@ const useConfiguration: UseConfiguration = () => {
     config.value.giftList[currentIndex.value].availableSteps = newSteps
     changeGiftList(config.value.giftList)
   }
+  
+  const changeBits = (bits: string) => {
+    if (!config.value || currentIndex.value === -1) return
+    
+    config.value.giftList[currentIndex.value].bits = bits
+    changeGiftList(config.value.giftList)
+  }
 
   return {
     item,
@@ -105,7 +112,7 @@ const useConfiguration: UseConfiguration = () => {
     configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
     changeFinishedSteps,
     changeAvailableSteps,
-    changeBits: (params) => store.commit('config/CHANGE_ITEM_COST', params),
+    changeBits,
     changeItem: (params) => store.commit('config/CHANGE_ITEM_TYPE', params),
     editAction: (params) => store.commit('config/EDIT_ACTION', params),
     deleteAction: (params) => store.commit('config/DELETE_ACTION', params),

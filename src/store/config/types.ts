@@ -59,7 +59,6 @@ export enum MutationTypes {
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   CHANGE_ITEM_TYPE = 'CHANGE_ITEM_TYPE',
-  CHANGE_ITEM_COST = 'CHANGE_ITEM_COST',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
   DELETE_ACTION = 'DELETE_ACTION',
   EDIT_ACTION = 'EDIT_ACTION',
@@ -73,11 +72,6 @@ export type DeleteActionParams = {
 export type EditActionParams = {
   actionItem: ActionItem,
   newValue: string,
-}
-
-export type ChangeBitsParams = {
-  item: Gift,
-  bits: string
 }
 
 export type ChangeTypeParams = {
@@ -94,8 +88,6 @@ export type Mutations<S = State> = {
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
 
   [MutationTypes.ADD_NEW_ITEM](state: S, payload: ActionList): number
-
-  [MutationTypes.CHANGE_ITEM_COST](state: S, payload: ChangeBitsParams): string
 
   [MutationTypes.CHANGE_ITEM_CHANCES](state: S, payload: ChangeChances): void
 

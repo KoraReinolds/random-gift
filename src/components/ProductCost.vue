@@ -55,10 +55,7 @@ export default defineComponent({
     const cost = ref(props.item.bits)
     return {
       save: () => {
-        changeBits({
-          item: props.item,
-          bits: cost.value,
-        })
+        changeBits(cost.value)
         saveConfig()
       },
       bitsCost: cost,

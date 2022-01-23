@@ -41,8 +41,6 @@ const mutations: MutationTree<State> & Mutations = {
 
   CHANGE_ITEM_TYPE: (state, { item, type }) => item.type = type,
 
-  CHANGE_ITEM_COST: (state, { item, bits }) => item.bits = `${bits}`,
-
   CHANGE_ITEM_CHANCES: (state, { chances, type, value }) => {
     const prevValue = chances[type]
     const delta = +value - +prevValue

@@ -55,6 +55,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
+import { useConfiguration } from '@/composable/configuration'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -73,6 +74,7 @@ export default defineComponent({
   setup(props) {
 
     const { bitsCost } = useProducts()
+    const { changeBits } = useConfiguration()
     const store = useStore()
     const bitsValue = ref(props.item.bits)
     const step = ref(1)
@@ -90,12 +92,7 @@ export default defineComponent({
       { title: 'legendary' },
     ]
 
-    watch(bitsValue, (value) => {
-      store.commit('config/CHANGE_ITEM_COST', {
-        item: props.item,
-        bits: value,
-      })
-    })
+    watch(bitsValue, changeBits)
 
     return {
       step,

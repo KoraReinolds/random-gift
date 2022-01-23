@@ -104,7 +104,6 @@ export default defineComponent({
     const nextStep = '3'
     const { bitsCost } = useProducts()
     const store = useStore()
-    const bitsValue = ref(props.item.bits)
     const index = ref('1')
     const changeIndex = (newIndex: number) => {
       if (newIndex === steps.length) {
@@ -142,20 +141,6 @@ export default defineComponent({
         : `${noneValue + +chanceValue.value}`
     })
 
-    watch(bitsValue, (value) => {
-      store.commit('config/CHANGE_ITEM_COST', {
-        item: props.item,
-        bits: value,
-      })
-    })
-
-    watch(bitsValue, (value) => {
-      store.commit('config/CHANGE_ITEM_COST', {
-        item: props.item,
-        bits: value,
-      })
-    })
-
     const actionList = computed(() => {
       return Object.values(props.item.actions)[+index.value]
     })
@@ -182,7 +167,6 @@ export default defineComponent({
       steps,
       changeIndex,
       bitsCost,
-      bitsValue,
       recalculateChances,
       actionList,
       chanceValue,

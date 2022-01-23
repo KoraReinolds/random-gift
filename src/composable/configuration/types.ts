@@ -2,7 +2,6 @@ import { ActionList, Config, Gift } from '@/store/config/types'
 import {
   EditActionParams,
   DeleteActionParams,
-  ChangeBitsParams,
   ChangeTypeParams,
 } from "@/store/config/types"
 
@@ -32,7 +31,7 @@ type UseConfiguration = () => {
   configurateItem: (params: number) => void
   changeFinishedSteps: (params: string[]) => void
   changeAvailableSteps: (params: string[]) => void
-  changeBits: (params: ChangeBitsParams) => void
+  changeBits: (params: string) => void
   changeItem: (params: ChangeTypeParams) => void
   editAction: (params: EditActionParams) => void
   deleteAction: (params: DeleteActionParams) => void
