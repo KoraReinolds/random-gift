@@ -76,10 +76,7 @@ export default defineComponent({
 
     return {
       save: () => {
-        changeItem({
-          item: props.item,
-          type: `${productItem.value}`
-        })
+        changeItem(`${productItem.value}`)
         changeAvailableSteps([...props.item.availableSteps, nextStep])
         changeFinishedSteps([...props.item.finishedSteps, '1'])
         emit('changeStep', nextStep)

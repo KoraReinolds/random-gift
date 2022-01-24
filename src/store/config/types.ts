@@ -58,7 +58,6 @@ export enum MutationTypes {
   CHANGE_GIFT_LIST = 'CHANGE_GIFT_LIST',
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
-  CHANGE_ITEM_TYPE = 'CHANGE_ITEM_TYPE',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
   DELETE_ACTION = 'DELETE_ACTION',
   EDIT_ACTION = 'EDIT_ACTION',
@@ -74,16 +73,9 @@ export type EditActionParams = {
   newValue: string,
 }
 
-export type ChangeTypeParams = {
-  item: Gift,
-  type: string
-}
-
 export type Mutations<S = State> = {
 
   [MutationTypes.CHANGE_GIFT_LIST](state: S, payload: Gift[]): void
-
-  [MutationTypes.CHANGE_ITEM_TYPE](state: S, payload: ChangeTypeParams): string
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config
 

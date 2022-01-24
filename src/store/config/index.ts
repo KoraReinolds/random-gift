@@ -39,8 +39,6 @@ const mutations: MutationTree<State> & Mutations = {
   
   ADD_NEW_ITEM: (state, actionList) => actionList.push({ value: '' }),
 
-  CHANGE_ITEM_TYPE: (state, { item, type }) => item.type = type,
-
   CHANGE_ITEM_CHANCES: (state, { chances, type, value }) => {
     const prevValue = chances[type]
     const delta = +value - +prevValue
