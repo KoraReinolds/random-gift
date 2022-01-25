@@ -3,6 +3,7 @@
     class="config flex-column-center-center"
     v-if="config"
   >
+    {{ config }}
     <add-product-header
       v-if="step !== '0'"
       :step="step"

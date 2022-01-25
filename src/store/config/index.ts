@@ -52,10 +52,6 @@ const mutations: MutationTree<State> & Mutations = {
     actionList.splice(itemIndex, 1)
   },
 
-  EDIT_ACTION: (state, { actionItem, newValue }) => {
-    actionItem.value = newValue
-  }
-
 }
 
 const config: Module<State, IRootState>  = {
