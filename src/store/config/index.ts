@@ -48,10 +48,6 @@ const mutations: MutationTree<State> & Mutations = {
     }
   },
 
-  DELETE_ACTION: (state, { itemIndex, actionList }) => {
-    actionList.splice(itemIndex, 1)
-  },
-
 }
 
 const config: Module<State, IRootState>  = {

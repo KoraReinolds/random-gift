@@ -59,7 +59,6 @@ export enum MutationTypes {
   SET_CONFIG = 'SET_CONFIG',
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
-  DELETE_ACTION = 'DELETE_ACTION',
 }
 
 export type DeleteActionParams = {
@@ -81,8 +80,6 @@ export type Mutations<S = State> = {
   [MutationTypes.ADD_NEW_ITEM](state: S, payload: ActionList): number
 
   [MutationTypes.CHANGE_ITEM_CHANCES](state: S, payload: ChangeChances): void
-
-  [MutationTypes.DELETE_ACTION](state: S, payload: DeleteActionParams): void
 
 }
 

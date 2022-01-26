@@ -2,7 +2,6 @@ import { ActionList, Config, Gift } from '@/store/config/types'
 import {
   EditActionParams,
   DeleteActionParams,
-  ChangeTypeParams,
 } from "@/store/config/types"
 
 interface Ref<T> {
@@ -32,7 +31,7 @@ type UseConfiguration = () => {
   changeFinishedSteps: (params: string[]) => void
   changeAvailableSteps: (params: string[]) => void
   changeBits: (params: string) => void
-  changeItem: (params: ChangeTypeParams) => void
+  changeItem: (params: string) => void
   editAction: (params: EditActionParams) => void
   deleteAction: (params: DeleteActionParams) => void
   addAction: (params: ActionList) => void

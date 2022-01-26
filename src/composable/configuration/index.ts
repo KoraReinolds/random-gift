@@ -6,7 +6,7 @@ import {
 import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
-import { Gift, EditActionParams, } from '@/store/config/types'
+import { Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
 
 const useConfiguration: UseConfiguration = () => {
 
@@ -115,6 +115,13 @@ const useConfiguration: UseConfiguration = () => {
     actionItem.value = newValue
     changeGiftList(config.value.giftList)
   }
+  
+  const deleteAction = (params: DeleteActionParams) => {
+    const { itemIndex, actionList } = params
+
+    actionList.splice(itemIndex, 1)
+    changeGiftList(config.value.giftList)
+  }
 
   return {
     item,
@@ -129,7 +136,7 @@ const useConfiguration: UseConfiguration = () => {
     changeBits,
     changeItem,
     editAction,
-    deleteAction: (params) => store.commit('config/DELETE_ACTION', params),
+    deleteAction,
     addAction: (params) => store.commit('config/ADD_NEW_ITEM', params),
   }
 
