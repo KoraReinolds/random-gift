@@ -37,8 +37,6 @@ const mutations: MutationTree<State> & Mutations = {
 
   SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
   
-  ADD_NEW_ITEM: (state, actionList) => actionList.push({ value: '' }),
-
   CHANGE_ITEM_CHANCES: (state, { chances, type, value }) => {
     const prevValue = chances[type]
     const delta = +value - +prevValue
