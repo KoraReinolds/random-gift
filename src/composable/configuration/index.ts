@@ -85,48 +85,40 @@ const useConfiguration: UseConfiguration = () => {
     if (!config.value || currentIndex.value === -1) return
 
     config.value.giftList[currentIndex.value].finishedSteps = newSteps
-    changeGiftList(config.value.giftList)
   }
   
   const changeAvailableSteps = (newSteps: string[]) => {
     if (!config.value || currentIndex.value === -1) return
 
     config.value.giftList[currentIndex.value].availableSteps = newSteps
-    changeGiftList(config.value.giftList)
   }
   
   const changeBits = (bits: string) => {
     if (!config.value || currentIndex.value === -1) return
     
     config.value.giftList[currentIndex.value].bits = bits
-    changeGiftList(config.value.giftList)
   }
   
   const changeItem = (type: string) => {
     if (!config.value || currentIndex.value === -1) return
 
     config.value.giftList[currentIndex.value].type = type
-    changeGiftList(config.value.giftList)
   }
   
   const editAction = (params: EditActionParams) => {
     const { actionItem, newValue } = params
 
     actionItem.value = newValue
-    changeGiftList(config.value.giftList)
   }
   
   const deleteAction = (params: DeleteActionParams) => {
     const { itemIndex, actionList } = params
 
     actionList.splice(itemIndex, 1)
-    changeGiftList(config.value.giftList)
   }
   
   const addAction = (actionList: ActionList) => {
-    actionList.push({ value: '' }),
-
-    changeGiftList(config.value.giftList)
+    actionList.push({ value: '' })
   }
 
   return {
