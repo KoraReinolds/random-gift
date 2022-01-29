@@ -14,7 +14,7 @@
         class='w-100p h-100p pointer border bc-font bg-disabled br-16'
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
-        :src="`type${product.type}.gif`"
+        :src="`type${+product.type + 1}.gif`"
         @click="chooseProduct(index)"
       />
     </div>
@@ -79,6 +79,9 @@ export default defineComponent({
   width: 90px;
   max-height: 300px;
   overflow: scroll;
+  img {
+    height: 90px;
+  }
   img:hover {
     background-color: var(--background-color);
   }
