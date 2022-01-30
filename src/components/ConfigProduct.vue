@@ -4,12 +4,6 @@
   >
 
     <div
-      class="image flex-row-center-center"
-    >
-      <img src="@/assets/img/gift.png" />
-    </div>
-
-    <div
       class="chances flex-column-start-center"
     >
       <h1
@@ -54,21 +48,29 @@
     </div>
 
     <div
-      class="actions flex-column-center-center"
+      class="image flex-row-center-center mt-48 ml-48 "
+    >
+      <img
+        class="w-100p h-100p"
+        :src="`type${+item.type + 1}.gif`"
+      />
+    </div>
+
+  </div>
+    <div
+      class="flex-row-center-center mt-24"
     >
       <base-button
         @click="$emit('changeStep', '1')"
         v-text="$t('btn.configBack')"
       />
       <base-button
-        class="mt-8"
+        class="ml-8"
         @click="changeIndex(+step + 1)"
         v-text="$t('btn.configNext')"
         :disabled="!configValid"
       />
     </div>
-
-  </div>
 </template>
 
 <script lang="ts">
@@ -181,11 +183,6 @@ export default defineComponent({
 $range-width: 48px;
 $range-border: 8px;
 
-.actions,
-.image {
-  width: 300px;
-}
-
 .chances {
 
   &__content {
@@ -207,7 +204,8 @@ $range-border: 8px;
 }
 
 img {
-  width: 150px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 button {
