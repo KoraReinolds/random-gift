@@ -10,7 +10,7 @@
     />
 
     <div
-      class="relative img"
+      class="relative image"
     >
       <img
         class="absolute top-left w-100p h-100p"
@@ -92,9 +92,9 @@ export default defineComponent({
 
 <style scoped lang="scss">
 
-.img {
-  width: 300px;
-  height: 300px;
+.image {
+  width: $config-body-height;
+  height: $config-body-height;
 }
 
 .arrow {

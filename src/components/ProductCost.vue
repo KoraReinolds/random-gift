@@ -1,6 +1,6 @@
 <template>
   <div
-    class="config-main flex-column-center-center w-100p"
+    class="product-cost flex-column-center-center w-100p"
   >
     <h1
       v-text="`${bitsCost} Bits`"
@@ -68,4 +68,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.product-cost {
+  height: $config-body-height;
+}
 </style>

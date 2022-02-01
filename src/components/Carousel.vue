@@ -58,10 +58,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .image {
-  width: 300px;
-  height: 300px;
+  width: $config-body-height;
+  height: $config-body-height;
 }
 
 .dots {

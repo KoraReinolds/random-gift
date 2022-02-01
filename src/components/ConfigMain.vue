@@ -77,7 +77,7 @@ export default defineComponent({
 
 .item-list {
   width: 90px;
-  max-height: 300px;
+  height: $config-body-height;
   overflow: scroll;
   img {
     height: 90px;

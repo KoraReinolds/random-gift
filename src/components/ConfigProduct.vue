@@ -79,7 +79,7 @@ import FragmentShader from '@/components/FragmentShader.vue'
 import ChancesValues from '@/components/ChancesValues.vue'
 import ActionList from '@/components/ActionList.vue'
 import ChanceBar from '@/components/ChanceBar.vue'
-import { defineComponent, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import { Gift, ChangeChances } from '@/store/config/types'
 import { useProducts } from '@/composable/products'
 import { useConfiguration } from '@/composable/configuration/index'
@@ -203,9 +203,9 @@ $range-border: 8px;
 
 }
 
-img {
-  min-width: 300px;
-  min-height: 300px;
+.image {
+  width: 300px;
+  height: 300px;
 }
 
 button {
