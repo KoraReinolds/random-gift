@@ -2,6 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Main from '@/views/Main.vue'
 import { store } from '@/store'
 import { useAccesTokenFromHash } from '@/composable/auth'
+import ConfigProduct from '@/components/ConfigProduct.vue'
+import ConfigMain from '@/components/ConfigMain.vue'
+import ProductApperance from '@/components/ProductApperance.vue'
+import ProductCost from '@/components/ProductCost.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,6 +19,27 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Config.vue'),
     meta: {
     },
+    children: [{
+      path: '',
+      name: 'config-main',
+      component: ConfigMain,
+      props: true,
+    }, {
+      path: 'product',
+      name: 'config-product',
+      component: ConfigProduct,
+      props: true,
+    }, {
+      path: 'view',
+      name: 'config-view',
+      component: ProductApperance,
+      props: true,
+    }, {
+      path: 'cost',
+      name: 'config-cost',
+      component: ProductCost,
+      props: true,
+    }]
   },
   {
     path: '/panel',
