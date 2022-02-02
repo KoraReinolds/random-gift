@@ -6,13 +6,11 @@ import {
 import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
 
 const useConfiguration: UseConfiguration = () => {
 
   const { twitch } = useTwitch()
-  const router = useRouter()
   const store = useStore()
   const config = computed(() => store.state.config.config)
   const currentIndex = computed(() => store.state.config.currentIndex)
@@ -123,28 +121,7 @@ const useConfiguration: UseConfiguration = () => {
     actionList.push({ value: '' })
   }
 
-  const changeStep = (newStep: string) => {
-    const stepArr = [
-      'config-main',
-      'config-view',
-      'config-product',
-      'config-cost',
-    ]
-    const routeName = stepArr[+newStep]
-    if (item.value
-      && item.value.availableSteps.includes(newStep)
-      && routeName
-    ) {
-      console.log(JSON.stringify(item.value))
-      router.push({
-        name: routeName,
-        params: { item: JSON.stringify(item.value) },
-      })
-    }
-  }
-
   return {
-    changeStep,
     item,
     config,
     saveConfig,
