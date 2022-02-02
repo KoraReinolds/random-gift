@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, ref } from 'vue'
 import InputRange from '@/components/InputRange.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useProducts } from '@/composable/products'
@@ -45,14 +45,15 @@ export default defineComponent({
   emits: ['changeStep', 'save'],
   props: {
     item: {
-      type: Object as PropType<Gift>,
+      type: String,
       required: true,
     }
   },
-  setup(props: any) {
+  setup(props) {
     const { changeBits, saveConfig } = useConfiguration()
     const { bitsCost } = useProducts()
-    const cost = ref(props.item.bits)
+    const product: Gift = JSON.parse(props.item)
+    const cost = ref(product.bits)
     return {
       save: () => {
         changeBits(cost.value)
