@@ -24,10 +24,9 @@
   </div>
   <div
     v-if="config.giftList.length < 2"
-    class="flex-row mt-24"
+    class="flex-row-center-center mt-48"
   >
     <base-button
-      class="ml-24"
       @click="btnClick"
       v-text="$t('btn.addLootBox')"
     />

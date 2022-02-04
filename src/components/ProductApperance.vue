@@ -25,7 +25,7 @@
 
   </div>
   <div
-    class="flex-row mt-24"
+    class="flex-row-center-center mt-48"
   >
     <base-button
       @click="$emit('changeStep', '0')"
