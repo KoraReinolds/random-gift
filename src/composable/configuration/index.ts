@@ -65,6 +65,7 @@ const useConfiguration: UseConfiguration = () => {
   const saveConfig = () => {
     const configuration = JSON.stringify(config.value)
     console.log(configuration)
+    store.commit('config/SAVE_CONFIG')
     twitch
       ? twitch.configuration.set('broadcaster', '1', configuration)
       : axiosBackend.post('/congig/save', configuration)

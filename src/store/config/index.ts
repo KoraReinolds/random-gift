@@ -8,6 +8,7 @@ import { IRootState } from '@/store/root/types'
 
 const state: State = {
   config: null,
+  lastSavedConfig: null,
   currentIndex: -1,
 }
 
@@ -35,7 +36,25 @@ const mutations: MutationTree<State> & Mutations = {
 
   CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,
 
-  SET_CONFIG: (state, configString) => state.config = JSON.parse(configString),
+  SAVE_CONFIG: (state) => {
+    if (state.config) state.lastSavedConfig = state.config
+  },
+
+  SET_CONFIG: (state, configString) => {
+    let config
+    
+    try {
+      config = JSON.parse(configString)
+    } catch {
+      config = null
+      console.warn('config invalid')
+    }
+
+    state.config = config
+    state.lastSavedConfig = config
+
+    return config
+  },
   
   CHANGE_ITEM_CHANCES: (state, { chances, type, value }) => {
     const prevValue = chances[type]

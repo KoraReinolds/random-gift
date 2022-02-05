@@ -46,6 +46,7 @@ export interface ChangeChances {
 
 export interface State {
   config: Config | null
+  lastSavedConfig: Config | null
   currentIndex: number
 }
 
@@ -56,6 +57,7 @@ export type Getters = {
 
 export enum MutationTypes {
   CHANGE_GIFT_LIST = 'CHANGE_GIFT_LIST',
+  SAVE_CONFIG = 'SAVE_CONFIG',
   SET_CONFIG = 'SET_CONFIG',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
 }
@@ -74,7 +76,9 @@ export type Mutations<S = State> = {
 
   [MutationTypes.CHANGE_GIFT_LIST](state: S, payload: Gift[]): void
 
-  [MutationTypes.SET_CONFIG](state: S, payload: string): Config
+  [MutationTypes.SAVE_CONFIG](state: S): void
+
+  [MutationTypes.SET_CONFIG](state: S, payload: string): Config 
 
   [MutationTypes.CHANGE_ITEM_CHANCES](state: S, payload: ChangeChances): void
 
