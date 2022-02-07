@@ -6,7 +6,7 @@
   >
     <div
       :class="['arrow prev']"
-      @click="changeProduct(+productItem - 1)"
+      @click="changeProduct(+item.type - 1)"
     />
 
     <div
@@ -14,13 +14,13 @@
     >
       <img
         class="absolute top-left w-100p h-100p"
-        :src="`type${+productItem + 1}.gif`"
+        :src="`type${+item.type + 1}.gif`"
       />
     </div>
 
     <div
       :class="['arrow next']"
-      @click="changeProduct(+productItem + 1)"
+      @click="changeProduct(+item.type + 1)"
     />
 
   </div>
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration'
 import { Gift } from '@/store/config/types'
@@ -59,7 +59,6 @@ export default defineComponent({
   },
   setup(props: any, { emit }: any) {
     const productsCount = 2
-    const productItem = ref(+props.item.type)
     const { changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
     const nextStep = '2'
 
@@ -67,23 +66,21 @@ export default defineComponent({
 
       if (productsCount < 2) return
 
-      productItem.value = (newValue === -1
+      changeItem(`${(newValue === -1
         ? productsCount - 1
         : newValue
-      ) % productsCount
+      ) % productsCount}`)
 
     }
 
     return {
       save: () => {
-        changeItem(`${productItem.value}`)
         changeAvailableSteps([...props.item.availableSteps, nextStep])
         changeFinishedSteps([...props.item.finishedSteps, '1'])
         emit('changeStep', nextStep)
         saveConfig()
       },
       productsCount,
-      productItem,
       changeProduct,
     }
   }
@@ -117,7 +114,5 @@ export default defineComponent({
     transform: rotate(45deg);
   }
 }
-
-
 
 </style>
