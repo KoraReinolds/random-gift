@@ -82,16 +82,25 @@ const useConfiguration: UseConfiguration = () => {
     emptyConfig,
   ])
   
-  const changeFinishedSteps = (newSteps: string[]) => {
+  const changeFinishedSteps = (newStep: string) => {
     if (!config.value || currentIndex.value === -1) return
+    
+    const finishedSteps = config.value.giftList[currentIndex.value].finishedSteps
 
-    config.value.giftList[currentIndex.value].finishedSteps = newSteps
+    if (finishedSteps.includes(newStep)) return
+
+    finishedSteps.push(newStep)
+    console.log(config.value.giftList[currentIndex.value].finishedSteps)
   }
   
-  const changeAvailableSteps = (newSteps: string[]) => {
+  const changeAvailableSteps = (newStep: string) => {
     if (!config.value || currentIndex.value === -1) return
 
-    config.value.giftList[currentIndex.value].availableSteps = newSteps
+    const availableSteps = config.value.giftList[currentIndex.value].availableSteps
+
+    if (availableSteps.includes(newStep)) return
+    
+    availableSteps.push(newStep)
   }
   
   const changeBits = (bits: string) => {

@@ -75,8 +75,8 @@ export default defineComponent({
 
     return {
       save: () => {
-        changeAvailableSteps([...props.item.availableSteps, nextStep])
-        changeFinishedSteps([...props.item.finishedSteps, '1'])
+        changeAvailableSteps(nextStep)
+        changeFinishedSteps('1')
         emit('changeStep', nextStep)
         saveConfig()
       },

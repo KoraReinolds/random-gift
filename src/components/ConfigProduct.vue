@@ -109,8 +109,8 @@ export default defineComponent({
     const index = ref('1')
     const changeIndex = (newIndex: number) => {
       if (newIndex === steps.length) {
-        changeAvailableSteps([...props.item.availableSteps, nextStep])
-        changeFinishedSteps([...props.item.finishedSteps, '2'])
+        changeAvailableSteps(nextStep)
+        changeFinishedSteps('2')
         emit('changeStep', nextStep)
         saveConfig()
       } else {
