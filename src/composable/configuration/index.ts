@@ -90,7 +90,6 @@ const useConfiguration: UseConfiguration = () => {
     if (finishedSteps.includes(newStep)) return
 
     finishedSteps.push(newStep)
-    console.log(config.value.giftList[currentIndex.value].finishedSteps)
   }
   
   const changeAvailableSteps = (newStep: string) => {
@@ -134,6 +133,7 @@ const useConfiguration: UseConfiguration = () => {
   return {
     item,
     config,
+    restoreConfig: () => store.commit('config/RESTORE_CONFIG'),
     saveConfig,
     productCosts,
     changeGiftList,

@@ -50,7 +50,6 @@ const useProducts: UseProducts = () => {
         return gift.bits === product.cost.amount
       })
     })
-    console.log(products.value)
   })
   
   if (!allProducts.value) {

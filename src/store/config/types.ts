@@ -58,6 +58,7 @@ export type Getters = {
 export enum MutationTypes {
   CHANGE_GIFT_LIST = 'CHANGE_GIFT_LIST',
   SAVE_CONFIG = 'SAVE_CONFIG',
+  RESTORE_CONFIG = 'RESTORE_CONFIG',
   SET_CONFIG = 'SET_CONFIG',
   CHANGE_ITEM_CHANCES = 'CHANGE_ITEM_CHANCES',
 }
@@ -77,6 +78,8 @@ export type Mutations<S = State> = {
   [MutationTypes.CHANGE_GIFT_LIST](state: S, payload: Gift[]): void
 
   [MutationTypes.SAVE_CONFIG](state: S): void
+
+  [MutationTypes.RESTORE_CONFIG](state: S): void
 
   [MutationTypes.SET_CONFIG](state: S, payload: string): Config 
 

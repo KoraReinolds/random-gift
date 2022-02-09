@@ -40,6 +40,10 @@ const mutations: MutationTree<State> & Mutations = {
     if (state.config) state.lastSavedConfig = state.config
   },
 
+  RESTORE_CONFIG: (state) => {
+    if (state.lastSavedConfig) state.config = state.lastSavedConfig
+  },
+
   SET_CONFIG: (state, configString) => {
     let config
     
