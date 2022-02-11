@@ -21,6 +21,8 @@ interface Configuration {
 }
 
 type UseConfiguration = () => {
+  configStep: Ref<string>,
+  changeStep: (params: string) => void
   item: Ref<Gift | null>
   config: Ref<Config>
   productCosts: Ref<string[]>

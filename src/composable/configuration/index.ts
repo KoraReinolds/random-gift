@@ -12,6 +12,7 @@ const useConfiguration: UseConfiguration = () => {
 
   const { twitch } = useTwitch()
   const store = useStore()
+  const configStep = computed(() => store.state.config.configStep)
   const config = computed(() => store.state.config.config)
   const currentIndex = computed(() => store.state.config.currentIndex)
   const item = computed(() => store.getters['config/currentProduct'])
@@ -131,6 +132,8 @@ const useConfiguration: UseConfiguration = () => {
   }
 
   return {
+    configStep,
+    changeStep: (params) => store.commit('config/CHANGE_STEP', params),
     item,
     config,
     restoreConfig: () => store.commit('config/RESTORE_CONFIG'),

@@ -8,6 +8,7 @@ import { IRootState } from '@/store/root/types'
 
 const state: State = {
   config: null,
+  configStep: '0',
   lastSavedConfig: null,
   currentIndex: -1,
 }
@@ -27,6 +28,8 @@ const getters: GetterTree<State, IRootState> & Getters = {
 }
 
 const mutations: MutationTree<State> & Mutations = {
+
+  CHANGE_STEP: (state, newStep) => state.configStep = newStep,
 
   CHANGE_GIFT_LIST: (state, newGiftList) => {
     if (!state.config) return

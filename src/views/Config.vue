@@ -54,14 +54,7 @@ export default defineComponent({
   },
   setup() {
     
-    const { config, item } = useConfiguration()
-    const step = ref('0')
-    const changeStep = (newStep: string) => {
-      if (item.value && item.value.availableSteps.includes(newStep)) {
-        step.value = newStep
-      }
-    }
-
+    const { config, item, configStep, changeStep } = useConfiguration()
     const store = useStore()
 
     const pushNewGift = () => {
@@ -73,7 +66,7 @@ export default defineComponent({
 
     return {
       item,
-      step,
+      step: configStep,
       changeStep,
       pushNewGift,
       config,
