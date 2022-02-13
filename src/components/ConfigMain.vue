@@ -27,7 +27,7 @@
     class="flex-row-center-center mt-48"
   >
     <base-button
-      @click="btnClick"
+      @click="addLootBox"
       v-text="$t('btn.addLootBox')"
     />
   </div>
@@ -44,22 +44,21 @@ export default defineComponent({
     Carousel,
     BaseButton,
   },
-  emits: ['changeStep'],
   name: 'ConfigMain',
-  setup(props, { emit }) {
+  setup() {
 
-    const { config, configurateItem, addNewGift } = useConfiguration()
+    const { config, configurateItem, addNewGift, changeStep } = useConfiguration()
     const chooseProduct = (index: number) => {
       configurateItem(index)
-      emit('changeStep', config.value.giftList[index].availableSteps.slice(-1)[0])
+      changeStep(config.value.giftList[index].availableSteps.slice(-1)[0])
     }
-    const btnClick = () => {
+    const addLootBox = () => {
       addNewGift();
       chooseProduct(config.value.giftList.length - 1)
     }
 
     return {
-      btnClick,
+      addLootBox,
       config,
       configurateItem,
       chooseProduct,

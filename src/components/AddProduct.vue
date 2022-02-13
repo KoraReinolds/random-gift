@@ -11,7 +11,7 @@
         { finished: finishedSteps.includes(index) },
         { disabled: !availableSteps.includes(index) },
       ]"
-      @click="$emit('changeStep', index)"
+      @click="availableSteps.includes(index) && changeStep(index)"
     >
       <div
         class="border mr-8 flex-row-center-center fs-24 bold w-48 h-48 rounded"
@@ -37,11 +37,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
   components: {
   },
-  emits: ['changeStep'],
   name: 'AddProduct',
   props: {
     step: {
@@ -58,7 +58,10 @@ export default defineComponent({
     },
   },
   setup() {
+    const { changeStep } = useConfiguration()
+
     return {
+      changeStep,
     }
   }
 })

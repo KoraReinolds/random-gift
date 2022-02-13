@@ -9,32 +9,27 @@
       :step="step"
       :availableSteps="item.availableSteps"
       :finishedSteps="item.finishedSteps"
-      @changeStep="changeStep"
     />
     <config-main
       v-if="step === '0'"
-      @changeStep="changeStep"
     />
     <product-apperance
       v-else-if="step === '1'"
       :item="item"
-      @changeStep="changeStep"
     />
     <config-product
       v-else-if="step === '2'"
       :item="item"
-      @changeStep="changeStep"
     />
     <product-cost
       v-else-if="step === '3'"
       :item="item"
-      @changeStep="changeStep"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import ConfigProduct from '@/components/ConfigProduct.vue'
 import ConfigMain from '@/components/ConfigMain.vue'

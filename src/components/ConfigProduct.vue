@@ -61,7 +61,7 @@
       class="flex-row-center-center mt-48"
     >
       <base-button
-        @click="$emit('changeStep', '1')"
+        @click="changeStep('1')"
         v-text="$t('btn.configBack')"
       />
       <base-button
@@ -100,9 +100,9 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props, { emit }) {
+  setup(props) {
 
-    const { saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
+    const { changeStep, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
     const nextStep = '3'
     const { bitsCost } = useProducts()
     const store = useStore()
@@ -111,7 +111,7 @@ export default defineComponent({
       if (newIndex === steps.length) {
         changeAvailableSteps(nextStep)
         changeFinishedSteps('2')
-        emit('changeStep', nextStep)
+        changeStep(nextStep)
         saveConfig()
       } else {
         index.value = `${newIndex % steps.length}`
@@ -163,6 +163,7 @@ export default defineComponent({
     })
 
     return {
+      changeStep,
       chanceIsFull,
       configValid,
       step: index,

@@ -17,7 +17,7 @@
     class="flex-row-center-center mt-48"
   >
     <base-button
-      @click="$emit('changeStep', '0')"
+      @click="changeStep('2')"
       v-text="$t('btn.configBack')"
     />
     <base-button
@@ -42,7 +42,6 @@ export default defineComponent({
     InputRange,
     BaseButton,
   },
-  emits: ['changeStep', 'save'],
   props: {
     item: {
       type: Object as PropType<Gift>,
@@ -50,10 +49,11 @@ export default defineComponent({
     }
   },
   setup(props: any) {
-    const { changeBits, saveConfig } = useConfiguration()
+    const { changeStep, changeBits, saveConfig } = useConfiguration()
     const { bitsCost } = useProducts()
     const cost = ref(props.item.bits)
     return {
+      changeStep,
       save: () => {
         changeBits(cost.value)
         saveConfig()
