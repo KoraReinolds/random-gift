@@ -5,10 +5,7 @@
   >
     {{ config }}
     <add-product-header
-      v-if="step !== '0'"
-      :step="step"
-      :availableSteps="item.availableSteps"
-      :finishedSteps="item.finishedSteps"
+      v-if="step !== '0' && item"
     />
     <config-main
       v-if="step === '0'"

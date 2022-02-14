@@ -8,16 +8,16 @@
       :class="[
         `add-product__section pointer pa-32 h-100p flex-row-center-center`,
         { active: index === step },
-        { finished: finishedSteps.includes(index) },
-        { disabled: !availableSteps.includes(index) },
+        { finished: item.finishedSteps.includes(index) },
+        { disabled: !item.availableSteps.includes(index) },
       ]"
-      @click="availableSteps.includes(index) && changeStep(index)"
+      @click="item.availableSteps.includes(index) && changeStep(index)"
     >
       <div
         class="border mr-8 flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
-          v-if="finishedSteps.includes(index)"
+          v-if="item.finishedSteps.includes(index)"
           name="accept"
           :width="32"
           :height="32"
@@ -40,27 +40,13 @@ import { defineComponent } from 'vue'
 import { useConfiguration } from '@/composable/configuration'
 
 export default defineComponent({
-  components: {
-  },
   name: 'AddProduct',
-  props: {
-    step: {
-      type: String,
-      required: true,
-    },
-    availableSteps: {
-      type: Array,
-      required: true,
-    },
-    finishedSteps: {
-      type: Array,
-      required: true,
-    },
-  },
   setup() {
-    const { changeStep } = useConfiguration()
+    const { configStep, item, changeStep } = useConfiguration()
 
     return {
+      item,
+      step: configStep,
       changeStep,
     }
   }
