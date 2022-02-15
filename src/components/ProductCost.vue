@@ -57,6 +57,7 @@ export default defineComponent({
       save: () => {
         changeBits(cost.value)
         saveConfig()
+        changeStep('0')
       },
       bitsCost: cost,
       change: (newCost: string) => cost.value = newCost,

@@ -67,7 +67,7 @@
       <base-button
         class="ml-8"
         @click="changeIndex(+step + 1)"
-        v-text="$t('btn.configNext')"
+        v-text="$t('btn.configContinue')"
         :disabled="!configValid"
       />
     </div>
