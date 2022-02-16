@@ -78,6 +78,10 @@ const useConfiguration: UseConfiguration = () => {
 
   const changeGiftList = (params: Gift[]) => store.commit('config/CHANGE_GIFT_LIST', params)
   
+  const removeGift = (index: number) => {
+    config.value.giftList.splice(index, 1)
+  }
+
   const addNewGift = () => changeGiftList([
     ...config.value.giftList,
     emptyConfig,
@@ -132,6 +136,7 @@ const useConfiguration: UseConfiguration = () => {
   }
 
   return {
+    removeGift,
     configStep,
     changeStep: (params) => store.commit('config/CHANGE_STEP', params),
     item,

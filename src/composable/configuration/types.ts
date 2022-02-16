@@ -21,6 +21,7 @@ interface Configuration {
 }
 
 type UseConfiguration = () => {
+  removeGift: (params: number) => void
   configStep: Ref<string>,
   changeStep: (params: string) => void
   item: Ref<Gift | null>
