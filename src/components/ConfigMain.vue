@@ -10,13 +10,24 @@
         class="h-32 fw-900"
         v-text="'Lootboxes'"
       />
-      <img
-        class='w-100p h-100p pointer border bc-font bg-disabled br-16'
+      <div
+        class="relative"
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
-        :src="`type${+product.type + 1}.gif`"
-        @click="chooseProduct(index)"
-      />
+      >
+        <img
+          class='w-100p h-100p pointer border bc-font bg-disabled br-16'
+          :src="`type${+product.type + 1}.gif`"
+          @click="chooseProduct(index)"
+        />
+        <icon
+          class="icon pointer mr-8 mt-8 absolute"
+          name="close"
+          :width="24"
+          :height="24"
+          @click="removeGift(index)"
+        />
+      </div>
     </div>
     <carousel
       :list="['type1.gif', 'type2.gif']"
@@ -47,7 +58,7 @@ export default defineComponent({
   name: 'ConfigMain',
   setup() {
 
-    const { config, configurateItem, addNewGift, changeStep } = useConfiguration()
+    const { removeGift, config, configurateItem, addNewGift, changeStep } = useConfiguration()
     const chooseProduct = (index: number) => {
       configurateItem(index)
       changeStep(config.value.giftList[index].availableSteps.slice(-1)[0])
@@ -58,6 +69,7 @@ export default defineComponent({
     }
 
     return {
+      removeGift,
       addLootBox,
       config,
       configurateItem,
@@ -68,6 +80,11 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+
+.icon {
+  right: 0;
+  top: 0;
+}
 
 .config-main {
   max-width: 900px;
