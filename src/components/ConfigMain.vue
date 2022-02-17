@@ -4,7 +4,7 @@
   >
     <div
       class="item-list"
-      v-if="config.giftList"
+      v-if="config.giftList.length"
     >
       <div
         class="h-32 fw-900"
