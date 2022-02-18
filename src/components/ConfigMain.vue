@@ -11,7 +11,7 @@
         v-text="'Lootboxes'"
       />
       <div
-        class="relative"
+        class="lootbox relative"
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
       >
@@ -84,6 +84,10 @@ export default defineComponent({
 .icon {
   right: 0;
   top: 0;
+  display: none;
+  .lootbox:hover & {
+    display: block;
+  }
 }
 
 .config-main {
