@@ -17,11 +17,13 @@
         :class="'grow h-16 bg-epic line first'"
       />
       <div
-        class="add-product__cell border flex-row-center-center fs-24 bold w-48 h-48 rounded"
+        class="border flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
           v-if="item.finishedSteps.includes(index)"
           name="accept"
+          :width="24"
+          :height="24"
         />
         <div
           v-else
@@ -65,40 +67,27 @@ export default defineComponent({
 .add-product {
   max-width: $config-body-max-width;
 
-//   &__cell {
-//     position: relative;
-//     top: 50px;
-//   }
-
   &__section {
+
+    &.disabled {
+      cursor: default;
+
+      div {
+        color: var(--disabled-color);
+      }
+    }
+
     &:last-child .line.last,
     &:first-child .line.first {
       visibility: hidden;
     }
-//     position: relative;
-//     max-width: 300px;
 
-//     &.disabled {
-//       cursor: default;
-
-//       div {
-//         color: var(--disabled-color);
-//       }
-//     }
-
-//     &.finished div {
-//       color: var(--common-color);
-//     }
-
-//     &.active {
-//       div {
-//         color: var(--light-main-color);
-//       }
-//     }
-
-//     &.add-product__section {
-//       border-bottom: 2px solid var(--disabled-color);
-//     }
+    &.finished,
+    &.active {
+      div {
+        color: var(--light-main-color);
+      }
+    }
 
   }
 }
