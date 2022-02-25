@@ -1,5 +1,9 @@
 <template>
   <div
+    class="fs-32 mt-32 bold"
+    v-text="$t(`configMain.${step - 1}.title`)"
+  />
+  <div
     class="add-product flex-row-center-center w-100p my-16"
   >
     <div
@@ -35,11 +39,6 @@
       <div
         :class="'grow h-16 bg-epic line last'"
       />
-      <!-- <div
-        v-if="index === step"
-        class="fs-24 ml-8 mr-16 bold"
-        v-text="$t(`configMain.${index - 1}.title`)"
-      /> -->
     </div>
   </div>
 </template>
