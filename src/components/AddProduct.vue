@@ -7,37 +7,41 @@
     class="add-product flex-row-center-center w-100p my-16"
   >
     <div
-      v-for="index in ['<', '1', '2', '3', '>']"
+      v-for="(text, index) in ['<', '1', '2', '3', '>']"
       :key="`section-${index}`"
       :class="[
-        `add-product__section pointer h-100p w-100p flex-row-center-center relative flex-row`,
-        { active: index === step },
-        { finished: item.finishedSteps.includes(index) },
-        { disabled: !item.availableSteps.includes(index) },
+        `add-product__section pointer flex-row-center-center relative flex-row`,
+        { active: text === step || isNaN(text) },
+        { finished: item.finishedSteps.includes(text) },
+        { disabled: !item.availableSteps.includes(text) },
       ]"
-      @click="item.availableSteps.includes(index) && changeStep(index)"
+      @click="item.availableSteps.includes(text) && changeStep(text)"
     >
       <div
-        :class="'grow h-16 bg-epic line first'"
+        :class="['h-16 bg-background line first', {
+          filled: index < step || !index,
+        }]"
       />
       <div
         class="border flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
-          v-if="item.finishedSteps.includes(index)"
+          v-if="item.finishedSteps.includes(text)"
           name="accept"
           :width="24"
           :height="24"
         />
         <div
           v-else
-          v-text="index"
+          v-text="text"
           :width="32"
           :height="32"
         />
       </div>
       <div
-        :class="'grow h-16 bg-epic line last'"
+        :class="['h-16 bg-epic line last', {
+          filled: index < step || !index,
+        }]"
       />
     </div>
   </div>
@@ -68,6 +72,20 @@ export default defineComponent({
 
   &__section {
 
+    .first {
+      width: 128px;
+      // &.filled {
+      //   width: 0px;
+      // }
+    }
+
+    .last {
+      width: 0px;
+      // &.filled {
+      //   width: 128px;
+      // }
+    }
+
     &.disabled {
       cursor: default;
 
@@ -78,7 +96,7 @@ export default defineComponent({
 
     &:last-child .line.last,
     &:first-child .line.first {
-      visibility: hidden;
+      display: none;
     }
 
     &.finished,
@@ -86,6 +104,11 @@ export default defineComponent({
       div {
         color: var(--light-main-color);
       }
+    }
+
+    .line {
+      border-bottom: 1px solid var(--disabled-color);
+      border-top: 1px solid var(--disabled-color);
     }
 
   }
