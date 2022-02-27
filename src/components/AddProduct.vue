@@ -19,7 +19,7 @@
     >
       <div
         :class="['h-16 bg-background line first', {
-          filled: index < step || !index,
+          filled: (index - 1) < step || !index,
         }]"
       />
       <div
@@ -72,18 +72,22 @@ export default defineComponent({
 
   &__section {
 
+    .first, .last {
+      transition: 0.3s width;
+    }
+
     .first {
       width: 128px;
-      // &.filled {
-      //   width: 0px;
-      // }
+      &.filled {
+        width: 0px;
+      }
     }
 
     .last {
       width: 0px;
-      // &.filled {
-      //   width: 128px;
-      // }
+      &.filled {
+        width: 128px;
+      }
     }
 
     &.disabled {
