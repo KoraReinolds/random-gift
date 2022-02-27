@@ -13,9 +13,9 @@
         `add-product__section pointer flex-row-center-center relative flex-row`,
         { active: text === step || isNaN(text) },
         { finished: item.finishedSteps.includes(text) },
-        { disabled: !item.availableSteps.includes(text) },
+        { disabled: !(item.availableSteps.includes(text) || isNaN(text)) },
       ]"
-      @click="item.availableSteps.includes(text) && changeStep(text)"
+      @click="changeStep(text)"
     >
       <div
         :class="['h-16 bg-background line first', {
@@ -59,7 +59,17 @@ export default defineComponent({
     return {
       item,
       step: configStep,
-      changeStep,
+      changeStep: (text: string) => {
+        if (!item.value) return
+
+        let step = +configStep.value
+        if (text === '<' && step !== 1) step -= 1
+        if (text === '>' && step !== 3) step += 1
+
+        if (item.value.availableSteps.includes(text)) {
+          changeStep(`${step}`)
+        }
+      },
     }
   }
 })
