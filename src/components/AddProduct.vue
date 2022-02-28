@@ -1,21 +1,21 @@
 <template>
   <div
     class="fs-32 mt-32 bold"
-    v-text="$t(`configMain.${step - 1}.title`)"
+    v-text="$t(`configMain.${configStep - 1}.title`)"
   />
   <div
     class="add-product flex-row-center-center w-100p my-16"
   >
     <div
-      v-for="(text, index) in ['<', '1', '2', '3', '>']"
+      v-for="(step, index) in steps"
       :key="`section-${index}`"
       :class="[
         `add-product__section pointer flex-row-center-center relative flex-row`,
-        { active: text === step || isNaN(text) },
-        { finished: item.finishedSteps.includes(text) },
-        { disabled: !(item.availableSteps.includes(text) || isNaN(text)) },
+        { active: step.text === step || isNaN(step.text) },
+        { finished: item.finishedSteps.includes(step.text) },
+        { disabled: !(item.availableSteps.includes(step.text) || isNaN(step.text)) },
       ]"
-      @click="changeStep(text)"
+      @click="changeStep(step.text)"
     >
       <div
         :class="['h-16 bg-background line first', {
@@ -26,16 +26,9 @@
         class="border flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
-          v-if="item.finishedSteps.includes(text)"
-          name="accept"
+          :name="step.icon || 'arrow-left-solid'"
           :width="24"
           :height="24"
-        />
-        <div
-          v-else
-          v-text="text"
-          :width="32"
-          :height="32"
         />
       </div>
       <div
@@ -55,10 +48,26 @@ export default defineComponent({
   name: 'AddProduct',
   setup() {
     const { configStep, item, changeStep } = useConfiguration()
-
+    const steps = [{
+      text: '<',
+      icon: 'arrow-left-solid',
+    }, {
+      text: '1',
+      icon: 'gift-solid',
+    }, {
+      text: '2',
+      icon: 'gear-solid',
+    }, {
+      text: '3',
+      icon: 'ethereum-brands',
+    }, {
+      text: '>',
+      icon: 'arrow-right-solid',
+    }]
     return {
+      steps,
       item,
-      step: configStep,
+      configStep,
       changeStep: (text: string) => {
         if (!item.value) return
 
@@ -66,7 +75,7 @@ export default defineComponent({
         if (text === '<' && step !== 1) step -= 1
         if (text === '>' && step !== 3) step += 1
 
-        if (item.value.availableSteps.includes(text)) {
+        if (item.value.availableSteps.includes(`${step}`)) {
           changeStep(`${step}`)
         }
       },

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, watch, computed } from 'vue'
+import { defineComponent, onMounted, ref, computed } from 'vue'
 
 export default defineComponent({
   name: 'Icon',
@@ -41,7 +41,6 @@ export default defineComponent({
     const originalHeight = ref('')
     const svgHTML = computed(() => require(`@/assets/svg/${props.name}.svg`))
     const icon = ref(null)
-    // watch('props.name', () => svgHTML.value = require(`@/assets/svg/${props.name}.svg`))
 
     onMounted(() => {
       const el = icon.value.firstChild;
@@ -50,6 +49,9 @@ export default defineComponent({
   
       originalWidth.value = el.getAttribute('width');
       originalHeight.value = el.getAttribute('height');
+
+      el.style.maxHeight = props.height
+      el.style.maxWidth = props.width
   
       el.removeAttribute('height')
       el.removeAttribute('width')
