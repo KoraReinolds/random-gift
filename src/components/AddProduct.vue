@@ -4,8 +4,18 @@
     v-text="$t(`configMain.${configStep - 1}.title`)"
   />
   <div
-    class="add-product flex-row-center-center w-100p my-16"
+    class="add-product h-16 flex-row-center-between w-100p mx-64 my-16 relative"
   >
+    <div
+      :class="['bg-background absolute line first w-50p h-100p', {
+        filled: (index - 1) < step || !index,
+      }]"
+    />
+    <div
+      :class="['bg-epic absolute line last w-50p h-100p', {
+        filled: index < step || !index,
+      }]"
+    />
     <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
@@ -18,12 +28,7 @@
       @click="changeStep(step.text)"
     >
       <div
-        :class="['h-16 bg-background line first', {
-          filled: (index - 1) < step || !index,
-        }]"
-      />
-      <div
-        class="border flex-row-center-center fs-24 bold w-48 h-48 rounded"
+        class="border bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
           :name="step.icon || 'arrow-left-solid'"
@@ -31,11 +36,6 @@
           :height="24"
         />
       </div>
-      <div
-        :class="['h-16 bg-epic line last', {
-          filled: index < step || !index,
-        }]"
-      />
     </div>
   </div>
 </template>
@@ -87,27 +87,21 @@ export default defineComponent({
 <style scoped lang="scss">
 
 .add-product {
-  max-width: $config-body-max-width;
+  width: $config-body-max-width;
+
+  .first, .last {
+    transition: 0.3s width;
+  }
+
+  .first {
+    right: 0;
+  }
+
+  .last {
+    left: 0;
+  }
 
   &__section {
-
-    .first, .last {
-      transition: 0.3s width;
-    }
-
-    .first {
-      width: 128px;
-      &.filled {
-        width: 0px;
-      }
-    }
-
-    .last {
-      width: 0px;
-      &.filled {
-        width: 128px;
-      }
-    }
 
     &.disabled {
       cursor: default;
@@ -117,11 +111,6 @@ export default defineComponent({
       }
     }
 
-    &:last-child .line.last,
-    &:first-child .line.first {
-      display: none;
-    }
-
     &.finished,
     &.active {
       div {
@@ -129,11 +118,11 @@ export default defineComponent({
       }
     }
 
-    .line {
-      border-bottom: 1px solid var(--disabled-color);
-      border-top: 1px solid var(--disabled-color);
-    }
+  }
 
+  .line {
+    border-bottom: 1px solid var(--disabled-color);
+    border-top: 1px solid var(--disabled-color);
   }
 }
 
