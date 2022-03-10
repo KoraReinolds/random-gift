@@ -178,10 +178,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-*, *:before, *:after {
-  box-sizing: border-box;
-  color: var(--font-color);
-}
+// *, *:before, *:after {
+//   box-sizing: border-box;
+//   color: var(--font-color);
+// }
 body,
 #app {
   margin: 0;

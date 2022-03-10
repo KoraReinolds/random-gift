@@ -1,18 +1,18 @@
 <template>
   <div
-    class="fs-32 mt-32 bold"
+    class="fs-32 mt-32 bold c-font"
     v-text="$t(`configMain.${configStep - 1}.title`)"
   />
   <div
-    class="add-product h-16 flex-row-center-between w-100p mx-64 my-16 relative"
+    class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
   >
     <div
-      :class="['bg-background absolute line first w-50p h-100p', {
+      :class="['bg-background absolute line first w-50p h-100p mx-4', {
         filled: (index - 1) < step || !index,
       }]"
     />
     <div
-      :class="['bg-epic absolute line last w-50p h-100p', {
+      :class="['bg-epic absolute line last w-50p h-100p mx-4', {
         filled: index < step || !index,
       }]"
     />
@@ -21,14 +21,14 @@
       :key="`section-${index}`"
       :class="[
         `add-product__section pointer flex-row-center-center relative flex-row`,
-        { active: step.text === step || isNaN(step.text) },
-        { finished: item.finishedSteps.includes(step.text) },
-        { disabled: !(item.availableSteps.includes(step.text) || isNaN(step.text)) },
       ]"
       @click="changeStep(step.text)"
     >
+        <!-- { active: step.text === step || isNaN(step.text) },
+        { finished: item.finishedSteps.includes(step.text) },
+        { disabled: !(item.availableSteps.includes(step.text) || isNaN(step.text)) }, -->
       <div
-        class="border bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
+        class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
         <icon
           :name="step.icon || 'arrow-left-solid'"
@@ -103,18 +103,25 @@ export default defineComponent({
 
   &__section {
 
+    .icon-box {
+      border: 3px solid var(--font-color);
+      color: var(--font-color);
+    }
+
     &.disabled {
       cursor: default;
 
-      div {
+      .icon-box {
         color: var(--disabled-color);
+        border-color: var(--disabled-color);
       }
     }
 
-    &.finished,
     &.active {
-      div {
-        color: var(--light-main-color);
+      .icon-box {
+        background-color: var(--epic-color);
+        color: var(--background-color);
+        border-color: var(--background-color);
       }
     }
 
