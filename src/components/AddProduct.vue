@@ -3,22 +3,16 @@
     class="fs-32 mt-32 bold c-font"
     v-text="$t(`configMain.${configStep - 1}.title`)"
   />
-  <!-- <div
-    class="fs-32 mt-32 bold c-font"
-    v-text="item"
-  /> -->
   <div
     class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
   >
     <div
-      :class="['bg-background absolute line first w-50p h-100p mx-4', {
-        filled: (index - 1) < step || !index,
-      }]"
+      :class="['bg-background absolute line first h-100p mx-4']"
+      :style="{ width: `${99}%` }"
     />
     <div
-      :class="['bg-epic absolute line last w-50p h-100p mx-4', {
-        filled: index < step || !index,
-      }]"
+      :class="['bg-epic absolute line last h-24 mx-4']"
+      :style="{ width: `${25 * +configStep}%` }"
     />
     <div
       v-for="(step, index) in steps"
@@ -26,13 +20,10 @@
       :class="[
         `add-product__section pointer flex-row-center-center relative flex-row`,
         { disabled: isDisabled(step) },
+        { active: step.text === configStep },
       ]"
       @click="changeStep(step.text)"
     >
-      <!-- 
-        { active: step.text === step || isNaN(step.text) },
-        { finished: item.finishedSteps.includes(step.text) },
-      -->
       <div
         class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
@@ -76,7 +67,9 @@ export default defineComponent({
       type: 'btn',
     }]
 
-    const isDisabled = (step: { text: string, ison: string, type: string }) => {
+    type Step = { text: string, ison: string, type: string }
+
+    const isDisabled = (step: Step) => {
 
       if (!item.value) return true
 
@@ -87,7 +80,6 @@ export default defineComponent({
           ? +s < +configStep.value
           : +s > +configStep.value
         )
-
       }
 
       return !steps.includes(step.text)
@@ -157,9 +149,9 @@ export default defineComponent({
 
   }
 
-  .line {
-    border-bottom: 1px solid var(--disabled-color);
-    border-top: 1px solid var(--disabled-color);
+  .first {
+    border-bottom: 3px solid var(--disabled-color);
+    border-top: 3px solid var(--disabled-color);
   }
 }
 
