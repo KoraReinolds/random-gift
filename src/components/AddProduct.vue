@@ -3,6 +3,10 @@
     class="fs-32 mt-32 bold c-font"
     v-text="$t(`configMain.${configStep - 1}.title`)"
   />
+  <!-- <div
+    class="fs-32 mt-32 bold c-font"
+    v-text="item"
+  /> -->
   <div
     class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
   >
@@ -21,12 +25,14 @@
       :key="`section-${index}`"
       :class="[
         `add-product__section pointer flex-row-center-center relative flex-row`,
+        { disabled: isDisabled(step) },
       ]"
       @click="changeStep(step.text)"
     >
-        <!-- { active: step.text === step || isNaN(step.text) },
+      <!-- 
+        { active: step.text === step || isNaN(step.text) },
         { finished: item.finishedSteps.includes(step.text) },
-        { disabled: !(item.availableSteps.includes(step.text) || isNaN(step.text)) }, -->
+      -->
       <div
         class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
       >
@@ -51,23 +57,47 @@ export default defineComponent({
     const steps = [{
       text: '<',
       icon: 'arrow-left-solid',
+      type: 'btn',
     }, {
       text: '1',
       icon: 'gift-solid',
+      type: 'page',
     }, {
       text: '2',
       icon: 'gear-solid',
+      type: 'page',
     }, {
       text: '3',
       icon: 'ethereum-brands',
+      type: 'page',
     }, {
       text: '>',
       icon: 'arrow-right-solid',
+      type: 'btn',
     }]
+
+    const isDisabled = (step: { text: string, ison: string, type: string }) => {
+
+      if (!item.value) return true
+
+      const steps = item.value.availableSteps
+
+      if (step.type === 'btn') {
+        return !steps.find(s => step.text === '<' 
+          ? +s < +configStep.value
+          : +s > +configStep.value
+        )
+
+      }
+
+      return !steps.includes(step.text)
+    }
+
     return {
       steps,
       item,
       configStep,
+      isDisabled,
       changeStep: (text: string) => {
         if (!item.value) return
 

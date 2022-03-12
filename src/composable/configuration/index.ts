@@ -19,7 +19,7 @@ const useConfiguration: UseConfiguration = () => {
   const productCosts = computed(() => store.getters['config/productCosts'])
   const emptyConfig = {
     title: 'Gift',
-    availableSteps: ['0', '1'],
+    availableSteps: ['1'],
     finishedSteps: [],
     type: '1',
     bits: '100',
