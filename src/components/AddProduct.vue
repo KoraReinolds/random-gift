@@ -22,7 +22,7 @@
         { disabled: isDisabled(step) },
         { active: step.text === configStep },
       ]"
-      @click="changeStep(step.text)"
+      @click="changeStep(step)"
     >
       <div
         class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
@@ -48,26 +48,26 @@ export default defineComponent({
     const steps = [{
       text: '<',
       icon: 'arrow-left-solid',
-      type: 'btn',
+      btn: true,
     }, {
       text: '1',
       icon: 'gift-solid',
-      type: 'page',
+      btn: false,
     }, {
       text: '2',
       icon: 'gear-solid',
-      type: 'page',
+      btn: false,
     }, {
       text: '3',
       icon: 'ethereum-brands',
-      type: 'page',
+      btn: false,
     }, {
       text: '>',
       icon: 'arrow-right-solid',
-      type: 'btn',
+      btn: true,
     }]
 
-    type Step = { text: string, ison: string, type: string }
+    type Step = { text: string, ison: string, btn: boolean }
 
     const isDisabled = (step: Step) => {
 
@@ -75,7 +75,7 @@ export default defineComponent({
 
       const steps = item.value.availableSteps
 
-      if (step.type === 'btn') {
+      if (step.btn) {
         return !steps.find(s => step.text === '<' 
           ? +s < +configStep.value
           : +s > +configStep.value
@@ -90,15 +90,21 @@ export default defineComponent({
       item,
       configStep,
       isDisabled,
-      changeStep: (text: string) => {
+      changeStep: (step: Step) => {
         if (!item.value) return
 
-        let step = +configStep.value
-        if (text === '<' && step !== 1) step -= 1
-        if (text === '>' && step !== 3) step += 1
+        let newStep = step.btn
+          ? +configStep.value
+          : +step.text
 
-        if (item.value.availableSteps.includes(`${step}`)) {
-          changeStep(`${step}`)
+        if (step.btn) {
+          step.text === '<'
+            ? newStep -= 1
+            : newStep += 1
+        }
+
+        if (item.value.availableSteps.includes(`${newStep}`)) {
+          changeStep(`${newStep}`)
         }
       },
     }

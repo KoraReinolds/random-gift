@@ -3,7 +3,7 @@
     class="config flex-column-center-center"
     v-if="config"
   >
-    {{ config }}
+    <span v-text="config" class="c-font"/>
     <add-product-header
       v-if="step !== '0' && item"
     />
