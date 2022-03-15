@@ -22,7 +22,7 @@
         { disabled: isDisabled(step) },
         { active: step.text === configStep },
       ]"
-      @click="changeStep(step)"
+      @click="moveTo(step)"
     >
       <div
         class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
@@ -37,79 +37,67 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useConfiguration } from '@/composable/configuration'
+<script setup lang="ts">
+  import { useConfiguration } from '@/composable/configuration'
 
-export default defineComponent({
-  name: 'AddProduct',
-  setup() {
-    const { configStep, item, changeStep } = useConfiguration()
-    const steps = [{
-      text: '<',
-      icon: 'arrow-left-solid',
-      btn: true,
-    }, {
-      text: '1',
-      icon: 'gift-solid',
-      btn: false,
-    }, {
-      text: '2',
-      icon: 'gear-solid',
-      btn: false,
-    }, {
-      text: '3',
-      icon: 'ethereum-brands',
-      btn: false,
-    }, {
-      text: '>',
-      icon: 'arrow-right-solid',
-      btn: true,
-    }]
+  const { configStep, item, changeStep } = useConfiguration()
+  type Step = { text: string, icon: string, btn: boolean }
 
-    type Step = { text: string, ison: string, btn: boolean }
+  const steps: Step[] = [{
+    text: '<',
+    icon: 'arrow-left-solid',
+    btn: true,
+  }, {
+    text: '1',
+    icon: 'gift-solid',
+    btn: false,
+  }, {
+    text: '2',
+    icon: 'gear-solid',
+    btn: false,
+  }, {
+    text: '3',
+    icon: 'ethereum-brands',
+    btn: false,
+  }, {
+    text: '>',
+    icon: 'arrow-right-solid',
+    btn: true,
+  }]
 
-    const isDisabled = (step: Step) => {
+  const isDisabled = (step: Step) => {
 
-      if (!item.value) return true
+    if (!item.value) return true
 
-      const steps = item.value.availableSteps
+    const steps = item.value.availableSteps
 
-      if (step.btn) {
-        return !steps.find(s => step.text === '<' 
-          ? +s < +configStep.value
-          : +s > +configStep.value
-        )
-      }
-
-      return !steps.includes(step.text)
+    if (step.btn) {
+      return !steps.find((s: Step) => step.text === '<' 
+        ? +s < +configStep.value
+        : +s > +configStep.value
+      )
     }
 
-    return {
-      steps,
-      item,
-      configStep,
-      isDisabled,
-      changeStep: (step: Step) => {
-        if (!item.value) return
+    return !steps.includes(step.text)
+  }
 
-        let newStep = step.btn
-          ? +configStep.value
-          : +step.text
+  const moveTo = (step: Step) => {
+    if (!item.value) return
 
-        if (step.btn) {
-          step.text === '<'
-            ? newStep -= 1
-            : newStep += 1
-        }
+    let newStep = step.btn
+      ? +configStep.value
+      : +step.text
 
-        if (item.value.availableSteps.includes(`${newStep}`)) {
-          changeStep(`${newStep}`)
-        }
-      },
+    if (step.btn) {
+      step.text === '<'
+        ? newStep -= 1
+        : newStep += 1
+    }
+
+    if (item.value.availableSteps.includes(`${newStep}`)) {
+      changeStep(`${newStep}`)
     }
   }
-})
 </script>
 
 <style scoped lang="scss">
