@@ -31,7 +31,7 @@
       @click="changeStep('0')"
       v-text="$t('btn.configBack')"
     />
-    <base-button
+    <BaseButton
       class="ml-24"
       @click="save"
       v-text="$t('btn.configContinue')"
@@ -39,52 +39,35 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import BaseButton from '@/components/BaseButton.vue'
-import { useConfiguration } from '@/composable/configuration'
-import { Gift } from '@/store/config/types'
+<script setup lang="ts">
+  import { defineProps } from 'vue'
+  import BaseButton from '@/components/BaseButton.vue'
+  import { useConfiguration } from '@/composable/configuration'
+  import { Gift } from '@/store/config/types'
 
-export default defineComponent({
-  name: 'ProductApperance',
-  components: {
-    BaseButton,
-  },
-  props: {
-    item: {
-      type: Object as PropType<Gift>,
-      required: true,
-    }
-  },
-  setup() {
-    const productsCount = 2
-    const { changeStep, changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
-    const nextStep = '2'
+  const props = defineProps<{
+    item: Gift
+  }>()
+  const productsCount = 2
+  const { changeStep, changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
+  const nextStep = '2'
 
-    const changeProduct = (newValue: number) => {
+  const changeProduct = (newValue: number) => {
 
-      if (productsCount < 2) return
+    if (productsCount < 2) return
 
-      changeItem(`${(newValue === -1
-        ? productsCount - 1
-        : newValue
-      ) % productsCount}`)
+    changeItem(`${(newValue === -1
+      ? productsCount - 1
+      : newValue
+    ) % productsCount}`)
 
-    }
-
-    return {
-      changeStep,
-      save: () => {
-        changeAvailableSteps(nextStep)
-        changeFinishedSteps('1')
-        changeStep(nextStep)
-        saveConfig()
-      },
-      productsCount,
-      changeProduct,
-    }
   }
-})
+  const save = () => {
+    changeAvailableSteps(nextStep)
+    changeFinishedSteps('1')
+    changeStep(nextStep)
+    saveConfig()
+  }
 </script>
 
 <style scoped lang="scss">
