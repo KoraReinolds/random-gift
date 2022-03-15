@@ -1,12 +1,8 @@
-import {
-  ProductList,
-  UseProducts,
-} from './types'
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useConfiguration } from '@/composable/configuration'
 
-const useProducts: UseProducts = () => {
+const useProducts = () => {
   const store = useStore()
   const { productCosts, config } = useConfiguration()
   const products = ref()

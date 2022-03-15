@@ -1,10 +1,7 @@
-import {
-  UseNotifications,
-} from './types'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
-const useNotifications: UseNotifications = () => {
+const useNotifications = () => {
 
   const store = useStore()
   const notifications = computed(() => store.state.notif.notifications)

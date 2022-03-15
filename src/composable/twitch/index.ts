@@ -1,9 +1,4 @@
-import {
-  UseTwitch,
-} from './types'
-
-
-const useTwitch: UseTwitch = () => {
+const useTwitch = () => {
 
   return { twitch: window?.Twitch?.ext }
 

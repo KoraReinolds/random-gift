@@ -1,15 +1,23 @@
 import { axiosBackend } from "@/api"
-import {
-  Configuration,
-  UseConfiguration,
-} from "./types"
 import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
+import { UseConfiguration } from './types'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
 
-const useConfiguration: UseConfiguration = () => {
+interface Configuration {
+  [key: string]: {
+    record: {
+      content: string,
+    },
+    segment: {
+      channel_id: string,
+      segment_type: string,
+    },
+  }
+}
 
+const useConfiguration = () => {
   const { twitch } = useTwitch()
   const store = useStore()
   const configStep = computed(() => store.state.config.configStep)
@@ -138,7 +146,7 @@ const useConfiguration: UseConfiguration = () => {
   return {
     removeGift,
     configStep,
-    changeStep: (params) => store.commit('config/CHANGE_STEP', params),
+    changeStep: (params: any) => store.commit('config/CHANGE_STEP', params),
     item,
     config,
     restoreConfig: () => store.commit('config/RESTORE_CONFIG'),
@@ -146,7 +154,7 @@ const useConfiguration: UseConfiguration = () => {
     productCosts,
     changeGiftList,
     addNewGift,
-    configurateItem: (params) => store.commit('config/CONFIGURATE_ITEM', params),
+    configurateItem: (params: any) => store.commit('config/CONFIGURATE_ITEM', params),
     changeFinishedSteps,
     changeAvailableSteps,
     changeBits,
