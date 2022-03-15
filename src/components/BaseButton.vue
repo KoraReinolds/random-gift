@@ -1,26 +1,17 @@
 <template>
   <button
-    :class="`btn ma-0 py-8 px-16 fs-16 br-8 c-background bg-button pointer fw-900 ${type}`"
+    :class="[`btn ma-0 py-8 px-16 fs-16 br-8 c-background bg-button pointer fw-900`, type]"
   >
     <slot />
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+  import { defineProps } from 'vue'
 
-export default defineComponent({
-  name: 'Button',
-  props: {
-    type: {
-      type: String,
-      default: '',
-    }
-  },
-  setup() {
-    return {}
-  }
-});
+  const props = defineProps<{
+    type?: string
+  }>()
 </script>
 
 <style scoped lang="scss">
