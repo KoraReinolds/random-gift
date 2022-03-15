@@ -7,16 +7,16 @@
       v-if="config.giftList.length"
     >
       <div
-        class="h-32 fw-900"
+        class="h-32 fw-900 c-font"
         v-text="'Lootboxes'"
       />
       <div
-        class="lootbox relative"
+        class="lootbox relative c-font"
         v-for="(product, index) in config.giftList"
         :key="`product-${index}`"
       >
         <img
-          class='w-100p h-100p pointer border bc-font bg-disabled br-16'
+          class='image w-100p h-100p pointer bc-font bg-disabled br-16'
           :src="`type${+product.type + 1}.gif`"
           @click="chooseProduct(index)"
         />
@@ -29,7 +29,7 @@
         />
       </div>
     </div>
-    <carousel
+    <Carousel
       :list="['type1.gif', 'type2.gif']"
     />
   </div>
@@ -37,46 +37,28 @@
     v-if="config.giftList.length < 2"
     class="flex-row-center-center mt-48"
   >
-    <base-button
+    <BaseButton
       @click="addLootBox"
       v-text="$t('btn.addLootBox')"
     />
   </div>
 </template>
 
-<script lang="ts">
-import Carousel from '@/components/Carousel.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import { defineComponent } from 'vue'
-import { useConfiguration } from '@/composable/configuration'
+<script setup lang="ts">
+  import { ref } from 'vue'
+  import Carousel from '@/components/Carousel.vue'
+  import BaseButton from '@/components/BaseButton.vue'
+  import { useConfiguration } from '@/composable/configuration'
 
-export default defineComponent({
-  components: {
-    Carousel,
-    BaseButton,
-  },
-  name: 'ConfigMain',
-  setup() {
-
-    const { removeGift, config, configurateItem, addNewGift, changeStep } = useConfiguration()
-    const chooseProduct = (index: number) => {
-      configurateItem(index)
-      changeStep(config.value.giftList[index].availableSteps.slice(-1)[0])
-    }
-    const addLootBox = () => {
-      addNewGift();
-      chooseProduct(config.value.giftList.length - 1)
-    }
-
-    return {
-      removeGift,
-      addLootBox,
-      config,
-      configurateItem,
-      chooseProduct,
-    }
+  const { removeGift, config, configurateItem, addNewGift, changeStep } = useConfiguration()
+  const chooseProduct = (index: number) => {
+    configurateItem(index)
+    changeStep(config.value.giftList[index].availableSteps.slice(-1)[0])
   }
-})
+  const addLootBox = () => {
+    addNewGift();
+    chooseProduct(config.value.giftList.length - 1)
+  }
 </script>
 
 <style scoped lang="scss">
@@ -98,11 +80,8 @@ export default defineComponent({
   width: 90px;
   height: $config-body-height;
   overflow: scroll;
-  img {
+  .image {
     height: 90px;
-  }
-  img:hover {
-    background-color: var(--background-color);
   }
 }
 
