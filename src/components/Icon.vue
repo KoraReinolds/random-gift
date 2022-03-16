@@ -1,65 +1,43 @@
 <template>
   <div
-    :style="{
-      width: `${width || originalWidth}px`,
-      height: `${height || originalHeight}px`,
-    }"
-    :class="['icon', `qa-icon-${name}`, {
-      filled,
-    }]"
-    v-html="svgHTML"
-    ref="icon"
-  />
+    :class="['icon-box',
+      rounded && 'rounded bg-background flex-row-center-center'
+    ]"
+    :style="rounded && getStyle(2)"
+  >
+    <div
+      :style="getStyle()"
+      class="flex-row-center-center"
+      v-html="svgHTML"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-  import { defineProps, onMounted, ref, computed } from 'vue'
+  import { defineProps, computed } from 'vue'
 
   const props = defineProps<{
     name: string
-    width?: number
-    height?: number
-    filled?: boolean
+    width: number
+    height: number
+    rounded?: boolean
   }>()
 
-  const originalWidth = ref('')
-  const originalHeight = ref('')
   const svgHTML = computed(() => require(`@/assets/svg/${props.name}.svg`))
-  const icon = ref()
-
-  onMounted(() => {
-    const el = icon.value.firstChild;
-
-    if (!el) return
-
-    originalWidth.value = el.getAttribute('width');
-    originalHeight.value = el.getAttribute('height');
-
-    el.style.maxHeight = props.height
-    el.style.maxWidth = props.width
-
-    el.removeAttribute('height')
-    el.removeAttribute('width')
+  const getStyle = (ratio = 1) => ({
+    width: `${props.width * ratio}px`,
+    height: `${props.height * ratio}px`,
   })
 </script>
 
 <style lang="scss">
-.icon {
-  display: inline-block;
-  flex-shrink: 0;
-  flex-grow: 0;
-  outline: none;
-  user-select: none;
-}
-
-.filled {
-  svg, path {
-    fill: currentColor;
+.icon-box {
+  &.rounded {
+    border: 3px solid;
   }
 }
 
-.svg {
-  display: block;
+svg {
   width: 100%;
   height: 100%;
 }
