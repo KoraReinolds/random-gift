@@ -1,12 +1,35 @@
 <template>
   <div
-    class="image relative"
+    class="relative"
   >
-    <img
-      class="h-100p w-100p"
-      :src="`type${index + 1}.gif`"
+    <div
+      class="flex-row-center-center"
     >
+      <icon
+        v-if="arrowNavigation"
+        class="pointer c-font"
+        name="arrow-left-solid"
+        :width="20"
+        :height="20"
+        :rounded="true"
+        @click="changeIndex(+index - 1)"
+      />
+      <img
+        class="image"
+        :src="`type${index + 1}.gif`"
+      >
+      <icon
+        v-if="arrowNavigation"
+        class="pointer c-font"
+        name="arrow-right-solid"
+        :width="20"
+        :height="20"
+        :rounded="true"
+        @click="changeIndex(+index + 1)"
+      />
+    </div>
     <ul
+      v-if="!hideNavigation"
       :class="['dots py-8 absolute w-100p flex-row-center-center']"
     >
       <li
@@ -31,6 +54,8 @@
 
   const props = defineProps<{
     list: string[]
+    hideNavigation?: boolean
+    arrowNavigation?: boolean
   }>()
   const index = ref(0)
   let interval: number
