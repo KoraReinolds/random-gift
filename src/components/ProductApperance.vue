@@ -1,29 +1,9 @@
 <template>
-  <div
-    :class="['flex-row-center-center w-100p',
-      { disabled: productsCount < 2 }
-    ]"
-  >
-    <div
-      :class="['arrow prev']"
-      @click="changeProduct(+item.type - 1)"
-    />
-
-    <div
-      class="relative image"
-    >
-      <img
-        class="absolute top-left w-100p h-100p"
-        :src="`type${+item.type + 1}.gif`"
-      />
-    </div>
-
-    <div
-      :class="['arrow next']"
-      @click="changeProduct(+item.type + 1)"
-    />
-
-  </div>
+  <Carousel
+    :list="['type1.gif', 'type2.gif']"
+    :hideNavigation="true"
+    :arrowNavigation="true"
+  />
   <div
     class="flex-row-center-center mt-48"
   >
@@ -40,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+  import Carousel from '@/components/Carousel.vue'
   import { defineProps } from 'vue'
   import BaseButton from '@/components/BaseButton.vue'
   import { useConfiguration } from '@/composable/configuration'
@@ -71,31 +52,4 @@
 </script>
 
 <style scoped lang="scss">
-
-.image {
-  width: $config-body-height;
-  height: $config-body-height;
-}
-
-.arrow {
-  border: 24px solid var(--main-color);
-  border-top: 24px solid transparent;
-  border-right: 24px solid transparent;
-  cursor: pointer;
-
-  .disabled & {
-    cursor: default;
-    border-bottom-color: var(--disabled-color);
-    border-left-color: var(--disabled-color);
-  }
-
-  &.next {
-    transform: rotate(225deg);
-  }
-
-  &.prev {
-    transform: rotate(45deg);
-  }
-}
-
 </style>
