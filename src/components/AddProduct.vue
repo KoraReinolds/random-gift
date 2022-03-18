@@ -17,22 +17,19 @@
     <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
-      :class="[
-        `add-product__section pointer flex-row-center-center relative flex-row`,
-        { disabled: isDisabled(step) },
-        { active: step.text === configStep },
-      ]"
+      :class="[`pointer flex-row-center-center relative flex-row`]"
       @click="moveTo(step)"
     >
-      <div
-        class="icon-box bg-background flex-row-center-center fs-24 bold w-48 h-48 rounded"
-      >
-        <icon
-          :name="step.icon || 'arrow-left-solid'"
-          :width="24"
-          :height="24"
-        />
-      </div>
+      <icon
+        :class="['icon c-font', {
+          disabled: isDisabled(step),
+          active: step.text === configStep,
+        }]"
+        :name="step.icon || 'arrow-left-solid'"
+        :width="24"
+        :height="24"
+        :rounded="true"
+      />
     </div>
   </div>
 </template>
@@ -117,30 +114,14 @@
     left: 0;
   }
 
-  &__section {
+  .disabled {
+    cursor: default;
+    color: var(--disabled-color);
+  }
 
-    .icon-box {
-      border: 3px solid var(--font-color);
-      color: var(--font-color);
-    }
-
-    &.disabled {
-      cursor: default;
-
-      .icon-box {
-        color: var(--disabled-color);
-        border-color: var(--disabled-color);
-      }
-    }
-
-    &.active {
-      .icon-box {
-        background-color: var(--epic-color);
-        color: var(--background-color);
-        border-color: var(--background-color);
-      }
-    }
-
+  .active {
+    background-color: var(--epic-color);
+    color: var(--background-color);
   }
 
   .first {
