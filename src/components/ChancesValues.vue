@@ -29,29 +29,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script setup lang="ts">
+import { defineProps } from 'vue'
 import { ChancePercent } from '@/store/config/types'
 
-export default defineComponent({
-  name: 'ChncesValues',
-  components: {
-  },
-  props: {
-    step: {
-      type: String,
-      required: true
-    },
-    disabled: {
-      type: Boolean,
-      required: false
-    },
-    chances: {
-      type: Object as PropType<ChancePercent>,
-      required: true
-    }
-  },
-});
+  const props = defineProps<{
+    step: string,
+    disabled?: boolean,
+    chances: ChancePercent,
+  }>()
 </script>
 
 <style scoped lang="scss">
