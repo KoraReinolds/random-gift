@@ -11,7 +11,7 @@
         :class="['empty-fon w-100p bg-background grow']"
       />
       <div
-        :class="['absolute fw-900 fs-16 px-24']"
+        :class="['absolute fw-900 fs-16 px-24 c-font']"
         v-text="$t(
           empty
             ? 'title.emptyConfig'
@@ -32,7 +32,7 @@
           v-for="(action, index) in list"
           :key="`action-${index}`"
         >
-          <base-input
+          <BaseInput
             class="bold pa-8"
             :modelValue="action.value"
             @update:modelValue="editAction({
@@ -58,7 +58,7 @@
           </div>
         </li>
       </ul>
-      <base-button
+      <BaseButton
         class="w-100p mb-8"
         v-text="$t(`btn.addAction`)"
         type="classic"
@@ -69,47 +69,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script setup lang="ts">
+import { defineProps } from 'vue'
 import { ActionList } from '@/store/config/types'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useConfiguration } from '@/composable/configuration/index'
 
-export default defineComponent({
-  name: 'ActionList',
-  props: {
-    list: {
-      type: Object as PropType<ActionList>,
-      required: true
-    },
-    chance: {
-      type: String,
-    },
-    empty: {
-      type: Boolean,
-      default: true
-    },
-    isValid: {
-      type: Boolean,
-      default: true
-    }
-  },
-  components: {
-    BaseInput,
-    BaseButton,
-  },
-  setup() {
-    
-    const { editAction, deleteAction, addAction } = useConfiguration()
+  const props = defineProps<{
+    list: ActionList
+    chance: string
+    empty: boolean
+    isValid: boolean
+  }>()
 
-    return {
-      addAction,
-      editAction,
-      deleteAction,
-    }
-  }
-})
+  const { editAction, deleteAction, addAction } = useConfiguration()
+
 </script>
 
 <style scoped lang="scss">
