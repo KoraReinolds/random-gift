@@ -1,6 +1,6 @@
 <template>
   <component
-    class="w-100p h-100p bg-background"
+    class="w-100p h-100p bg-background c-font"
     :is="this.many ? 'textarea' : 'input'"
     :value="modelValue"
     @input="($e) => $emit('update:modelValue', $e.target.value)"
@@ -8,22 +8,13 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+  import { defineProps } from 'vue'
 
-export default defineComponent({
-  name: "BaseInput",
-  props: {
-    many: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: {
-      type: String,
-      default: '',
-    },
-  },
-})
+  const props = defineProps<{
+    many: boolean,
+    modelValue: string,
+  }>()
 
 </script>
 
