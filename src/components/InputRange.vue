@@ -9,7 +9,7 @@
     <div
       class="scale-box relative hidden"
     >
-      <fragment-shader
+      <FragmentShader
         class="shader-range"
         :color="color"
         :value="disabled ? 1 : value"
@@ -24,7 +24,7 @@
       >
     </div>
     <div
-      class="value flex-row-center-center"
+      class="value flex-row-center-center c-font"
       :style="{
         marginLeft: `${disabled ? 0 : list.indexOf(modelValue)/(list.length - 1) * 200}px`,
       }"
@@ -40,70 +40,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue'
-import FragmentShader from '@/components/FragmentShader.vue'
+<script setup lang="ts">
+  import { defineProps, defineEmit, ref, watch, computed } from 'vue'
+  import FragmentShader from '@/components/FragmentShader.vue'
 
-export default defineComponent({
-  name: 'InputRange',
-  components: {
-    FragmentShader,
-  },
-  props: {
-    list: {
-      type: Array,
-      default: () => [],
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: 'epic',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    smoothChange: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  setup(props, { emit }) {
+  const props = defineProps<{
+    list: string[]
+    modelValue: string
+    color: string
+    disabled: boolean
+    smoothChange: boolean
+  }>()
+  const emit = defineEmit(['update:modelValue'])
+  let intervalId: number
+  const listIndex = ref(props.list.indexOf(props.modelValue))
+  const value = computed(() => {
+    return props.list.indexOf(props.modelValue)/(props.list.length - 1)
+  })
 
-    let intervalId: number
-    const listIndex = ref(props.list.indexOf(props.modelValue))
-    const value = computed(() => {
-      return props.list.indexOf(props.modelValue)/(props.list.length - 1)
-    })
+  watch(listIndex, (index: number, prevIndex: number) => {
 
-    watch(listIndex, (index: number, prevIndex: number) => {
-
-      if (!props.smoothChange) {
-        emit('update:modelValue', `${props.list[+index]}`)
-        return
-      }
-
-      if (intervalId) clearInterval(intervalId)
-      let parts = Math.min(20, Math.abs(index - prevIndex))
-      let delta = (+index - +prevIndex) / parts
-      intervalId = setInterval(() => {
-        parts -= 1
-        emit('update:modelValue', `${props.list[+index - +(Math.floor(delta * parts))]}`)
-        if (!parts) clearInterval(intervalId)
-      }, 500 / parts)
-
-    })
-
-    return {
-      listIndex,
-      value,
+    if (!props.smoothChange) {
+      emit('update:modelValue', `${props.list[index]}`)
+      return
     }
 
-  }
-});
+    if (intervalId) clearInterval(intervalId)
+    let parts = Math.min(20, Math.abs(index - prevIndex))
+    let delta = (+index - +prevIndex) / parts
+    intervalId = setInterval(() => {
+      parts -= 1
+      emit('update:modelValue', `${props.list[+index - +(Math.floor(delta * parts))]}`)
+      if (!parts) clearInterval(intervalId)
+    }, 500 / parts)
+
+  })
 </script>
 
 <style scoped lang="scss">

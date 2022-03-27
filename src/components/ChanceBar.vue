@@ -8,7 +8,7 @@
     />
     <div
       v-text="`${modelValue}%`"
-      class="percent flex-row-center-center w-100p bold absolute"  
+      class="percent flex-row-center-center w-100p bold absolute c-font"
       :style="{ top: displayValue }"
     />
     <input
@@ -19,80 +19,53 @@
       :style="inputStyle"
       type='range'
       min='0'
-      :max="maxValue"
-      :value="modelValue"
-      @input="!disabled && changeValue($event)"
+      :max="maxValue || '0'"
+      :value="modelValue || '100'"
+      @input="(e) => !disabled && $emit('update:modelValue', e.target.value)"
     >
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue'
+<script setup lang="ts">
+  import { defineProps, ref, watch, computed } from 'vue'
 
-export default defineComponent({
-  name: "ChanceBar",
-  props: {
-    modelValue: {
-      type: String,
-      default: '100',
-    },
-    maxValue: {
-      type: String,
-      default: '0',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
+  const props = defineProps<{
+    modelValue: string
+    maxValue: string
+    disabled: boolean
+  }>()
 
-    const input = ref(document.createElement('input'))
-    const value = ref(props.modelValue)
-    const inputStyle = ref({})
-    const displayValue = computed(
-      () => `${100 - (+props.modelValue / +props.maxValue * 100)}%`
-    )
-    const changeValue = (e: any) => {
-      const { value } = e.target
-      emit('update:modelValue', value)
+
+  const input = ref(document.createElement('input'))
+  const value = ref(props.modelValue)
+  const inputStyle = ref({})
+  const displayValue = computed(
+    () => `${100 - (+props.modelValue / +props.maxValue * 100)}%`
+  )
+
+  watch(input, (i) => {
+    const { width, height } = i.getBoundingClientRect()
+    inputStyle.value = {
+      width: `${height}px`,
+      height: `${width}px`,
+      transform: `
+        rotate(-90deg)
+        translate(-${height/2}px, -${height/2}px)
+        translate(${width/2}px, 50%)
+      `,
     }
-
-    watch(input, (i) => {
-      const { width, height } = i.getBoundingClientRect()
-      inputStyle.value = {
-        width: `${height}px`,
-        height: `${width}px`,
-        transform: `
-          rotate(-90deg)
-          translate(-${height/2}px, -${height/2}px)
-          translate(${width/2}px, 50%)
-        `,
-      }
-    })
-
-    return {
-      value,
-      displayValue,
-      input,
-      inputStyle,
-      changeValue,
-    }
-
-  }
-})
+  })
 
 </script>
 
 <style scoped lang="scss">
 $range-width: 40px;
-$range-border: 8px;
 
 .track {
   @include chanceTransition;
   transition-property: height;
 
-  width: calc(#{$range-width} + 1px);
+  width: calc(100% + 1px);
   position: absolute;
   top: 0;
   left: -1px;

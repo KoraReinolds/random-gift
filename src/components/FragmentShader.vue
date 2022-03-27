@@ -62,7 +62,7 @@
     // TODE: remove this ugly logic
     theme.value = document
       .querySelector('.app')
-      ?.contains(widget.value) ? 'light' : 'dark'
+      ?.classList.contains('dark') ? 'dark' : 'light'
     initScene()
   })
 
