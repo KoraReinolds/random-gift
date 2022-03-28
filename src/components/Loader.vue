@@ -14,18 +14,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { defineProps } from 'vue';
 
-export default defineComponent({
-  name: 'Loader',
-  props: {
-    size: {
-      type: Number,
-      default: 64,
-    }
-  },
-});
+  const props = defineProps<{
+    size: number
+  }>()
+
 </script>
 
 <style scoped lang="scss">
