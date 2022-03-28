@@ -1,19 +1,12 @@
 <template>
   <div
+    class="flex-column-center-center"
   >
-    <h2
-      v-text="'Panel'"
-      class="my-16"
+    <BitsProduct
+      v-for="product in products"
+      :product="product"
+      :key="product.sku"
     />
-    <div
-      class="flex-column-center-center"
-    >
-      <BitsProduct
-        v-for="product in products"
-        :product="product"
-        :key="product.sku"
-      />
-    </div>
   </div>
 </template>
 

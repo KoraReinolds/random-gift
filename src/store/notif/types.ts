@@ -8,6 +8,7 @@ import {
 
 export interface Notification {
   msg: string
+  icon?: string
   id: string
   visible: boolean
 }

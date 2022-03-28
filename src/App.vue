@@ -9,11 +9,11 @@
     }]"
   >
     <Notifications />
-    <div
+    <!-- <div
       class="pa-8 flex-row-center-around"
       v-if="!$route.meta.hideNavigation"
     >
-      <!-- <component
+      <component
         :class="['bold']"
         v-for="(link, index) in navigationData"
         :key="`${link}-${index}`"
@@ -26,11 +26,12 @@
         } : {
           href: link.href || '#'
         }"
-      /> -->
+      />
 
-    </div>
+    </div> -->
     <loader
       v-if="loading"
+
     />
     <router-view
       v-else

@@ -1,11 +1,11 @@
 <template>
   <div
     v-if="notifications"
-    class="notifications absolute"
+    class="notifications"
   >
     <div
       v-for="notif in notifications"
-      :class="['mess flex-row-center-center mb-16 pa-16',
+      :class="['mess flex-row-center-center mb-16 pa-16 c-font',
         { hide: !notif.visible },
       ]"
       :key="notif.id"
@@ -22,7 +22,7 @@
         />
       </div>
       <span
-        class="grow text-left"
+        class="text-left grow"
         v-text="notif.msg"
       />
     </div>
@@ -30,37 +30,21 @@
 </template>
 
 <script lang="ts">
-import { useNotifications } from '@/composable/notifications'
-import { defineComponent } from 'vue'
+  import { useNotifications } from '@/composable/notifications'
 
-export default defineComponent({
-  name: 'Notifications',
-  setup() {
-
-    const { notifications } = useNotifications()
-
-    return {
-      notifications,
-    }
-  }
-})
+  const { notifications } = useNotifications()
 </script>
 
 <style scoped lang="scss">
   
   .notifications {
-    top: 20px;
-    right: 20px;
-    width: 320px;
-    z-index: 11111111;
+    width: 100%;
   }
   .mess {
     opacity: 1;
     transition: all 0.5s ease-in-out;
     overflow: hidden;
-    background: var(--background-color);
-    box-shadow: 0px 4px 20px rgba(22, 29, 37, 0.12);
-    border-radius: 8px;
+    background: var(--main-color);
   }
   .hide {
     opacity: 0;
@@ -71,5 +55,8 @@ export default defineComponent({
   }
   .icon {
     width: 50px;
+  }
+  .text-left {
+    max-width: 400px;
   }
 </style>
