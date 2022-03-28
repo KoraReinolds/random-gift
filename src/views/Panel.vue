@@ -8,7 +8,7 @@
     <div
       class="flex-column-center-center"
     >
-      <bits-product
+      <BitsProduct
         v-for="product in products"
         :product="product"
         :key="product.sku"
@@ -17,26 +17,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useProducts } from '@/composable/products'
-import BitsProduct from '@/components/BitsProduct.vue'
+<script setup lang="ts">
+  import { useProducts } from '@/composable/products'
+  import BitsProduct from '@/components/BitsProduct.vue'
 
-export default defineComponent({
-  components: {
-    BitsProduct,
-  },
-  name: 'Panel',
-  setup() {
+  const { products } = useProducts()
 
-    const { products } = useProducts()
-
-    return {
-      products,
-    }
-
-  },
-})
 </script>
 
 <style lang="scss" scoped>

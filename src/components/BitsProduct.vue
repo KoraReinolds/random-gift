@@ -28,7 +28,7 @@
             v-text="`${product.bits} Bits`"
           />
         </div>
-        <base-button
+        <BaseButton
           class="w-100p mb-16"
           v-text="$t('btn.configBuy')"
           @click="useBits(`Box-${product.bits}`)"
@@ -67,38 +67,19 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
-import { ProductList } from '@/store/products/types'
-import { useTwitch } from '@/composable/twitch'
-import BaseButton from '@/components/BaseButton.vue'
+<script setup lang="ts">
+  import { defineProps, ref } from 'vue'
+  import { ProductList } from '@/store/products/types'
+  import { useTwitch } from '@/composable/twitch'
+  import BaseButton from '@/components/BaseButton.vue'
 
-export default defineComponent({
-  name: 'Loader',
-  props: {
-    product: {
-      type: Object as PropType<ProductList>,
-      required: true
-    }
-  },
-  components: {
-    BaseButton,
-  },
-  setup() {
-
-    const { twitch } = useTwitch()
-    const listHidden = ref(true)
-    const toggleListVisibility = () => {
-      listHidden.value = !listHidden.value
-    }
-
-    return {
-      listHidden,
-      toggleListVisibility,
-      useBits: (sku: string) => twitch?.bits.useBits(sku)
-    }
-  }
-});
+  const props = defineProps<{
+    product: ProductList
+  }>()
+  const { twitch } = useTwitch()
+  const listHidden = ref(true)
+  const toggleListVisibility = () => listHidden.value = !listHidden.value
+  const useBits = (sku: string) => twitch?.bits.useBits(sku)
 </script>
 
 <style scoped lang="scss">
