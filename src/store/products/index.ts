@@ -10,6 +10,21 @@ import {
 import { useTwitch } from '@/composable/twitch'
 import { MutationTree, ActionTree, GetterTree, Module } from 'vuex'
 
+const mockProductList: ProductList = [
+  {
+    cost: { amount: "100", type: "bits" },
+    displayName: "Small Gift",
+    sku: "newSKU",
+    inDevelopment: true,
+  },
+  {
+    cost: { amount: "1", type: "bits" },
+    displayName: "Very Small Gift",
+    sku: "newSKU_2",
+    inDevelopment: true,
+  },
+]
+
 const state: State = {
   products: null,
 }
@@ -26,12 +41,6 @@ const actions: ActionTree<State, IRootState> & Actions = {
 
     const { twitch } = useTwitch()
 
-    const mockProductList: ProductList = [{
-      "cost": { "amount": "100", "type": "bits" },
-      "displayName": "Small Gift",
-      "sku": "newSKU",
-      "inDevelopment": true,
-    }]
     const products = twitch
       ? await twitch.bits.getProducts()
       : mockProductList
@@ -45,9 +54,9 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
   products: ({ products }) => products,
 
-  bitsCost: ({ products }) => products?.map(
+  bitsCost: ({ products }) => (products || mockProductList).map(
     product => `${product.cost.amount}`
-  ).sort((a, b) => +a < +b ? -1 : 1) || []
+  ).sort((a, b) => +a < +b ? -1 : 1)
 
 }
 

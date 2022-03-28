@@ -6,7 +6,7 @@
       class="chances flex-column-start-center"
     >
       <h1
-        class="my-8"
+        class="my-8 c-font"
         v-text="$t(`title.configItem.${steps[index].title}`)"
       />
 
@@ -15,6 +15,7 @@
         <FragmentShader
           class="absolute top-left w-100p h-100p absolute"
           :color="steps[index].title"
+          :value="100"
         />
 
         <ChancesValues

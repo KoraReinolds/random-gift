@@ -6,7 +6,7 @@
       class="flex-row-center-center"
     >
       <icon
-        v-if="arrowNavigation"
+        v-if="arrowNavigation && list.length > 1"
         class="pointer c-font"
         name="arrow-left-solid"
         :width="20"
@@ -19,7 +19,7 @@
         :src="`type${index + 1}.gif`"
       >
       <icon
-        v-if="arrowNavigation"
+        v-if="arrowNavigation && list.length > 1"
         class="pointer c-font"
         name="arrow-right-solid"
         :width="20"

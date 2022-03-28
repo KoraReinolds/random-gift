@@ -43,7 +43,7 @@
             v-focus
           />
           <div
-            class="actions flex-row"
+            class="actions flex-row c-font"
           >
             <icon
               class="icon pointer mx-8"

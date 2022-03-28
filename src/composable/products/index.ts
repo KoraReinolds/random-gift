@@ -42,7 +42,7 @@ const useProducts = () => {
       return productCosts.value.includes(product.cost.amount)
     })
     .map((product: Twitch.ext.BitsProduct) => {
-      return config.value?.giftList.find((gift) => {
+      return config.value?.giftList.find((gift: any) => {
         return gift.bits === product.cost.amount
       })
     })

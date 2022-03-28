@@ -2,7 +2,6 @@ import { axiosBackend } from "@/api"
 import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
-import { UseConfiguration } from './types'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
 
 interface Configuration {

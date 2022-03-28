@@ -35,7 +35,6 @@
     disabled: boolean
   }>()
 
-
   const input = ref(document.createElement('input'))
   const value = ref(props.modelValue)
   const inputStyle = ref({})
