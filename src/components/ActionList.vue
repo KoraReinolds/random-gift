@@ -70,11 +70,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-import { ActionList } from '@/store/config/types'
-import BaseInput from '@/components/BaseInput.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import { useConfiguration } from '@/composable/configuration/index'
+  import { defineProps } from 'vue'
+  import { ActionList } from '@/store/config/types'
+  import BaseInput from '@/components/BaseInput.vue'
+  import BaseButton from '@/components/BaseButton.vue'
+  import { useConfiguration } from '@/composable/configuration/index'
 
   const props = defineProps<{
     list: ActionList
