@@ -13,6 +13,10 @@ const state: State = {
     id: 'id',
     visible: true,
     icon: 'accept',
+    btn: {
+      text: '123',
+      onclick: () => console.log(123)
+    }
   }],
 }
 

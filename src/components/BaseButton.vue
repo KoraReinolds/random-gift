@@ -1,6 +1,10 @@
 <template>
   <button
-    :class="[`btn ma-0 py-8 px-16 fs-16 br-8 c-background bg-button pointer fw-900`, type]"
+    :class="[`btn ma-0 py-8 px-16 fs-16 br-8 pointer fw-900`, type,
+      type === 'inverse'
+        ? 'bg-background c-font'
+        : 'c-background bg-button'
+    ]"
   >
     <slot />
   </button>

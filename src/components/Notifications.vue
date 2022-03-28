@@ -25,12 +25,19 @@
         class="text-left grow"
         v-text="notif.msg"
       />
+      <BaseButton
+        v-if="notif.btn"
+        v-text="notif.btn?.text"
+        type="inverse"
+        @click="notif.btn?.onclick()"
+      />
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { useNotifications } from '@/composable/notifications'
+  import BaseButton from '@/components/BaseButton.vue'
 
   const { notifications } = useNotifications()
 </script>

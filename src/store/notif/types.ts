@@ -11,6 +11,10 @@ export interface Notification {
   icon?: string
   id: string
   visible: boolean
+  btn?: {
+    text: string
+    onclick: () => void
+  }
 }
 
 export interface State {
