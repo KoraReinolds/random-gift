@@ -5,7 +5,7 @@
   >
     <div
       v-for="notif in notifications"
-      :class="['mess flex-row-center-center mb-16 pa-16 c-font',
+      :class="['mess flex-row-center-center pa-8 c-font absolute w-100p bg-main',
         notif.type || '',
         { hide: !notif.visible },
       ]"
@@ -51,13 +51,14 @@
   
   .notifications {
     width: 100%;
+    height: 50px;
   }
   .mess {
     opacity: 1;
     transition: all 0.5s ease-in-out;
     overflow: hidden;
-    background: var(--main-color);
-    max-width: 100%;
+    height: 50px;
+    box-sizing: border-box;
 
     &.error,
     &.success,
