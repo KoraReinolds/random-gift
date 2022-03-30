@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { Notification } from '@/store/notif/types'
 
 const useNotifications = () => {
 
@@ -8,6 +9,7 @@ const useNotifications = () => {
 
   return {
     notifications,
+    pushNotification: (notif: Notification) => store.commit('notif/PUSH_NOTIFICATION', notif)
   }
 
 }

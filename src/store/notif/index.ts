@@ -8,28 +8,18 @@ import { ActionTree, MutationTree, GetterTree, Module } from 'vuex'
 import { IRootState } from '@/store/root/types'
 
 const state: State = {
-  notifications: [{
-    msg: 'msg',
-    id: 'id',
-    visible: true,
-    closable: true,
-    icon: 'accept',
-    btn: {
-      text: '123',
-      onclick: () => console.log(123)
-    }
-  }, {
-    msg: 'msg',
-    id: 'id',
-    visible: true,
-    closable: true,
-    icon: 'accept',
-    type: 'error',
-    btn: {
-      text: '123',
-      onclick: () => console.log(123)
-    }
-  }],
+  notifications: [],
+  // notifications: [{
+  //   msg: 'msg',
+  //   id: 'id',
+  //   visible: true,
+  //   closable: true,
+  //   icon: 'accept',
+  //   btn: {
+  //     text: '123',
+  //     onclick: () => console.log(123)
+  //   }
+  // }],
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {

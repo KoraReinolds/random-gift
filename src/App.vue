@@ -45,6 +45,7 @@
   import { axiosHelix, axiosBackend } from '@/api'
   import { useStore } from 'vuex'
   import { useTwitch } from '@/composable/twitch'
+  import { useNotifications } from '@/composable/notifications'
   import Loader from '@/components/Loader.vue'
   import Notifications from '@/components/Notifications.vue'
   import i18n from './plugins/i18n'
@@ -60,6 +61,7 @@
     title: 'logout',
     onClick: logOut,
   })
+  const { pushNotification, notifications } = useNotifications()
   watch(token, token => linkData.value.hidden = !token)
   const navigationData = [
     {
@@ -116,15 +118,38 @@
 
   })
 
+  const changeWidgetStatus = (active: boolean) => {
+
+    store.commit('SET_WIDGET_ACTIVE', active)
+    timer.value = active ? 35 : 1
+
+    if (active) return
+
+    pushNotification({
+      id: 'needWidget',
+      msg: 'You need to add widget with your stream',
+      visible: true,
+      type: 'warning',
+      btn: {
+        text: 'Add widget',
+        onclick: () => console.log(123)
+      }
+    })
+  }
   const broadcastListener = (target: string, contentType: string, msg: string) => {
     try {
       const { active } = JSON.parse(msg)
-      store.commit('SET_WIDGET_ACTIVE', active)
-      timer.value = active ? 35 : 1
+
+      changeWidgetStatus(active)
+
     } catch (e) {
       // handle error
     }
   }
+
+  setTimeout(() => {
+    if (!store.state.widgetIsActive) changeWidgetStatus(false)
+  }, 5000)
 
   twitch?.listen('broadcast', broadcastListener)
 

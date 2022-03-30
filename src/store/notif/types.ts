@@ -9,7 +9,7 @@ import {
 export interface Notification {
   msg: string
   icon?: string
-  id: string
+  id?: string
   type?: string
   visible: boolean
   closable?: boolean

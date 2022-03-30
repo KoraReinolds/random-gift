@@ -12,7 +12,7 @@ import {
 
 const state = {
   isMobile: false,
-  widgetIsActive: true,
+  widgetIsActive: false,
 }
 
 const mutations: MutationTree<IRootState> & Mutations = {
