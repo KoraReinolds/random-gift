@@ -9,6 +9,7 @@ const useNotifications = () => {
 
   return {
     notifications,
+    hideMsg: (id: string) => store.commit('notif/HIDE_MSG', id),
     pushNotification: (notif: Notification) => store.commit('notif/PUSH_NOTIFICATION', notif)
   }
 

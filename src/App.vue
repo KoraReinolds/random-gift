@@ -61,7 +61,7 @@
     title: 'logout',
     onClick: logOut,
   })
-  const { pushNotification, notifications } = useNotifications()
+  const { pushNotification } = useNotifications()
   watch(token, token => linkData.value.hidden = !token)
   const navigationData = [
     {
@@ -130,6 +130,7 @@
       msg: 'You need to add widget with your stream',
       visible: true,
       type: 'warning',
+      closable: true,
       btn: {
         text: 'Add widget',
         onclick: () => console.log(123)

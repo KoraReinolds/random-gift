@@ -35,6 +35,7 @@
         name="close"
         :width="20"
         :height="20"
+        @click="hideMsg(notif.id)"
       />
     </div>
   </div>
@@ -44,7 +45,7 @@
   import { useNotifications } from '@/composable/notifications'
   import BaseButton from '@/components/BaseButton.vue'
 
-  const { notifications } = useNotifications()
+  const { hideMsg, notifications } = useNotifications()
 </script>
 
 <style scoped lang="scss">

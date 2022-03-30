@@ -9,17 +9,6 @@ import { IRootState } from '@/store/root/types'
 
 const state: State = {
   notifications: [],
-  // notifications: [{
-  //   msg: 'msg',
-  //   id: 'id',
-  //   visible: true,
-  //   closable: true,
-  //   icon: 'accept',
-  //   btn: {
-  //     text: '123',
-  //     onclick: () => console.log(123)
-  //   }
-  // }],
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {
@@ -27,9 +16,14 @@ const getters: GetterTree<State, IRootState> & Getters = {
 
 const mutations: MutationTree<State> & Mutations = {
 
-  PUSH_NOTIFICATION: (state, notif) => state.notifications.push(notif),
+  PUSH_NOTIFICATION: (state, notif) => {
+    if (!notif.id) notif.id = `${Math.random()}`
+
+    return state.notifications.push(notif)
+  },
 
   HIDE_MSG: (state, id) => {
+    console.log(id)
     const notif = state.notifications.find(mess => id === mess.id)
     if (notif) notif.visible = false
   }
