@@ -10,26 +10,30 @@
       ]"
       :key="notif.id"
     >
-      <div
+      <icon
         v-if="notif.icon"
-        class="icon"
-      >
-        <icon
-          class="pointer"
-          :name="notif.icon"
-          :width="20"
-          :height="20"
-        />
-      </div>
+        class="mr-16 pointer"
+        :name="notif.icon"
+        :width="20"
+        :height="20"
+      />
       <span
-        class="text-left grow"
+        class="text grow"
         v-text="notif.msg"
       />
       <BaseButton
+        class="ml-16"
         v-if="notif.btn"
         v-text="notif.btn?.text"
         type="inverse"
         @click="notif.btn?.onclick()"
+      />
+      <icon
+        v-if="notif.closable"
+        class="ml-16 pointer"
+        name="close"
+        :width="20"
+        :height="20"
       />
     </div>
   </div>
@@ -52,6 +56,7 @@
     transition: all 0.5s ease-in-out;
     overflow: hidden;
     background: var(--main-color);
+    max-width: 100%;
   }
   .hide {
     opacity: 0;
@@ -60,10 +65,7 @@
     padding: 0px 20px;
     margin-bottom: 0;
   }
-  .icon {
-    width: 50px;
-  }
-  .text-left {
+  .text {
     max-width: 400px;
   }
 </style>

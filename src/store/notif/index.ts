@@ -12,6 +12,7 @@ const state: State = {
     msg: 'msg',
     id: 'id',
     visible: true,
+    closable: true,
     icon: 'accept',
     btn: {
       text: '123',

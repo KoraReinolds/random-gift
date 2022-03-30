@@ -11,6 +11,7 @@ export interface Notification {
   icon?: string
   id: string
   visible: boolean
+  closable?: boolean
   btn?: {
     text: string
     onclick: () => void
