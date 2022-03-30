@@ -6,6 +6,7 @@
     <div
       v-for="notif in notifications"
       :class="['mess flex-row-center-center mb-16 pa-16 c-font',
+        notif.type || '',
         { hide: !notif.visible },
       ]"
       :key="notif.id"
@@ -18,7 +19,7 @@
         :height="20"
       />
       <span
-        class="text grow"
+        class="text-left grow"
         v-text="notif.msg"
       />
       <BaseButton
@@ -57,6 +58,22 @@
     overflow: hidden;
     background: var(--main-color);
     max-width: 100%;
+
+    &.error,
+    &.success,
+    &.warning {
+      color: var(--background-color);
+    }
+    &.error {
+      background: #E2232B;
+    }
+    &.success {
+      background: #58D443;
+    }
+    &.warning {
+      background: #FBAC19;
+    }
+
   }
   .hide {
     opacity: 0;
@@ -65,7 +82,7 @@
     padding: 0px 20px;
     margin-bottom: 0;
   }
-  .text {
+  .text-left {
     max-width: 400px;
   }
 </style>

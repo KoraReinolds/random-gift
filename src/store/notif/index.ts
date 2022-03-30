@@ -14,6 +14,7 @@ const state: State = {
     visible: true,
     closable: true,
     icon: 'accept',
+    type: 'error',
     btn: {
       text: '123',
       onclick: () => console.log(123)
