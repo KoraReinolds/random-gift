@@ -1,7 +1,7 @@
 @use "sass:map";
 
 $colors_vars: (
-  main: '100, 65, 165',
+  main: '145, 71, 255',
   light-main: '146, 113, 207',
   dark-main: '60, 39, 100',
   secondary: '50, 42, 38',
@@ -28,7 +28,7 @@ $light: (
 );
 
 $dark: (
-  font: rgb(180, 180, 180),
+  font: rgb(255, 255, 255),
   background: rgb(24, 24, 27),
   disabled: var(--dark-grey-color),
   button: var(--light-main-color),

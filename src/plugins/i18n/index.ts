@@ -16,6 +16,7 @@ const messagesData = (index: number) => ({
     configSave: ['Save', 'Сохранить'][index],
     configBuy: ['Buy', 'Купить'][index],
     addLootBox: ['Add lootbox', 'Добавить лутбокс'][index],
+    close: ['Close', 'Закрыть'][index],
   },
   configMain: [
     {

@@ -1,10 +1,6 @@
 <template>
   <button
-    :class="[`btn ma-0 py-8 px-16 fs-16 br-8 pointer fw-900`, type,
-      type === 'inverse'
-        ? 'bg-background c-font'
-        : 'c-background bg-button'
-    ]"
+    :class="[`btn c-font ma-0 px-10 fs-16 br-4 pointer fw-900 bg-main`, type]"
   >
     <slot />
   </button>
@@ -17,11 +13,12 @@
     type?: string
   }>()
 </script>
-
+»
 <style scoped lang="scss">
 .btn {
   border: none;
   transition: background-color 0.2s;
+  height: 30px;
 
   &.classic {
     color: var(--font-color);

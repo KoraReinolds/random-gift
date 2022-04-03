@@ -1,41 +1,36 @@
 <template>
   <div
-    v-if="notifications"
-    class="notifications"
+    v-if="notif"
+    :class="['mess flex-column-center-center pa-10 c-font bg-background',
+      notif.type || '',
+      { hide: !notif.visible },
+    ]"
   >
+    <icon
+      v-if="notif.icon"
+      class="mr-16 pointer"
+      :name="notif.icon"
+      :width="20"
+      :height="20"
+    />
+    <span
+      class="text-left mb-10"
+      v-text="notif.msg"
+    />
     <div
-      v-for="notif in notifications"
-      :class="['mess flex-row-center-center pa-8 c-font absolute w-100p bg-main',
-        notif.type || '',
-        { hide: !notif.visible },
-      ]"
-      :key="notif.id"
+      class="navigation flex-row w-100p"
     >
-      <icon
-        v-if="notif.icon"
-        class="mr-16 pointer"
-        :name="notif.icon"
-        :width="20"
-        :height="20"
-      />
-      <span
-        class="text-left grow"
-        v-text="notif.msg"
+      <BaseButton
+        class="mr-8"
+        v-if="notif.closable"
+        v-text="$t('btn.close')"
+        @click="hideMsg(notif.id)"
       />
       <BaseButton
-        class="ml-16"
+        class="mr-8"
         v-if="notif.btn"
         v-text="notif.btn?.text"
-        type="inverse"
         @click="notif.btn?.onclick()"
-      />
-      <icon
-        v-if="notif.closable"
-        class="ml-16 pointer"
-        name="close"
-        :width="20"
-        :height="20"
-        @click="hideMsg(notif.id)"
       />
     </div>
   </div>
@@ -45,46 +40,35 @@
   import { useNotifications } from '@/composable/notifications'
   import BaseButton from '@/components/BaseButton.vue'
 
-  const { hideMsg, notifications } = useNotifications()
+  const { hideMsg, notifications, notif } = useNotifications()
+
 </script>
 
 <style scoped lang="scss">
-  
-  .notifications {
-    width: 100%;
-    height: 50px;
+  .navigation {
+    height: 30px;
   }
   .mess {
-    opacity: 1;
-    transition: all 0.5s ease-in-out;
-    overflow: hidden;
-    height: 50px;
+    width: 300px;
     box-sizing: border-box;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5),0 0px 4px rgba(0,0,0,0.4);
 
-    &.error,
-    &.success,
-    &.warning {
-      color: var(--background-color);
-    }
-    &.error {
-      background: #E2232B;
-    }
-    &.success {
-      background: #58D443;
-    }
-    &.warning {
-      background: #FBAC19;
-    }
+    // &.error,
+    // &.success,
+    // &.warning {
+    //   color: var(--background-color);
+    // }
+    // &.error {
+    //   background: #E2232B;
+    // }
+    // &.success {
+    //   background: #58D443;
+    // }
+    // &.warning {
+    //   background: #FBAC19;
+    // }
 
-  }
-  .hide {
-    opacity: 0;
-    max-height: 0px;
-    min-height: 0px;
-    padding: 0px 20px;
-    margin-bottom: 0;
-  }
-  .text-left {
-    max-width: 400px;
   }
 </style>

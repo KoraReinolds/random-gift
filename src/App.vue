@@ -4,11 +4,10 @@
     v-for="theme in ['dark']"
     :key="theme"
     :class="[theme,
-      'app text-center h-100p flex-column w-100 relative', {
+      'app text-center h-100p flex-column-center-between w-100 relative', {
       'widget-active': widgetActive,
     }]"
   >
-    <Notifications />
     <!-- <div
       class="pa-8 flex-row-center-around"
       v-if="!$route.meta.hideNavigation"
@@ -36,6 +35,7 @@
     <router-view
       v-else
     />
+    <Notifications />
   </div>
 </template>
 
@@ -130,7 +130,6 @@
       msg: 'You need to add widget with your stream',
       visible: true,
       type: 'warning',
-      closable: true,
       btn: {
         text: 'Add widget',
         onclick: () => console.log(123)
@@ -150,7 +149,7 @@
 
   setTimeout(() => {
     if (!store.state.widgetIsActive) changeWidgetStatus(false)
-  }, 5000)
+  }, 1000)
 
   twitch?.listen('broadcast', broadcastListener)
 

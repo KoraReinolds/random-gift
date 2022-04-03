@@ -9,9 +9,39 @@ import { IRootState } from '@/store/root/types'
 
 const state: State = {
   notifications: [],
+  // notifications: [{
+  //   id: 'needWidget',
+  //   msg: 'You need to add widget with your stream',
+  //   visible: true,
+  //   type: 'error',
+  //   closable: true,
+  //   btn: {
+  //     text: 'Add widget',
+  //     onclick: () => console.log(123)
+  //   }
+  // }, {
+  //   id: 'needWidget',
+  //   msg: 'You need to add widget with your stream',
+  //   visible: true,
+  //   type: 'error',
+  //   closable: true,
+  //   btn: {
+  //     text: 'Add widget',
+  //     onclick: () => console.log(123)
+  //   }
+  // }],
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {
+  notifToDisplay: ({ notifications }) => {
+    console.log(notifications)
+    const not = notifications.find(notif => {
+      console.log(notif)
+      return notif.visible
+    })
+    console.log(not)
+    return not
+  }
 }
 
 const mutations: MutationTree<State> & Mutations = {
@@ -23,7 +53,6 @@ const mutations: MutationTree<State> & Mutations = {
   },
 
   HIDE_MSG: (state, id) => {
-    console.log(id)
     const notif = state.notifications.find(mess => id === mess.id)
     if (notif) notif.visible = false
   }
