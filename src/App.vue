@@ -149,7 +149,7 @@
 
   setTimeout(() => {
     if (!store.state.widgetIsActive) changeWidgetStatus(false)
-  }, 1000)
+  }, 5000)
 
   twitch?.listen('broadcast', broadcastListener)
 
