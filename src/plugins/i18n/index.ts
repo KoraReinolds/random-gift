@@ -1,6 +1,16 @@
 import { createI18n } from 'vue-i18n'
 
 const messagesData = (index: number) => ({
+  notifications: {
+    configWidgetNotFound: [
+      'You need to add widget with your stream',
+      'Необходимо добавить виджет на стрим',
+    ][index],
+    panelWidgetNotFound: [
+      'You can`t buy a gift. Notify streamer to initialize aur widget',
+      'Вы не можете купить подарок. Оповестите стримера о необходимости установки виджета',
+    ][index],
+  },
   tooltip: {
     changeChance: [
       'Click to change value',

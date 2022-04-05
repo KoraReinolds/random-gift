@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
   import { ref, computed, onUnmounted, watch } from 'vue'
+  import { useRoute } from 'vue-router'
   import { logOut } from '@/composable/auth'
   import { axiosHelix, axiosBackend } from '@/api'
   import { useStore } from 'vuex'
@@ -49,8 +50,11 @@
   import Loader from '@/components/Loader.vue'
   import Notifications from '@/components/Notifications.vue'
   import i18n from './plugins/i18n'
+  import { useI18n } from 'vue-i18n'
 
   const { twitch } = useTwitch()
+  const { t } = useI18n()
+  const route = useRoute()
   const store = useStore()
   const theme = ref('light')
   const loading = ref(false)
@@ -125,15 +129,16 @@
 
     if (active) return
 
+    const msg = t(route.name === 'Panel'
+      ? 'notifications.panelWidgetNotFound'
+      : 'notifications.configWidgetNotFound'
+    )
+
     pushNotification({
       id: 'needWidget',
-      msg: 'You need to add widget with your stream',
+      msg,
       visible: true,
       type: 'warning',
-      btn: {
-        text: 'Add widget',
-        onclick: () => console.log(123)
-      }
     })
   }
   const broadcastListener = (target: string, contentType: string, msg: string) => {

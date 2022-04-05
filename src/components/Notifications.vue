@@ -17,21 +17,21 @@
         :height="44"
       />
       <span
-        class="text-left mb-10"
+        class="text-left"
         v-text="notif.msg"
       />
     </div>
     <div
-      class="navigation flex-row w-100p"
+      class="flex-row w-100p"
     >
       <BaseButton
-        class="mr-8"
+        class="mr-8 mt-10"
         v-if="notif.closable"
         v-text="$t('btn.close')"
         @click="hideMsg(notif.id)"
       />
       <BaseButton
-        class="mr-8"
+        class="mr-8 mt-10"
         v-if="notif.btn"
         v-text="notif.btn?.text"
         @click="notif.btn?.onclick()"
@@ -58,9 +58,6 @@
 </script>
 
 <style scoped lang="scss">
-  .navigation {
-    height: 30px;
-  }
   .mess {
     width: 300px;
     box-sizing: border-box;
