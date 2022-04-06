@@ -6,7 +6,7 @@ const useProducts = () => {
   const store = useStore()
   const { productCosts, config } = useConfiguration()
   const products = ref()
-  products.value = [...new Array(2)].map(() => ({
+  products.value = [...new Array(1)].map(() => ({
     "title": "Gift",
     "type": "1",
     "bits": "100",

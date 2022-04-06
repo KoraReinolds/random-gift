@@ -3,16 +3,17 @@
     class="product relative flex-column-center-center w-100p"
   >
     <div
+      class="image relative w-50p"
+    >
+      <img
+        class="absolute top-left w-100p h-100p"
+        :src="`type${+product.type + 1}.gif`"
+      />
+    </div>
+    
+    <div
       :class="['flex-row-center-between py-32 w-100p']"
     >
-      <div
-        class="image relative w-50p"
-      >
-        <img
-          class="absolute top-left w-100p h-100p"
-          :src="`type${+product.type + 1}.gif`"
-        />
-      </div>
       <div
         class="flex-column-canter-center w-50p pr-24"
       >
@@ -35,35 +36,16 @@
         />
       </div>
     </div>
-    <ul
-      :class="['product-list pb-32', {
-        hidden: listHidden,
-      }]"
+    <div
+      class="c-font flex-row-center-between w-100p"
     >
-      <li
-        :class="['product-item border mb-8 w-100p br-8 pa-8', `bc-${type} c-${type}`]"
-        v-for="(productList, type) in product.actions"
+      <div
+        v-for="(value, type) in product.chances"
         :key="`product-item-${type}`"
-      >
-        <span
-          :class="['float-right ml-8 w-48 h-48 br-8 flex-row-center-center border fw-900 c-background', `bg-${type}`]"
-          v-text="`${product.chances[type]}%`"
-        />
-        <div
-          :class="['text-left', `c-${type}`]"
-          v-for="(product, index) in productList"
-          :key="`product-text-${index}-${type}`"
-          v-text="`- ${product.value}`"
-        />
-      </li>
-    </ul>
-    <icon
-      class="toggler bg-background rounded absolute pointer"
-      name="arrow-down"
-      @click="toggleListVisibility"
-      :width="32"
-      :height="32"
-    />
+        :class="[`bg-${type}`, 'h-32 w-100p border bc-background c-background fw-900 fs-20 flex-row-center-center']"
+        v-text="`${value}%`"
+      />
+    </div>
   </div>
 </template>
 
@@ -100,19 +82,6 @@
   width: 318px;
   position:relative;
 
-}
-.product-item {
-  min-height: 64px;
-}
-.toggler {
-  bottom: 0;
-  left: 50%;
-  z-index: 1;
-  transform: translate(-50%, 50%) rotate(180deg);
-  transition: 0.3s;
-  .product-list.hidden + & {
-    transform: translate(-50%, 50%) rotate(0deg);
-  }
 }
 .image {
   width: 150px;
