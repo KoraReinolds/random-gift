@@ -1,6 +1,12 @@
 import { createI18n } from 'vue-i18n'
 
 const messagesData = (index: number) => ({
+  bitsProduct: {
+    title: [
+      '{chance}% chance to get:',
+      '{chance}% шанс получить:',
+    ][index],
+  },
   notifications: {
     configWidgetNotFound: [
       'You need to add widget with your stream',

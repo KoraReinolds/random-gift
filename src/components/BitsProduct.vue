@@ -3,19 +3,15 @@
     class="product relative flex-column-center-center w-100p"
   >
     <div
-      class="image relative w-50p"
+      class="flex-row relative my-32 w-100p"
     >
       <img
-        class="absolute top-left w-100p h-100p"
+        class="image d-block"
         :src="`type${+product.type + 1}.gif`"
       />
-    </div>
-    
-    <div
-      :class="['flex-row-center-between py-32 w-100p']"
-    >
+
       <div
-        class="flex-column-canter-center w-50p pr-24"
+        class="flex-column-center-center w-100p ml-24"
       >
         <div
           class="flex-row-center-center mb-16"
@@ -25,7 +21,7 @@
             :src="`bits.png`"
           />
           <span
-            class="fs-16 fw-900"
+            class="fs-16 fw-900 c-font"
             v-text="`${product.bits} Bits`"
           />
         </div>
@@ -35,17 +31,38 @@
           @click="useBits(`Box-${product.bits}`)"
         />
       </div>
+      
     </div>
+
+
     <div
       class="c-font flex-row-center-between w-100p"
     >
       <div
         v-for="(value, type) in product.chances"
         :key="`product-item-${type}`"
-        :class="[`bg-${type}`, 'h-32 w-100p border bc-background c-background fw-900 fs-20 flex-row-center-center']"
+        :class="[`bg-${type}`, 'h-32 w-100p border bc-background c-background fw-900 fs-16 flex-row-center-center']"
         v-text="`${value}%`"
+        @click="setchance(type)"
       />
     </div>
+  </div>
+
+  <div
+    class="w-100p fs-16 bold"
+  >
+    <div
+      class="c-font mt-24 fs-20 w-100p text-left"
+      v-text="$t('bitsProduct.title', {
+        chance: product.chances[chance]
+      })"
+    />
+    <div
+      :class="[`bg-${chance}`, 'w-100p mt-8 py-8 br-8']"
+      v-for="(item, index) in product.actions[chance]"
+      :key="`action-${index}`"
+      v-text="item.value"
+    />
   </div>
 </template>
 
@@ -60,31 +77,18 @@
   }>()
   const { twitch } = useTwitch()
   const listHidden = ref(true)
+  const chance = ref('none')
+  const setchance = (val: string) => chance.value = val
   const toggleListVisibility = () => listHidden.value = !listHidden.value
   const useBits = (sku: string) => twitch?.bits.useBits(sku)
 </script>
 
 <style scoped lang="scss">
-.product-list {
-  overflow: hidden;
-  border-bottom: 1px solid var(--font-color);
-  width: 250px;
-  position: relative;
-  transition: 0.3s;
-  transition-property: max-height padding;
-  max-height: 1000px;
-  &.hidden {
-    max-height: 0px;
-    padding: 0px;
-  }
-}
 .product {
   width: 318px;
-  position:relative;
-
 }
 .image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 </style>
