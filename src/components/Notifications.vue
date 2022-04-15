@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="notif"
-    :class="['mess flex-column-center-center pa-10 c-font bg-background',
+    :class="['mess flex-column-start-center pa-10 c-font bg-background absolute',
       notif.type || '',
       { hide: !notif.visible },
     ]"
@@ -18,7 +18,7 @@
       />
       <span
         class="text-left"
-        v-text="notif.msg"
+        v-html="notif.msg"
       />
     </div>
     <div
@@ -59,9 +59,11 @@
 
 <style scoped lang="scss">
   .mess {
-    width: 300px;
+    width: calc(100% - 18px);
+    bottom: 0;
+    max-width: 500px;
     box-sizing: border-box;
-    margin-bottom: 5px;
+    margin: 0 9px 5px;
     border-radius: 6px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.5),0 0px 4px rgba(0,0,0,0.4);
   }

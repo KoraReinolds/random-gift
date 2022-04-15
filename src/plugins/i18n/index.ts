@@ -9,8 +9,8 @@ const messagesData = (index: number) => ({
   },
   notifications: {
     configWidgetNotFound: [
-      'You need to add widget with your stream',
-      'Необходимо добавить виджет на стрим',
+      'You need to add a link to our widget to the broadcast program:<br/>{link}',
+      'Вам необходимо добавить ссылку на наш виджет в программу для трансляции:<br/>{link}',
     ][index],
     panelWidgetNotFound: [
       'You can`t buy a gift. Notify streamer to initialize aur widget',

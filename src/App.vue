@@ -131,8 +131,8 @@
 
     const msg = t(route.name === 'Panel'
       ? 'notifications.panelWidgetNotFound'
-      : 'notifications.configWidgetNotFound'
-    )
+      : 'notifications.configWidgetNotFound',
+    { link: 'link' })
 
     pushNotification({
       id: 'needWidget',

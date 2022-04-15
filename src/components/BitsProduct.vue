@@ -85,10 +85,10 @@
 
 <style scoped lang="scss">
 .product {
-  width: 318px;
+  width: 300px;
 }
 .image {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
 }
 </style>
