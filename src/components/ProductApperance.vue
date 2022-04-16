@@ -1,6 +1,6 @@
 <template>
   <Carousel
-    :list="['type1.gif', 'type2.gif']"
+    :list="['type1.gif']"
     :hideNavigation="true"
     :arrowNavigation="true"
   />
@@ -29,7 +29,7 @@
   const props = defineProps<{
     item: Gift
   }>()
-  const productsCount = 2
+  const productsCount = 1
   const { changeStep, changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
   const nextStep = '2'
 

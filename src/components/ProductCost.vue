@@ -18,7 +18,7 @@
     class="flex-row-center-center mt-48"
   >
     <BaseButton
-      @click="changeStep('2')"
+      @click="changeStep('1')"
       v-text="$t('btn.configBack')"
     />
     <BaseButton
@@ -47,7 +47,8 @@
   const save  = () => {
     changeBits(cost.value)
     saveConfig()
-    changeStep('0')
+    // TODO: final step?
+    // changeStep('0')
   }
 </script>
 

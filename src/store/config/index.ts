@@ -8,9 +8,9 @@ import { IRootState } from '@/store/root/types'
 
 const state: State = {
   config: null,
-  configStep: '0',
+  configStep: '1',
   lastSavedConfig: null,
-  currentIndex: -1,
+  currentIndex: 0,
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {
@@ -52,6 +52,9 @@ const mutations: MutationTree<State> & Mutations = {
     
     try {
       config = JSON.parse(configString)
+
+      // TODO: set default config if exist
+      state.currentIndex = 0
     } catch {
       config = null
       console.warn('config invalid')

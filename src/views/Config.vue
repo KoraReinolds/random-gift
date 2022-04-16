@@ -3,23 +3,14 @@
     class="config flex-column-center-center"
     v-if="config"
   >
-    <span v-text="config" class="c-font"/>
-    <AddProductHeader
-      v-if="configStep !== '0' && item"
-    />
-    <ConfigMain
-      v-if="configStep === '0'"
-    />
-    <ProductApperance
-      v-else-if="configStep === '1'"
-      :item="item"
-    />
+    <span v-text="item" class="c-font"/>
+    <AddProductHeader />
     <ConfigProduct
-      v-else-if="configStep === '2'"
+      v-if="configStep === '1'"
       :item="item"
     />
     <ProductCost
-      v-else-if="configStep === '3'"
+      v-else-if="configStep === '2'"
       :item="item"
     />
   </div>
@@ -33,7 +24,8 @@
   import ProductApperance from '@/components/ProductApperance.vue'
   import ProductCost from '@/components/ProductCost.vue'
   import { useConfiguration } from '@/composable/configuration'
-    
+  
+  // TODO: get rid of item here and always define item
   const { config, item, configStep } = useConfiguration()
 
 </script>

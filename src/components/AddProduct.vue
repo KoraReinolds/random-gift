@@ -12,7 +12,7 @@
     />
     <div
       :class="['bg-epic absolute line last h-24 mx-4']"
-      :style="{ width: `${25 * +configStep}%` }"
+      :style="{ width: `${100 / (steps.length - 1) * +configStep}%` }"
     />
     <div
       v-for="(step, index) in steps"
@@ -45,15 +45,15 @@
     icon: 'arrow-left-solid',
     btn: true,
   }, {
+  //   text: '1',
+  //   icon: 'gift-solid',
+  //   btn: false,
+  // }, {
     text: '1',
-    icon: 'gift-solid',
-    btn: false,
-  }, {
-    text: '2',
     icon: 'gear-solid',
     btn: false,
   }, {
-    text: '3',
+    text: '2',
     icon: 'ethereum-brands',
     btn: false,
   }, {

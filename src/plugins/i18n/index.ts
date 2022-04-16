@@ -27,6 +27,7 @@ const messagesData = (index: number) => ({
     addAction: ['Add action', 'Добавить действие'][index],
     newAction: ['New action', 'Новое действие'][index],
     configNext: ['Next', 'Далее'][index],
+    configNextStep: ['Next step', 'Следующий шаг'][index],
     configBack: ['Back', 'Назад'][index],
     configContinue: ['Continue', 'Продолжить'][index],
     configSave: ['Save', 'Сохранить'][index],
@@ -80,11 +81,21 @@ const messagesData = (index: number) => ({
       'С вероятностью {chance}% ничего не произойдет'
     ][index],
     configItem: {
-      none: ['Common chance', 'Обычный шанс'][index],
-      common: ['Uncommon chance', 'Необычный шанс'][index],
-      rare: ['Rare chance', 'Редкий шанс'][index],
-      epic: ['Epic chance', 'Эпический шанс'][index],
-      legendary: ['Legendary chance', 'Легендарный шанс'][index],
+      none: {
+        title: ['Common chance', 'Обычный шанс'][index],
+      },
+      common: {
+        title: ['Uncommon chance', 'Необычный шанс'][index],
+      },
+      rare: {
+        title: ['Rare chance', 'Редкий шанс'][index],
+      },
+      epic: {
+        title: ['Epic chance', 'Эпический шанс'][index],
+      },
+      legendary: {
+        title: ['Legendary chance', 'Легендарный шанс'][index],
+      },
     }
   },
 })

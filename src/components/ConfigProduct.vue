@@ -7,14 +7,14 @@
     >
       <h1
         class="my-8 c-font"
-        v-text="$t(`title.configItem.${steps[index].title}`)"
+        v-text="$t(`title.configItem.${steps[index]}.title`)"
       />
 
       <div class="chances__content flex-row-center-center relative">
 
         <FragmentShader
           class="absolute top-left w-100p h-100p absolute"
-          :color="steps[index].title"
+          :color="steps[index]"
           :value="100"
         />
 
@@ -39,7 +39,7 @@
           :maxValue="maxValue"
           @update:modelValue="recalculateChances({
             chances: item.chances,
-            type: steps[index].title,
+            type: steps[index],
             value: $event,
           })"
         />
@@ -61,15 +61,14 @@
     class="flex-row-center-center mt-48"
   >
     <BaseButton
-      @click="changeStep('1')"
-      v-text="$t('btn.configBack')"
-    />
-    <BaseButton
-      class="ml-8"
+      :class="['ml-8', `bg-${steps[+index + 1] || 'main'}`]"
       @click="changeIndex(+index + 1)"
-      v-text="$t('btn.configContinue')"
+      v-text="index - steps.length + 1
+        ? $t(`btn.configNext`)
+        : $t(`btn.configNextStep`)"
       :disabled="!configValid"
     />
+    {{index - steps.length}}
   </div>
 </template>
 
@@ -89,13 +88,14 @@
   }>()
 
   const { changeStep, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
-  const nextStep = '3'
+  const curStep = '1'
+  const nextStep = '2'
   const store = useStore()
   const index = ref('1')
   const changeIndex = (newIndex: number) => {
     if (newIndex === steps.length) {
       changeAvailableSteps(nextStep)
-      changeFinishedSteps('2')
+      changeFinishedSteps(curStep)
       changeStep(nextStep)
       saveConfig()
     } else {
@@ -105,13 +105,7 @@
   const recalculateChances = (params: ChangeChances) => {
     store.commit('config/CHANGE_ITEM_CHANCES', params)
   }
-  const steps = [
-    { title: 'none' },
-    { title: 'common' },
-    { title: 'rare' },
-    { title: 'epic' },
-    { title: 'legendary' },
-  ]
+  const steps = [ 'none', 'common', 'rare', 'epic', 'legendary' ]
   const chancesList = computed(() => {
     return Object.values(props.item.chances)
   })
@@ -142,6 +136,8 @@
   const configValid = computed(() => {
     return validationActionList.value.every(isValid => isValid)
   })
+
+  // const btnText = $t('btn.configContinue')
 
 </script>
 
