@@ -45,10 +45,8 @@ const useConfiguration = () => {
       legendary: [],
     }
   }
-  const defaultConfig = {
-    content: JSON.stringify({ giftList: [emptyConfig] })
-  }
   const getConfigFromBackend = () => {
+    // TODO: check if it broken
     axiosBackend.get('/configuration').then(
       res => {
         const config: Configuration = res.data
@@ -58,13 +56,10 @@ const useConfiguration = () => {
           config[key]?.record.content
         )
       }
-    ).catch(
-      () => store.commit('config/SET_CONFIG', defaultConfig?.content)
     )
-      
   }
   const getConfigFromHelper = () => {
-    const config = twitch?.configuration.broadcaster || defaultConfig
+    const config = twitch?.configuration.broadcaster
     store.commit(
       'config/SET_CONFIG',
       config?.content
@@ -88,11 +83,6 @@ const useConfiguration = () => {
   const removeGift = (index: number) => {
     config.value.giftList.splice(index, 1)
   }
-
-  const addNewGift = () => changeGiftList([
-    ...config.value.giftList,
-    emptyConfig,
-  ])
   
   const changeFinishedSteps = (newStep: string) => {
     if (!config.value || currentIndex.value === -1) return
@@ -152,7 +142,6 @@ const useConfiguration = () => {
     saveConfig,
     productCosts,
     changeGiftList,
-    addNewGift,
     configurateItem: (params: any) => store.commit('config/CONFIGURATE_ITEM', params),
     changeFinishedSteps,
     changeAvailableSteps,

@@ -33,15 +33,6 @@
       :list="['type1.gif', 'type2.gif']"
     />
   </div>
-  <div
-    v-if="config.giftList.length < 2"
-    class="flex-row-center-center mt-48"
-  >
-    <BaseButton
-      @click="addLootBox"
-      v-text="$t('btn.addLootBox')"
-    />
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -50,14 +41,10 @@
   import BaseButton from '@/components/BaseButton.vue'
   import { useConfiguration } from '@/composable/configuration'
 
-  const { removeGift, config, configurateItem, addNewGift, changeStep } = useConfiguration()
+  const { removeGift, config, configurateItem, changeStep } = useConfiguration()
   const chooseProduct = (index: number) => {
     configurateItem(index)
     changeStep(config.value.giftList[index].availableSteps.slice(-1)[0])
-  }
-  const addLootBox = () => {
-    addNewGift();
-    chooseProduct(config.value.giftList.length - 1)
   }
 </script>
 
