@@ -45,14 +45,14 @@ export interface ChangeChances {
 }
 
 export interface State {
-  config: Config | null
+  config: Config
   configStep: string
-  lastSavedConfig: Config | null
+  lastSavedConfig: Config
   currentIndex: number
 }
 
 export type Getters = {
-  currentProduct(state: State): Gift | null
+  currentProduct(state: State): Gift
   productCosts(state: State): string[]
 }
 

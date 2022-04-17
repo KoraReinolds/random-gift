@@ -25,7 +25,7 @@
           :disabled="!configValid"
         /> 
         
-        <ActionList
+        <ListAction
           class="chances__actions h-100p"
           :list="actionList"
           :isValid="validationActionList[index]"
@@ -76,18 +76,15 @@
   import BaseButton from '@/components/BaseButton.vue'
   import FragmentShader from '@/components/FragmentShader.vue'
   import ChancesValues from '@/components/ChancesValues.vue'
-  import ActionList from '@/components/ActionList.vue'
+  import ListAction from '@/components/ActionList.vue'
   import ChanceBar from '@/components/ChanceBar.vue'
-  import { ref, computed, defineProps } from 'vue'
-  import { Gift, ChangeChances } from '@/store/config/types'
+  import { ref, computed } from 'vue'
+  import { ChangeChances } from '@/store/config/types'
   import { useConfiguration } from '@/composable/configuration/index'
   import { useStore } from 'vuex'
 
-  const props = defineProps<{
-    item: Gift
-  }>()
-
-  const { changeStep, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
+  const { changeStep, item, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
+  console.log('item: ', item)
   const curStep = '1'
   const nextStep = '2'
   const store = useStore()
@@ -107,7 +104,7 @@
   }
   const steps = [ 'none', 'common', 'rare', 'epic', 'legendary' ]
   const chancesList = computed(() => {
-    return Object.values(props.item.chances)
+    return Object.values(item.value.chances)
   })
 
   const chanceValue = computed(() => {
@@ -115,7 +112,7 @@
   })
 
   const maxValue = computed(() => {
-    const [none, ...rest] = Object.values(props.item.chances)
+    const [none, ...rest] = Object.values(item.value.chances)
     const noneValue = 100 - rest.reduce((sum, cur) => sum + +cur, 0)
     return index.value === "0"
       ? `${noneValue}`
@@ -123,13 +120,13 @@
   })
 
   const actionList = computed(() => {
-    return Object.values(props.item.actions)[+index.value]
+    return Object.values(item.value.actions)[+index.value]
   })
 
   const validationActionList = computed(() => {
-    return Object.values(props.item.actions).map((list) => {
+    return Object.values(item.value.actions).map((list: any) => {
       if (!list.length) return true
-      return list.every(itemList => !!itemList.value)
+      return list.every((itemList: any) => !!itemList.value)
     })
   })
 

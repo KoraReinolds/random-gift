@@ -3,6 +3,7 @@
     class="fs-32 mt-32 bold c-font"
     v-text="$t(`configMain.${configStep - 1}.title`)"
   />
+  <span v-text="item" class="c-font"/>
   <div
     class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
   >

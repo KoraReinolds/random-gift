@@ -6,24 +6,43 @@ import {
 import { MutationTree, GetterTree, Module } from 'vuex'
 import { IRootState } from '@/store/root/types'
 
+const emptyConfig = {
+  title: 'Gift',
+  availableSteps: ['1'],
+  finishedSteps: [],
+  type: '1',
+  bits: '100',
+  chances: {
+    none: '100',
+    common: '0',
+    rare: '0',
+    epic: '0',
+    legendary: '0',
+  },
+  actions: {
+    none: [],
+    common: [],
+    rare: [],
+    epic: [],
+    legendary: [],
+  }
+}
+const defaultConfig = {
+  giftList: [emptyConfig],
+}
+
 const state: State = {
-  config: null,
+  config: defaultConfig,
   configStep: '1',
-  lastSavedConfig: null,
+  lastSavedConfig: defaultConfig,
   currentIndex: 0,
 }
 
 const getters: GetterTree<State, IRootState> & Getters = {
 
-  currentProduct: (state) => {
-    if (!state.config || state.currentIndex === -1) return null
+  currentProduct: state => state.config.giftList[state.currentIndex],
 
-    return state.config.giftList[state.currentIndex]
-  },
-
-  productCosts: (state) => state.config
-    ? state.config.giftList.map(g => g.bits)
-    : []
+  productCosts: state => state.config.giftList.map(g => g.bits)
 
 }
 
@@ -31,21 +50,13 @@ const mutations: MutationTree<State> & Mutations = {
 
   CHANGE_STEP: (state, newStep) => state.configStep = newStep,
 
-  CHANGE_GIFT_LIST: (state, newGiftList) => {
-    if (!state.config) return
-
-    return state.config.giftList = newGiftList
-  },
+  CHANGE_GIFT_LIST: (state, newGiftList) => state.config.giftList = newGiftList,
 
   CONFIGURATE_ITEM: (state, index) => state.currentIndex = index,
 
-  SAVE_CONFIG: (state) => {
-    if (state.config) state.lastSavedConfig = state.config
-  },
+  SAVE_CONFIG: state => state.lastSavedConfig = state.config,
 
-  RESTORE_CONFIG: (state) => {
-    if (state.lastSavedConfig) state.config = state.lastSavedConfig
-  },
+  RESTORE_CONFIG: state => state.config = state.lastSavedConfig,
 
   SET_CONFIG: (state, configString) => {
     let config

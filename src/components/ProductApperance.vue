@@ -21,19 +21,14 @@
 
 <script setup lang="ts">
   import Carousel from '@/components/Carousel.vue'
-  import { defineProps } from 'vue'
   import BaseButton from '@/components/BaseButton.vue'
   import { useConfiguration } from '@/composable/configuration'
-  import { Gift } from '@/store/config/types'
 
-  const props = defineProps<{
-    item: Gift
-  }>()
   const productsCount = 1
   const { changeStep, changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
   const nextStep = '2'
 
-  const changeProduct = (newValue: number) => {
+  const changeProducpt = (newValue: number) => {
 
     if (productsCount < 2) return
 

@@ -30,19 +30,15 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, ref } from 'vue'
+  import { ref } from 'vue'
   import InputRange from '@/components/InputRange.vue'
   import BaseButton from '@/components/BaseButton.vue'
   import { useProducts } from '@/composable/products'
   import { useConfiguration } from '@/composable/configuration'
-  import { Gift } from '@/store/config/types'
 
-  const props = defineProps<{
-    item: Gift,
-  }>()
-  const { changeStep, changeBits, saveConfig } = useConfiguration()
+  const { changeStep, item, changeBits, saveConfig } = useConfiguration()
   const { bitsCost } = useProducts()
-  const cost = ref(props.item.bits)
+  const cost = ref(item.value.bits)
   const change = (newCost: string) => cost.value = newCost
   const save  = () => {
     changeBits(cost.value)
