@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
+import { useRouter } from 'vue-router'
 
 interface Configuration {
   [key: string]: {
@@ -17,34 +18,13 @@ interface Configuration {
 }
 
 const useConfiguration = () => {
+  const router = useRouter()
   const { twitch } = useTwitch()
   const store = useStore()
-  const configStep = computed(() => store.state.config.configStep)
   const config = computed(() => store.state.config.config)
   const currentIndex = computed(() => store.state.config.currentIndex)
   const item = computed(() => store.getters['config/currentProduct'])
   const productCosts = computed(() => store.getters['config/productCosts'])
-  const emptyConfig = {
-    title: 'Gift',
-    availableSteps: ['1'],
-    finishedSteps: [],
-    type: '1',
-    bits: '100',
-    chances: {
-      none: '100',
-      common: '0',
-      rare: '0',
-      epic: '0',
-      legendary: '0',
-    },
-    actions: {
-      none: [],
-      common: [],
-      rare: [],
-      epic: [],
-      legendary: [],
-    }
-  }
   const getConfigFromBackend = () => {
     // TODO: check if it broken
     axiosBackend.get('/configuration').then(
@@ -134,8 +114,14 @@ const useConfiguration = () => {
 
   return {
     removeGift,
-    configStep,
-    changeStep: (params: any) => store.commit('config/CHANGE_STEP', params),
+    changeStep: (step: number) => {
+      const mapRoutes = [
+        '',
+        'settings',
+        'cost',
+      ]
+      router.push(mapRoutes[step])
+    },
     item,
     config,
     restoreConfig: () => store.commit('config/RESTORE_CONFIG'),

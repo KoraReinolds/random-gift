@@ -33,7 +33,6 @@ const defaultConfig = {
 
 const state: State = {
   config: defaultConfig,
-  configStep: '1',
   lastSavedConfig: defaultConfig,
   currentIndex: 0,
 }
@@ -47,8 +46,6 @@ const getters: GetterTree<State, IRootState> & Getters = {
 }
 
 const mutations: MutationTree<State> & Mutations = {
-
-  CHANGE_STEP: (state, newStep) => state.configStep = newStep,
 
   CHANGE_GIFT_LIST: (state, newGiftList) => state.config.giftList = newGiftList,
 

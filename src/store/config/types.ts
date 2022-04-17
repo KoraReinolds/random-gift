@@ -46,7 +46,6 @@ export interface ChangeChances {
 
 export interface State {
   config: Config
-  configStep: string
   lastSavedConfig: Config
   currentIndex: number
 }
@@ -57,7 +56,6 @@ export type Getters = {
 }
 
 export enum MutationTypes {
-  CHANGE_STEP = 'CHANGE_STEP',
   CHANGE_GIFT_LIST = 'CHANGE_GIFT_LIST',
   SAVE_CONFIG = 'SAVE_CONFIG',
   RESTORE_CONFIG = 'RESTORE_CONFIG',
@@ -76,8 +74,6 @@ export type EditActionParams = {
 }
 
 export type Mutations<S = State> = {
-
-  [MutationTypes.CHANGE_STEP](state: S, payload: string): string
 
   [MutationTypes.CHANGE_GIFT_LIST](state: S, payload: Gift[]): void
 

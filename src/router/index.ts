@@ -3,6 +3,7 @@ import Main from '@/views/Main.vue'
 import { store } from '@/store'
 import { useAccesTokenFromHash } from '@/composable/auth'
 
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -15,6 +16,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Config.vue'),
     meta: {
     },
+    children: [
+      {
+        path: 'settings',
+        component: () => import('../components/ConfigProduct.vue'),
+      },
+      {
+        path: 'cost',
+        component: () => import('../components/ProductCost.vue'),
+      },
+    ],
   },
   {
     path: '/panel',
