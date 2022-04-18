@@ -13,13 +13,13 @@
     />
     <div
       :class="['bg-epic absolute line last h-24 mx-4']"
-      :style="{ width }"
+      :style="{ width: `${100 / (steps.length - 1) * step}%` }"
     />
     <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
       :class="[`pointer flex-row-center-center relative flex-row`]"
-      @click="moveTo(step.name)"
+      @click="changeStep(step.name)"
     >
       <icon
         :class="['icon c-font', {
@@ -36,22 +36,13 @@
 </template>
 
 <script setup lang="ts">
-  import { useConfiguration, Step } from '@/composable/configuration'
+  import { useConfiguration } from '@/composable/configuration'
+  import { useNavigation } from '@/composable/navigation'
   import { useRoute } from 'vue-router'
-  import { computed } from 'vue'
 
-  const { item, changeStep, steps } = useConfiguration()
+  const { item } = useConfiguration()
+  const { changeStep, steps, step } = useNavigation()
   const route = useRoute()
-  const width = computed(() => {
-    const gap = 100 / (steps.length - 1)
-    const step = steps.find(step => step.name === route.name) || steps[0]
-    return `${gap * steps.indexOf(step)}%`
-  })
-  const moveTo = (step: string) => {
-    if (item.value.availableSteps.includes(step)) {
-      changeStep(step)
-    }
-  }
 </script>
 
 <style scoped lang="scss">

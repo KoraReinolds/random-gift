@@ -80,11 +80,12 @@
   import ChanceBar from '@/components/ChanceBar.vue'
   import { ref, computed } from 'vue'
   import { ChangeChances } from '@/store/config/types'
-  import { useConfiguration } from '@/composable/configuration/index'
+  import { useConfiguration } from '@/composable/configuration'
+  import { useNavigation } from '@/composable/navigation'
   import { useStore } from 'vuex'
 
-  const { changeStep, item, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
-  console.log('item: ', item)
+  const { item, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
+  const { changeStep } = useNavigation()
   const curStep = 'settings'
   const nextStep = 'cost'
   const store = useStore()

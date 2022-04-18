@@ -2,14 +2,13 @@
   <div
     class="config flex-column-center-center"
   >
-    <AddProductHeader />
+    <StepBar />
     <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { useStore } from 'vuex'
-  import AddProductHeader from '@/components/AddProduct.vue'
+  import StepBar from '@/components/StepBar.vue'
 </script>
 
 <style lang="scss" scoped>

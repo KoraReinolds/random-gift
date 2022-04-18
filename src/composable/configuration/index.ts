@@ -3,17 +3,6 @@ import { computed } from 'vue'
 import { useTwitch } from '@/composable/twitch'
 import { useStore } from 'vuex'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
-import { useRouter } from 'vue-router'
-
-export type Step = { name: string, icon: string }
-
-const steps: Step[] = [{
-  name: 'settings',
-  icon: 'gear-solid',
-}, {
-  name: 'cost',
-  icon: 'ethereum-brands',
-}]
 
 interface Configuration {
   [key: string]: {
@@ -28,7 +17,6 @@ interface Configuration {
 }
 
 const useConfiguration = () => {
-  const router = useRouter()
   const { twitch } = useTwitch()
   const store = useStore()
   const config = computed(() => store.state.config.config)
@@ -123,11 +111,7 @@ const useConfiguration = () => {
   }
 
   return {
-    steps,
     removeGift,
-    changeStep: (step: string) => {
-      router.push(step)
-    },
     item,
     config,
     restoreConfig: () => store.commit('config/RESTORE_CONFIG'),

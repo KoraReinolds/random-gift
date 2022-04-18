@@ -74,7 +74,7 @@
   import { ActionList } from '@/store/config/types'
   import BaseInput from '@/components/BaseInput.vue'
   import BaseButton from '@/components/BaseButton.vue'
-  import { useConfiguration } from '@/composable/configuration/index'
+  import { useConfiguration } from '@/composable/configuration'
 
   const props = defineProps<{
     list: ActionList

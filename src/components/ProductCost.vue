@@ -35,8 +35,10 @@
   import BaseButton from '@/components/BaseButton.vue'
   import { useProducts } from '@/composable/products'
   import { useConfiguration } from '@/composable/configuration'
+  import { useNavigation } from '@/composable/navigation'
 
-  const { changeStep, item, changeBits, saveConfig } = useConfiguration()
+  const { item, changeBits, saveConfig } = useConfiguration()
+  const { changeStep } = useNavigation()
   const { bitsCost } = useProducts()
   const cost = ref(item.value.bits)
   const change = (newCost: string) => cost.value = newCost
@@ -44,7 +46,6 @@
     changeBits(cost.value)
     saveConfig()
     // TODO: final step?
-    // changeStep('0')
   }
 </script>
 
