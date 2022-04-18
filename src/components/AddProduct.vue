@@ -2,29 +2,29 @@
   <span v-text="item" class="c-font"/>
   <div
     class="fs-32 mt-32 bold c-font"
-    v-text="$t(`configMain.${configStep - 1}.title`)"
+    v-text="$t(`steps.${route.name}.title`)"
   />
   <div
     class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
   >
     <div
       :class="['bg-background absolute line first h-100p mx-4']"
-      :style="{ width: `${99}%` }"
+      :style="{ width: `${100}%` }"
     />
     <div
       :class="['bg-epic absolute line last h-24 mx-4']"
-      :style="{ width: `${100 / (steps.length - 1) * +configStep}%` }"
+      :style="{ width }"
     />
     <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
       :class="[`pointer flex-row-center-center relative flex-row`]"
-      @click="moveTo(step)"
+      @click="moveTo(step.name)"
     >
       <icon
         :class="['icon c-font', {
-          disabled: isDisabled(step),
-          active: step.text === configStep,
+          disabled: !item.availableSteps.includes(step.name),
+          active: step.name === route.name,
         }]"
         :name="step.icon || 'arrow-left-solid'"
         :width="24"
@@ -36,35 +36,20 @@
 </template>
 
 <script setup lang="ts">
-  import { useConfiguration } from '@/composable/configuration'
+  import { useConfiguration, Step } from '@/composable/configuration'
+  import { useRoute } from 'vue-router'
+  import { computed } from 'vue'
 
-  const { item, changeStep } = useConfiguration()
-  type Step = { text: string, icon: string }
-
-  const steps: Step[] = [{
-    text: '1',
-    icon: 'gear-solid',
-  }, {
-    text: '2',
-    icon: 'ethereum-brands',
-  }]
-
-  const isDisabled = (step: Step) => {
-
-    if (!item.value) return true
-
-    const steps = item.value.availableSteps
-
-    return !steps.includes(step.text)
-  }
-
-  const moveTo = (step: Step) => {
-    if (!item.value) return
-
-    let newStep = +step.text
-
-    if (item.value.availableSteps.includes(`${newStep}`)) {
-      changeStep(newStep)
+  const { item, changeStep, steps } = useConfiguration()
+  const route = useRoute()
+  const width = computed(() => {
+    const gap = 100 / (steps.length - 1)
+    const step = steps.find(step => step.name === route.name) || steps[0]
+    return `${gap * steps.indexOf(step)}%`
+  })
+  const moveTo = (step: string) => {
+    if (item.value.availableSteps.includes(step)) {
+      changeStep(step)
     }
   }
 </script>

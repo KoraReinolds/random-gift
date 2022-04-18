@@ -18,10 +18,12 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
+        name: 'settings',
         path: 'settings',
         component: () => import('../components/ConfigProduct.vue'),
       },
       {
+        name: 'cost',
         path: 'cost',
         component: () => import('../components/ProductCost.vue'),
       },

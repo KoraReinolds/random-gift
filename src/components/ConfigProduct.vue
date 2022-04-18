@@ -85,8 +85,8 @@
 
   const { changeStep, item, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
   console.log('item: ', item)
-  const curStep = '1'
-  const nextStep = '2'
+  const curStep = 'settings'
+  const nextStep = 'cost'
   const store = useStore()
   const index = ref('1')
   const changeIndex = (newIndex: number) => {

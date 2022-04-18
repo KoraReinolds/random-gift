@@ -7,10 +7,6 @@
   <div
     class="flex-row-center-center mt-48"
   >
-    <base-button
-      @click="changeStep('0')"
-      v-text="$t('btn.configBack')"
-    />
     <BaseButton
       class="ml-24"
       @click="save"
@@ -26,7 +22,7 @@
 
   const productsCount = 1
   const { changeStep, changeItem, saveConfig, changeAvailableSteps, changeFinishedSteps } = useConfiguration()
-  const nextStep = '2'
+  const nextStep = 'cost'
 
   const changeProducpt = (newValue: number) => {
 
@@ -40,7 +36,7 @@
   }
   const save = () => {
     changeAvailableSteps(nextStep)
-    changeFinishedSteps('1')
+    changeFinishedSteps('apperance')
     changeStep(nextStep)
     saveConfig()
   }

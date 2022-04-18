@@ -18,7 +18,7 @@
     class="flex-row-center-center mt-48"
   >
     <BaseButton
-      @click="changeStep('1')"
+      @click="changeStep('settings')"
       v-text="$t('btn.configBack')"
     />
     <BaseButton

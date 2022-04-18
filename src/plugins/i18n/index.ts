@@ -35,8 +35,8 @@ const messagesData = (index: number) => ({
     addLootBox: ['Add lootbox', 'Добавить лутбокс'][index],
     close: ['Close', 'Закрыть'][index],
   },
-  configMain: [
-    {
+  steps: {
+    apperance: {
       title: [
         'Appearance',
         'Внешний вид',
@@ -46,7 +46,7 @@ const messagesData = (index: number) => ({
         'Выберите внешний вид лутбокса, который будет отображаться у вас на трансляции',
       ][index],
     },
-    {
+    settings: {
       title: [
         'Settings',
         'Настройка',
@@ -56,7 +56,7 @@ const messagesData = (index: number) => ({
         'Настройте содержимое выбранного лутбокса',
       ][index],
     },
-    {
+    cost: {
       title: [
         'Cost',
         'Стоимость',
@@ -65,8 +65,8 @@ const messagesData = (index: number) => ({
         'Set the price that viewers must pay to open the selected lootbox',
         'Установить цену которую зрители должны заплатить за открытие выбранного лутбокса',
       ][index],
-    },
-  ],
+    }
+  },
   title: {
     emptyActionList: [
       'this category will be displayed with a {chance}% chance. Click the button below to add messages that will also be displayed',

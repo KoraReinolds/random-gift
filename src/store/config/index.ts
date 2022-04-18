@@ -8,7 +8,7 @@ import { IRootState } from '@/store/root/types'
 
 const emptyConfig = {
   title: 'Gift',
-  availableSteps: ['1'],
+  availableSteps: ['settings'],
   finishedSteps: [],
   type: '1',
   bits: '100',

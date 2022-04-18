@@ -5,6 +5,16 @@ import { useStore } from 'vuex'
 import { ActionList, Gift, EditActionParams, DeleteActionParams } from '@/store/config/types'
 import { useRouter } from 'vue-router'
 
+export type Step = { name: string, icon: string }
+
+const steps: Step[] = [{
+  name: 'settings',
+  icon: 'gear-solid',
+}, {
+  name: 'cost',
+  icon: 'ethereum-brands',
+}]
+
 interface Configuration {
   [key: string]: {
     record: {
@@ -113,14 +123,10 @@ const useConfiguration = () => {
   }
 
   return {
+    steps,
     removeGift,
-    changeStep: (step: number) => {
-      const mapRoutes = [
-        '',
-        'settings',
-        'cost',
-      ]
-      router.push(mapRoutes[step])
+    changeStep: (step: string) => {
+      router.push(step)
     },
     item,
     config,
