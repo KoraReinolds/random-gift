@@ -18,7 +18,7 @@
     class="flex-row-center-center mt-48"
   >
     <BaseButton
-      @click="changeStep('settings')"
+      @click="prevStep"
       v-text="$t('btn.configBack')"
     />
     <BaseButton
@@ -38,7 +38,7 @@
   import { useNavigation } from '@/composable/navigation'
 
   const { item, changeBits, saveConfig } = useConfiguration()
-  const { changeStep } = useNavigation()
+  const { prevStep } = useNavigation()
   const { bitsCost } = useProducts()
   const cost = ref(item.value.bits)
   const change = (newCost: string) => cost.value = newCost

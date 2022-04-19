@@ -84,17 +84,13 @@
   import { useNavigation } from '@/composable/navigation'
   import { useStore } from 'vuex'
 
-  const { item, saveConfig, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
-  const { changeStep } = useNavigation()
-  const curStep = 'settings'
-  const nextStep = 'cost'
+  const { item, saveConfig } = useConfiguration()
+  const { nextStep } = useNavigation()
   const store = useStore()
   const index = ref('1')
   const changeIndex = (newIndex: number) => {
     if (newIndex === steps.length) {
-      changeAvailableSteps(nextStep)
-      changeFinishedSteps(curStep)
-      changeStep(nextStep)
+      nextStep()
       saveConfig()
     } else {
       index.value = `${newIndex % steps.length}`
