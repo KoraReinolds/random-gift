@@ -3,13 +3,26 @@ import { useRouter, useRoute } from 'vue-router'
 import { useConfiguration } from '@/composable/configuration'
 
 
-export type Step = { name: string, icon: string }
+export type Step = {
+  type?: string,
+  name: string,
+  text?: string,
+  icon?: string
+}
 
 const steps: Step[] = [{
   name: 'settings',
+  type: 'common',
+  text: 'Common 10%',
+  icon: 'gear-solid',
+}, {
+  name: 'settings',
+  type: 'rare',
+  text: 'Rare 30%',
   icon: 'gear-solid',
 }, {
   name: 'cost',
+  text: 'Сost',
   icon: 'ethereum-brands',
 }]
 

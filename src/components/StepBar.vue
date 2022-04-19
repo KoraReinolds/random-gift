@@ -1,35 +1,35 @@
 <template>
   <span v-text="item" class="c-font"/>
   <div
-    class="fs-32 mt-32 bold c-font"
+    class="fs-32 mt-32 bold c-font hidden"
     v-text="$t(`steps.${route.name}.title`)"
   />
   <div
-    class="add-product h-16 flex-row-center-between w-100p mx-64 my-32 relative"
+    class="add-product h-40 flex-row-center-between w-100p my-32 relative"
   >
     <div
-      :class="['bg-background absolute line first h-100p mx-4']"
+      :class="['bg-background absolute h-100p']"
       :style="{ width: `${100}%` }"
-    />
-    <div
-      :class="['bg-epic absolute line last h-24 mx-4']"
-      :style="{ width: `${100 / (steps.length - 1) * step}%` }"
     />
     <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
-      :class="[`pointer flex-row-center-center relative flex-row`]"
+      :class="[`step pointer flex-row-center-center relative flex-row w-100p h-100p`,
+        `bg-${step.type || 'main'}`
+      ]"
       @click="changeStep(step.name)"
     >
       <icon
-        :class="['icon c-font', {
+        :class="['icon ml-20', {
           disabled: !item.availableSteps.includes(step.name),
-          active: step.name === route.name,
         }]"
-        :name="step.icon || 'arrow-left-solid'"
+        :name="step.icon"
         :width="24"
         :height="24"
-        :rounded="true"
+      />
+      <div
+        class="fs-16 bold grow text-left ml-8"
+        v-text="step.text"
       />
     </div>
   </div>
@@ -41,26 +41,14 @@
   import { useRoute } from 'vue-router'
 
   const { item } = useConfiguration()
-  const { changeStep, steps, step } = useNavigation()
+  const { changeStep, steps } = useNavigation()
   const route = useRoute()
 </script>
 
 <style scoped lang="scss">
 
 .add-product {
-  width: $config-body-max-width;
-
-  .first, .last {
-    transition: 0.3s width;
-  }
-
-  .first {
-    right: 0;
-  }
-
-  .last {
-    left: 0;
-  }
+  max-width: $config-body-max-width;
 
   .disabled {
     cursor: default;
@@ -72,10 +60,21 @@
     color: var(--background-color);
   }
 
-  .first {
-    border-bottom: 3px solid var(--disabled-color);
-    border-top: 3px solid var(--disabled-color);
+  .step {
+    &::after {
+      content: '';
+      display: block;
+      width: calc(40px / 1.41);
+      height: calc(40px / 1.41);
+      background: inherit;
+      border-top: 3px solid var(--background-color);
+      border-right: 3px solid var(--background-color);
+      transform:  translateX(50%) scaleX(0.5) rotate(45deg);
+      z-index: 1;
+    }
+    
   }
+
 }
 
 </style>
