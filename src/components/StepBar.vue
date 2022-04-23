@@ -8,20 +8,22 @@
     class="add-product h-40 flex-row-center-between w-100p my-32 relative"
   >
     <div
-      :class="['bg-background absolute h-100p']"
-      :style="{ width: `${100}%` }"
-    />
-    <div
       v-for="(step, index) in steps"
       :key="`section-${index}`"
       :class="[`step pointer flex-row-center-center relative flex-row w-100p h-100p`,
+        {
+          active: index === 1,
+          disabled: index === 2,
+        },
         `bg-${step.type || 'main'}`
       ]"
       @click="changeStep(step.name)"
+      :style="{ zIndex:  10 - index }"
     >
+      <!-- disabled: !item.availableSteps.includes(step.name), -->
+      <div class="triangle" />
       <icon
         :class="['icon ml-20', {
-          disabled: !item.availableSteps.includes(step.name),
         }]"
         :name="step.icon"
         :width="24"
@@ -50,29 +52,27 @@
 .add-product {
   max-width: $config-body-max-width;
 
-  .disabled {
-    cursor: default;
-    color: var(--disabled-color);
-  }
-
-  .active {
-    background-color: var(--epic-color);
-    color: var(--background-color);
-  }
-
   .step {
-    &::after {
-      content: '';
-      display: block;
-      width: calc(40px / 1.41);
-      height: calc(40px / 1.41);
-      background: inherit;
-      border-top: 3px solid var(--background-color);
-      border-right: 3px solid var(--background-color);
-      transform:  translateX(50%) scaleX(0.5) rotate(45deg);
-      z-index: 1;
+    filter: grayscale(0.8);
+    &.disabled {
+      cursor: default;
+      background: var(--disabled-color);
+      filter: grayscale(0);
     }
-    
+    &.active {
+      filter: grayscale(0);
+    }
+  }
+
+  .triangle {
+    width: calc(40px / 1.41);
+    height: calc(40px / 1.41);
+    background: inherit;
+    border-top: 3px solid var(--background-color);
+    border-right: 3px solid var(--background-color);
+    transform:  translateX(50%) scaleX(0.5) rotate(45deg);
+    position: absolute;
+    right: 0;
   }
 
 }

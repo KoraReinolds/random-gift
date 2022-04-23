@@ -2,7 +2,7 @@
 
 $colors_vars: (
   main: '145, 71, 255',
-  light-main: '146, 113, 207',
+  main-light: '146, 113, 207',
   dark-main: '60, 39, 100',
   secondary: '50, 42, 38',
   none: '154, 154, 170',
@@ -34,7 +34,7 @@ $dark: (
   font: rgb(255, 255, 255),
   background: rgb(24, 24, 27),
   disabled: var(--dark-grey-color),
-  button: var(--light-main-color),
+  button: var(--main-light-color),
 );
 
 $color-properties: (
