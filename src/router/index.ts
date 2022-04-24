@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         name: 'settings',
-        path: 'settings',
+        path: 'settings/:type',
         component: () => import('../components/ConfigProduct.vue'),
       },
       {

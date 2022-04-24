@@ -12,15 +12,14 @@
       :key="`section-${index}`"
       :class="[`step pointer flex-row-center-center relative flex-row w-100p h-100p`,
         {
-          active: index === 1,
-          disabled: index === 2,
+          active: index == currentStep,
+          disabled: !item.availableSteps.includes(step.type),
         },
         `bg-${step.type || 'main'}`
       ]"
-      @click="changeStep(step.name)"
+      @click="changeStep(step)"
       :style="{ zIndex:  10 - index }"
     >
-      <!-- disabled: !item.availableSteps.includes(step.name), -->
       <div class="triangle" />
       <icon
         :class="['icon ml-20', {
@@ -43,7 +42,7 @@
   import { useRoute } from 'vue-router'
 
   const { item } = useConfiguration()
-  const { changeStep, steps } = useNavigation()
+  const { changeStep, steps, currentStep } = useNavigation()
   const route = useRoute()
 </script>
 
@@ -53,10 +52,11 @@
   max-width: $config-body-max-width;
 
   .step {
-    filter: grayscale(0.8);
+    filter: grayscale(0.88);
     &.disabled {
       cursor: default;
       background: var(--disabled-color);
+      color: var(--disabled-font-color);
       filter: grayscale(0);
     }
     &.active {

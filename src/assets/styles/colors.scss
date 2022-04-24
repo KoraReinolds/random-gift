@@ -27,6 +27,7 @@ $light: (
   font: rgb(44, 62, 80),
   background: rgb(255, 255, 255),
   disabled: var(--light-grey-color),
+  disabled-font: var(--dark-grey-color),
   button: var(--main-color),
 );
 
@@ -34,6 +35,7 @@ $dark: (
   font: rgb(255, 255, 255),
   background: rgb(24, 24, 27),
   disabled: var(--dark-grey-color),
+  disabled-font: var(--light-grey-color),
   button: var(--main-light-color),
 );
 

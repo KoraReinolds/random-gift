@@ -4,7 +4,7 @@ import { useConfiguration } from '@/composable/configuration'
 
 
 export type Step = {
-  type?: string,
+  type: string,
   name: string,
   text?: string,
   icon?: string
@@ -21,7 +21,18 @@ const steps: Step[] = [{
   text: 'Rare 30%',
   icon: 'gear-solid',
 }, {
+  name: 'settings',
+  type: 'epic',
+  text: 'epic 30%',
+  icon: 'gear-solid',
+}, {
+  name: 'settings',
+  type: 'legendary',
+  text: 'legendary 30%',
+  icon: 'gear-solid',
+}, {
   name: 'cost',
+  type: 'cost',
   text: 'Сost',
   icon: 'ethereum-brands',
 }]
@@ -30,30 +41,38 @@ const useNavigation = () => {
   const router = useRouter()
   const route = useRoute()
   const { item, changeFinishedSteps, changeAvailableSteps } = useConfiguration()
-  const navigateTo = (routeName: string) => router.push(routeName)
-  const changeStep = (step: string) => {
-    if (item.value.availableSteps.includes(step)) {
-      navigateTo(step)
-    }
+  const navigateTo = (newRoute: any) => {
+    router.push(newRoute)
   }
-  const step = computed(() => steps.indexOf(
-    steps.find(step => step.name === route.name) || steps[0]
-  ))
-  const nextStep = () => {
-    const nextStep = steps[step.value + 1]
+  const changeStep = (step: Step) => {
+    if (!item.value.availableSteps.includes(step.type)) return
 
-    changeAvailableSteps(nextStep.name)
-    changeFinishedSteps(steps[step.value].name)
-    changeStep(nextStep.name)
+    navigateTo({
+      name: step.name,
+      params: { type: step.type },
+    })
+  }
+  const currentStep = computed(() => {
+    const type = route.params.type
+    const step = steps.find(step => step.type === type) || steps[0]
+
+    return steps.indexOf(step)
+  })
+  const nextStep = () => {
+    const nextStep = steps[currentStep.value + 1]
+
+    changeAvailableSteps(nextStep.type)
+    changeFinishedSteps(steps[currentStep.value].type)
+    changeStep(nextStep)
   }
   const prevStep = () => {
-    const nextStep = steps[step.value - 1]
+    const nextStep = steps[currentStep.value - 1]
 
-    changeStep(nextStep.name)
+    changeStep(nextStep)
   }
   return {
     steps,
-    step,
+    currentStep,
     navigateTo,
     changeStep,
     nextStep,
